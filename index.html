@@ -1130,9 +1130,11 @@
     <script>
         // Header scroll
         const header = document.getElementById('site-header');
-        window.addEventListener('scroll', () => {
+        function updateHeaderState() {
             header.classList.toggle('scrolled', window.scrollY > 60);
-        }, { passive: true });
+        }
+        updateHeaderState();
+        window.addEventListener('scroll', updateHeaderState, { passive: true });
 
         // Hero bg loaded
         window.addEventListener('load', () => {
