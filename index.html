@@ -884,7 +884,61 @@
 }
 
     </style>
-</head>
+    <style>
+      .app-badges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .app-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        width: 168px;
+        min-height: 52px;
+        padding: 7px 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.34);
+        border-radius: 11px;
+        background: #030303;
+        color: white;
+        font-family: inherit;
+        text-decoration: none;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .app-badge:hover {
+        transform: translateY(-2px);
+        border-color: currentColor;
+      }
+
+      .app-badge svg {
+        flex: 0 0 auto;
+      }
+
+      .app-badge-copy {
+        display: grid;
+        gap: 1px;
+        line-height: 1;
+        text-align: left;
+      }
+
+      .app-badge-copy span {
+        font-size: 0.64rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      .app-badge-copy strong {
+        font-size: 1.18rem;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+    </style>
+  </head>
 <body>
 
     <!-- HEADER -->
@@ -916,6 +970,15 @@
         <a href="#location" onclick="toggleMenu()">Visit Us</a>
         <a href="tel:7186068026" onclick="toggleMenu()">(718) 606-8026</a>
         <a href="https://tasteofitaly.avcoindustries.com/order-now" class="mobile-order">Order Online</a>
+          <a class="app-badge" href="https://play.google.com/store/apps/details?id=com.avco.tasteofitaly" target="_blank" rel="noopener" aria-label="Get Taste of Italy on Google Play">
+            <svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true">
+              <path fill="#34a853" d="M2.2 1.1c-.7.4-1.2 1.2-1.2 2.3v27.2c0 1 .4 1.8 1.1 2.2l14.7-15.9L2.2 1.1z"/>
+              <path fill="#4285f4" d="m16.8 16.9 4.3-4.6L4.1.9C3.4.5 2.8.6 2.2 1.1l14.6 15.8z"/>
+              <path fill="#fbbc04" d="m16.8 16.9 4.3 4.6 5.8-3.4c1.7-1 1.7-2.6 0-3.6l-5.8-3.4-4.3 5.8z"/>
+              <path fill="#ea4335" d="M2.1 32.8c.6.5 1.3.5 2 .1l17-11.4-4.3-4.6L2.1 32.8z"/>
+            </svg>
+            <span class="app-badge-copy"><span>GET IT ON</span><strong>Google Play</strong></span>
+          </a>
     </div>
 
     <!-- HERO -->
@@ -1116,8 +1179,17 @@
             <div class="footer-bottom">
                 <p class="footer-copy">© 2025 Taste of Italy Restaurant &amp; Pizzeria NYC. All Rights Reserved.</p>
             </div>
+        <div class="app-badges" aria-label="Download the Taste of Italy app">
+          <a class="app-badge" href="https://apps.apple.com/us/app/taste-of-italy-queens/id6766136088" target="_blank" rel="noopener" aria-label="Download Taste of Italy on the App Store">
+            <svg width="30" height="36" viewBox="0 0 30 36" aria-hidden="true">
+              <path fill="currentColor" d="M24.4 18.9c0-4.5 3.7-6.7 3.9-6.8-2.1-3.1-5.4-3.5-6.6-3.6-2.8-.3-5.4 1.6-6.8 1.6-1.4 0-3.6-1.6-5.9-1.5-3 0-5.8 1.8-7.3 4.5-3.1 5.4-.8 13.4 2.2 17.8 1.5 2.1 3.2 4.5 5.5 4.4 2.2-.1 3-1.4 5.7-1.4s3.4 1.4 5.8 1.3c2.4 0 3.9-2.1 5.3-4.2 1.7-2.5 2.4-4.9 2.4-5.1-.1 0-4.2-1.6-4.2-7zM19.9 5.6C21.1 4.2 21.9 2.2 21.7.2c-1.7.1-3.8 1.1-5 2.5-1.1 1.3-2.1 3.3-1.8 5.2 1.9.1 3.8-1 5-2.3z"/>
+            </svg>
+            <span class="app-badge-copy"><span>Download on the</span><strong>App Store</strong></span>
+          </a>
         </div>
-    </footer>
+
+        </div>
+</footer>
 
     <!-- STICKY MOBILE ORDER -->
     <a href="https://tasteofitaly.avcoindustries.com/order-now" class="sticky-order" id="stickyOrder">
