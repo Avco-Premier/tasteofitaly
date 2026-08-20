@@ -18,7 +18,7 @@
     "Saturday": "11:00 AM - 10:00 PM",
     "Sunday": "11:00 AM - 10:00 PM"
   },
-  "order_url": "https://tasteofitaly.avcoindustries.com/order-now",
+  "order_url": "https://tasteofitaly.direct-ordering.com/order-now",
   "public_domain": "https://tasteofitalyny.com",
   "_needs_confirmation": {
     "order_url": "This is currently an avcoindustries.com internal host exposed directly in the live HTML (nav, hero CTA, sticky mobile bar, footer, callout band). Per root CLAUDE.md this must never be a user-visible URL — it should be the public *.direct-ordering.com or client custom domain link. Flagging for a human/Yon to supply the correct public order link; not fabricated or changed here.",
