@@ -1,0 +1,28 @@
+{
+  "name": "Taste of Italy Restaurant & Pizzeria NYC",
+  "address": {
+    "street": "40-05 Junction Boulevard",
+    "city": "Corona",
+    "state": "NY",
+    "zip": "11368"
+  },
+  "phone": "(718) 606-8026",
+  "neighborhood": "Corona, Queens",
+  "served_areas": ["Corona", "Queens, NY", "Corona, NY"],
+  "hours": {
+    "Monday": "11:00 AM - 10:00 PM",
+    "Tuesday": "11:00 AM - 10:00 PM",
+    "Wednesday": "11:00 AM - 10:00 PM",
+    "Thursday": "11:00 AM - 10:00 PM",
+    "Friday": "11:00 AM - 10:00 PM",
+    "Saturday": "11:00 AM - 10:00 PM",
+    "Sunday": "11:00 AM - 10:00 PM"
+  },
+  "order_url": "https://tasteofitaly.direct-ordering.com/order-now",
+  "public_domain": "https://tasteofitalyny.com",
+  "_needs_confirmation": {
+    "order_url": "This is currently an avcoindustries.com internal host exposed directly in the live HTML (nav, hero CTA, sticky mobile bar, footer, callout band). Per root CLAUDE.md this must never be a user-visible URL — it should be the public *.direct-ordering.com or client custom domain link. Flagging for a human/Yon to supply the correct public order link; not fabricated or changed here.",
+    "aggregateRating": "JSON-LD has aggregateRating (4.8 / 150 reviews) but no reviews/rating are visibly shown on the page — flagged as a pre-existing possible violation of the 'must be visibly shown' rule; not in scope for this structural pass."
+  },
+  "social": {}
+}
