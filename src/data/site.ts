@@ -11,7 +11,9 @@ export const site = {
   latitude: 40.748988,
   longitude: -73.869003,
   appStore: 'https://apps.apple.com/us/app/taste-of-italy-queens/id6766136088',
+  appStoreId: '6766136088',
   playStore: 'https://play.google.com/store/apps/details?id=com.avco.tasteofitaly',
+  androidPackage: 'com.avco.tasteofitaly',
   facebook: 'https://www.facebook.com/people/Taste-of-Italy/100067408540985/',
   hours: [
     ['Monday–Thursday', '11 AM–10 PM'],

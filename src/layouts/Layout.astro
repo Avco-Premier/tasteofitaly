@@ -60,6 +60,8 @@ const restaurantSchema = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/images/logo.png" />
     <link rel="apple-touch-icon" href="/images/logo.png" />
+    <meta name="apple-itunes-app" content={`app-id=${site.appStoreId}`} />
+    <meta name="google-play-app" content={`app-id=${site.androidPackage}`} />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="geo.region" content="US-NY" />
     <meta name="geo.placename" content="Corona, Queens" />
