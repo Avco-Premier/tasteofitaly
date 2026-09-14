@@ -85,6 +85,12 @@ const restaurantSchema = {
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <aside class="browser-app-banner" data-browser-app-banner data-ios-url={site.appStore} data-android-url={site.playStore} hidden aria-label="Download the Taste of Italy app">
+      <button class="browser-app-close" type="button" data-browser-app-close aria-label="Dismiss app download banner">×</button>
+      <img src="/images/logo.png" width="52" height="52" alt="" />
+      <div><strong>Taste of Italy App</strong><span>Order faster from your phone</span></div>
+      <a href={site.playStore} data-browser-app-link>Get the app</a>
+    </aside>
     <Header />
     <main id="main"><slot /></main>
     <Footer />
@@ -96,6 +102,30 @@ const restaurantSchema = {
         const open = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', String(!open));
         nav?.classList.toggle('is-open', !open);
+      });
+
+      const appBanner = document.querySelector('[data-browser-app-banner]');
+      const appLink = appBanner?.querySelector('[data-browser-app-link]');
+      const appClose = appBanner?.querySelector('[data-browser-app-close]');
+      const userAgent = navigator.userAgent;
+      const isAndroid = /Android/i.test(userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+      const isIOSSafari = isIOS && /Safari/i.test(userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(userAgent);
+      const isMobileTouch = window.matchMedia('(max-width: 760px) and (hover: none) and (pointer: coarse)').matches;
+      let appBannerDismissed = false;
+      try { appBannerDismissed = sessionStorage.getItem('taste-app-banner-dismissed') === 'true'; } catch {}
+
+      if (appBanner && appLink && isMobileTouch && !appBannerDismissed && (isAndroid || (isIOS && !isIOSSafari))) {
+        appLink.href = isAndroid ? appBanner.dataset.androidUrl : appBanner.dataset.iosUrl;
+        appLink.textContent = isAndroid ? 'Get on Google Play' : 'View in App Store';
+        appBanner.hidden = false;
+        requestAnimationFrame(() => appBanner.classList.add('is-ready'));
+      }
+
+      appClose?.addEventListener('click', () => {
+        appBanner?.classList.remove('is-ready');
+        appBanner?.setAttribute('hidden', '');
+        try { sessionStorage.setItem('taste-app-banner-dismissed', 'true'); } catch {}
       });
     </script>
   </body>

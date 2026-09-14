@@ -30,3 +30,19 @@ h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);line-height:1.05}h1{
 .visit-grid{grid-template-columns:.72fr .58fr 1fr;gap:26px;align-items:stretch}.storefront-card{margin:0;position:relative;min-width:0}.storefront-card img{width:100%;height:600px;object-fit:cover;border-radius:24px}.storefront-card figcaption{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:12px;background:rgba(23,21,17,.88);color:white;font-size:.76rem;line-height:1.4}.deal-banner img{object-position:center 44%}
 @media(max-width:980px){.visit-grid{grid-template-columns:1fr 1fr}.visit-details{grid-column:1/-1}.storefront-card img,.map-card iframe{height:500px}}
 @media(max-width:640px){.visit-grid{grid-template-columns:1fr}.visit-details{grid-column:auto}.storefront-card img{height:min(125vw,620px)}.map-card iframe{height:410px}}
+
+/* Compact homepage promotion */
+.deal-banner.section{grid-template-columns:1.05fr .95fr;min-height:390px;margin-top:46px;margin-bottom:46px;padding:0}
+.deal-banner>div{display:flex;flex-direction:column;justify-content:center;padding:46px 52px}
+.deal-banner .eyebrow{margin-bottom:10px}
+.deal-banner h2{max-width:520px;margin-bottom:16px;font-size:clamp(2.35rem,3.5vw,3.7rem)}
+.deal-banner p:not(.eyebrow){max-width:510px;margin-bottom:24px}
+.deal-banner .button{align-self:flex-start}
+.deal-banner img{min-height:390px;max-height:430px;object-position:center 44%}
+@media(max-width:980px){.deal-banner.section{grid-template-columns:1fr;min-height:0}.deal-banner>div{padding:42px 44px}.deal-banner img{height:330px;min-height:0;max-height:none}}
+@media(max-width:640px){.deal-banner.section{margin-top:32px;margin-bottom:32px;border-radius:20px}.deal-banner>div{padding:31px 26px 29px}.deal-banner h2{font-size:2.45rem;margin-bottom:13px}.deal-banner p:not(.eyebrow){margin-bottom:21px}.deal-banner img{height:220px}}
+
+/* Cross-browser mobile app prompt (native Safari uses apple-itunes-app) */
+.browser-app-banner{display:none}
+@media(max-width:760px) and (hover:none) and (pointer:coarse){.browser-app-banner.is-ready{position:fixed;top:max(8px,env(safe-area-inset-top));left:10px;right:10px;z-index:90;display:grid;grid-template-columns:auto 48px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:70px;padding:9px 10px 9px 8px;border:1px solid rgba(33,29,24,.14);border-radius:16px;background:rgba(255,253,247,.97);color:var(--ink);box-shadow:0 12px 32px rgba(0,0,0,.24);backdrop-filter:blur(14px)}.browser-app-banner img{width:48px;height:48px;object-fit:contain}.browser-app-banner div{display:flex;min-width:0;flex-direction:column;line-height:1.2}.browser-app-banner strong{font-family:var(--display);font-size:1rem}.browser-app-banner span{margin-top:3px;color:var(--muted);font-size:.68rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.browser-app-banner>a{display:flex;min-height:38px;align-items:center;justify-content:center;padding:0 12px;border-radius:999px;background:var(--green);color:white;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;font-size:.62rem;font-weight:900;white-space:nowrap}.browser-app-close{width:26px;height:38px;padding:0;border:0;background:transparent;color:var(--muted);font-size:1.45rem;line-height:1}}
+@media(max-width:380px) and (hover:none) and (pointer:coarse){.browser-app-banner.is-ready{grid-template-columns:auto 42px minmax(0,1fr) auto;gap:7px;left:7px;right:7px}.browser-app-banner img{width:42px;height:42px}.browser-app-banner strong{font-size:.9rem}.browser-app-banner span{font-size:.61rem}.browser-app-banner>a{padding-inline:9px;font-size:.56rem}}
