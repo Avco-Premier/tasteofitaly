@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image = '/images/share.jpg', noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const imageUrl = new URL(image, site.url).toString();
+const restaurantSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['Restaurant', 'LocalBusiness'],
+  '@id': `${site.url}/#restaurant`,
+  name: site.name,
+  url: site.url,
+  image: imageUrl,
+  logo: `${site.url}/images/logo.png`,
+  telephone: '+1-718-606-8026',
+  priceRange: '$$',
+  servesCuisine: ['Pizza', 'Italian', 'Italian-American'],
+  areaServed: ['Corona', 'Queens', 'Elmhurst', 'Jackson Heights'],
+  hasMenu: `${site.url}/menu/`,
+  sameAs: [site.facebook, site.appStore, site.playStore],
+  acceptsReservations: false,
+  potentialAction: {
+    '@type': 'OrderAction',
+    target: site.orderUrl,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '40-05 Junction Blvd',
+    addressLocality: 'Corona',
+    addressRegion: 'NY',
+    postalCode: '11368',
+    addressCountry: 'US',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.latitude, longitude: site.longitude },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Sunday'], opens: '11:00', closes: '22:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday','Saturday'], opens: '10:00', closes: '22:00' },
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#0d6b3d" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="geo.region" content="US-NY" />
+    <meta name="geo.placename" content="Corona, Queens" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={site.shortName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content="Taste of Italy food and restaurant branding" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(restaurantSchema)} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <a class="mobile-order" href={site.orderUrl} aria-label="Order Taste of Italy online">Order Now</a>
+    <script is:inline>
+      const toggle = document.querySelector('[data-menu-toggle]');
+      const nav = document.querySelector('[data-nav]');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('is-open', !open);
+      });
+    </script>
+  </body>
+</html>

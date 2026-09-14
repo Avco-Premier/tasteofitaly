@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+import AppBadges from '../components/AppBadges.astro';
+import menu from '../data/menu.json';
+const featuredIds = [592, 610, 615, 640];
+const featured = menu.flatMap(c => c.items).filter(i => featuredIds.includes(i.id));
+---
+<Layout title="Taste of Italy | Pizza & Italian Food in Corona, Queens" description="Order neighborhood pizza, pasta, family combos, wings, and Italian favorites from Taste of Italy in Corona, Queens. Pickup, delivery, and catering available.">
+  <section class="home-hero">
+    <div class="hero-copy">
+      <p class="eyebrow light">Corona, Queens · NYC</p>
+      <h1>Big flavor.<br/><em>Real neighborhood.</em></h1>
+      <p>Hot pizza, Italian favorites, and family-sized value—made for pickup, delivery, or a table full of people.</p>
+      <div class="button-row"><a class="button button-red" href={site.orderUrl}>Start an order</a><a class="text-link light" href="/menu/">Explore our menu</a></div>
+      <AppBadges compact label="Or keep us in your pocket" />
+      <div class="service-strip"><span>Pickup in ~25 min</span><span>Delivery available</span><span>Open 7 days</span></div>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-food" src="/images/menu/610.jpeg" width="1200" height="900" alt="Taste of Italy specialty pizza" />
+      <img class="hero-mark" src="/images/logo.png" width="270" height="270" alt="" />
+    </div>
+  </section>
+
+  <section class="ticker" aria-label="Taste of Italy highlights"><div>NYC pizza <span>◆</span> Family combos <span>◆</span> Homemade pasta <span>◆</span> Catering <span>◆</span> Pickup & delivery</div></section>
+
+  <section class="section wrap intro-grid">
+    <div><p class="eyebrow">Welcome in</p><h2>A neighborhood pizzeria with a little bit of everything.</h2></div>
+    <div><p class="large-copy">Taste of Italy brings Corona together over loaded pizzas, comforting pasta, hot heroes, wings, family dinners, and specials built for sharing.</p><a class="text-link" href="/about/">Our story</a></div>
+  </section>
+
+  <section class="section section-green">
+    <div class="wrap section-head"><div><p class="eyebrow light">Customer favorites</p><h2>What are you craving?</h2></div><a class="button button-cream" href="/menu/">See the full menu</a></div>
+    <div class="food-grid wrap">
+      {featured.map(item => <article class="food-card">
+        {item.image && <img src={item.id === 592 ? '/images/menu/619.jpeg' : item.image} width="700" height="525" alt={item.name} loading="lazy" />}
+        <div><h3>{item.name}</h3><p>{item.description}</p><span>${item.price.toFixed(2)}</span></div>
+      </article>)}
+    </div>
+  </section>
+
+  <section class="deal-banner wrap section">
+    <div><p class="eyebrow light">Dinner solved</p><h2>Family specials made for sharing.</h2><p>Pizza, wings, heroes, starters, and drinks bundled for an easy night in.</p><a class="button button-cream" href="/specials/">See every special</a></div>
+    <img src="/images/menu/619.jpeg" width="900" height="1200" alt="Freshly made meat lovers pizza from Taste of Italy" loading="lazy" />
+  </section>
+
+  <section class="section wrap order-grid">
+    <div class="order-panel"><p class="eyebrow">From our kitchen to your table</p><h2>Pickup or delivery—your call.</h2><p>Browse the full direct-ordering menu, customize your meal, and choose the way you want it.</p><a class="button button-red" href={site.orderUrl}>Order direct</a></div>
+    <div class="visit-panel"><p class="eyebrow light">Come see us</p><h2>Right here in Corona.</h2><p>{site.address}</p><p>{site.hours[0][1]} weekdays<br/>{site.hours[1][1]} Friday & Saturday</p><a class="text-link light" href="/visit/">Hours & directions</a></div>
+  </section>
+</Layout>

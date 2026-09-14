@@ -1,0 +1,57 @@
+---
+import menu from '../data/menu.json';
+import { site } from '../data/site';
+interface Props { catering?: boolean; specials?: boolean; }
+const { catering = false, specials = false } = Astro.props;
+const categories = menu.filter(category => specials
+  ? /family special/i.test(category.name)
+  : catering ? /catering/i.test(category.name) : !/catering/i.test(category.name));
+const displayName = (name: string) => name
+  .replace('Menu Family Special Combo', 'Family Specials & Combos')
+  .replace('Gourmet Italian Pizza', 'Gourmet Pizza')
+  .replace('Italian Hot Heros', 'Italian Hot Heroes')
+  .replace('Taste of Italy special Dinner', 'Taste of Italy Dinners')
+  .replace('Chef’s Speciality', 'Chef’s Specialties')
+  .replace('Lunch Specials Every day', 'Daily Lunch Specials')
+  .replace('Mini Gourmet Pizzas', 'Mini Gourmet Pizzas')
+  .replace('Kids menu', 'Kids Menu')
+  .replace('Catering Menu', 'Catering Packages');
+---
+<div class="menu-tools">
+  <label class="menu-search"><span>Search the menu</span><input type="search" placeholder="Try pizza, pasta, chicken…" data-menu-search /></label>
+  <div class="category-pills" aria-label="Menu categories">
+    {categories.map(category => <a href={`#category-${category.id}`}>{displayName(category.name)}</a>)}
+  </div>
+</div>
+<div class="menu-catalog" data-menu-catalog>
+  {categories.map(category => (
+    <section class="menu-category" id={`category-${category.id}`} data-category>
+      <div class="menu-category-heading"><p class="eyebrow">Taste of Italy</p><h2>{displayName(category.name)}</h2><span>{category.items.length} items</span></div>
+      <div class="menu-grid">
+        {category.items.map(item => (
+          <article class={`menu-card ${item.image ? 'has-image' : ''}`} data-item data-search={`${item.name} ${item.description}`.toLowerCase()}>
+            {item.image && <img src={item.image} width="520" height="390" alt={item.name} loading="lazy" decoding="async" />}
+            <div class="menu-card-copy">
+              <div class="item-line"><h3>{item.name}</h3><strong>${item.price.toFixed(2)}</strong></div>
+              {item.description && <p>{item.description}</p>}
+              <a href={site.orderUrl} aria-label={`Order ${item.name} online`}>Order this item</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+  <p class="no-results" hidden data-no-results>No menu items match that search.</p>
+</div>
+<script>
+  const search = document.querySelector('[data-menu-search]');
+  const items = [...document.querySelectorAll('[data-item]')];
+  const categories = [...document.querySelectorAll('[data-category]')];
+  const empty = document.querySelector('[data-no-results]');
+  search?.addEventListener('input', event => {
+    const query = event.target.value.trim().toLowerCase();
+    items.forEach(item => item.hidden = !item.dataset.search.includes(query));
+    categories.forEach(category => category.hidden = !category.querySelector('[data-item]:not([hidden])'));
+    empty.hidden = items.some(item => !item.hidden);
+  });
+</script>

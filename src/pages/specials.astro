@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import MenuCatalog from '../components/MenuCatalog.astro';
+import { site } from '../data/site';
+---
+<Layout title="Family Specials & Pizza Deals | Taste of Italy Corona" description="Browse current pizza packages, wing combos, family specials, and value meals from Taste of Italy in Corona, Queens.">
+  <PageHero eyebrow="More food, less fuss" title="Family deals & combos" intro="Current packages from our online menu, ready for pickup or delivery in Corona.">
+    <a class="button button-red" href={site.orderUrl}>Order a special</a>
+  </PageHero>
+  <section class="menu-section wrap"><MenuCatalog specials /></section>
+</Layout>

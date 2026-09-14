@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+import AppBadges from '../components/AppBadges.astro';
+---
+<Layout title="Location & Hours | Taste of Italy Corona" description="Visit Taste of Italy at 40-05 Junction Blvd in Corona, Queens. View current hours, call the restaurant, get directions, or order pickup and delivery.">
+  <PageHero eyebrow="Find us in Corona" title="Come hungry. We’ll handle the rest." intro="Visit us on Junction Boulevard, call ahead, or place a direct order for pickup or delivery." />
+  <section class="visit-grid section wrap">
+    <div class="visit-details"><p class="eyebrow">Taste of Italy NYC</p><h2>{site.address}</h2><div class="visit-actions"><a class="button button-red" href={site.mapsUrl}>Get directions</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div><div class="hours-list">{site.hours.map(([days, hours]) => <p><span>{days}</span><strong>{hours}</strong></p>)}</div><p class="small-copy">Hours reflect the current direct-ordering restaurant profile and may change for holidays.</p></div>
+    <figure class="storefront-card"><img src="/images/storefront.jpg" width="567" height="873" alt="Taste of Italy storefront at 40-05 Junction Boulevard in Corona, Queens" /><figcaption>Look for the Taste of Italy awning at 40-05 Junction Boulevard.</figcaption></figure>
+    <div class="map-card"><iframe title="Map showing Taste of Italy in Corona, Queens" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={`https://www.google.com/maps?q=${site.latitude},${site.longitude}&z=16&output=embed`}></iframe></div>
+  </section>
+  <section class="app-section section section-red"><div class="wrap app-grid"><div><p class="eyebrow light">Order your way</p><h2>Direct ordering is always close by.</h2><p>Use the website or download the Taste of Italy Queens app.</p></div><div class="app-links"><AppBadges label="Download the app" /><a class="button button-cream" href={site.orderUrl}>Order online</a></div></div></section>
+</Layout>

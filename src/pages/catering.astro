@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import MenuCatalog from '../components/MenuCatalog.astro';
+import { site } from '../data/site';
+---
+<Layout title="Catering | Taste of Italy Corona, Queens" description="Catering packages from Taste of Italy in Corona for office lunches, family parties, school events, and neighborhood celebrations.">
+  <PageHero eyebrow="Feed the whole crew" title="Catering without the stress" intro="From office lunches to family celebrations, let Taste of Italy bring the trays, packages, and neighborhood flavor.">
+    <div class="button-row center"><a class="button button-red" href={site.orderUrl}>Order catering</a><a class="text-link" href={site.phoneHref}>Call {site.phone}</a></div>
+  </PageHero>
+  <section class="catering-callout wrap"><div><p class="eyebrow light">Built for groups</p><h2>Easy packages. Crowd-pleasing food.</h2></div><p>Choose from current catering packages online, or call us to talk through larger orders and timing.</p></section>
+  <section class="menu-section wrap"><MenuCatalog catering /></section>
+</Layout>

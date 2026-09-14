@@ -1,0 +1,17 @@
+---
+import { site } from '../data/site';
+const links = [['Menu','/menu/'], ['Specials','/specials/'], ['Catering','/catering/'], ['Our Story','/about/'], ['Visit','/visit/']];
+---
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Taste of Italy home">
+    <img src="/images/logo.png" width="74" height="74" alt="Taste of Italy Restaurant and Pizzeria NYC" />
+  </a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation" data-menu-toggle>
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="site-nav" aria-label="Main navigation" data-nav>
+    {links.map(([label, href]) => <a class={Astro.url.pathname.startsWith(href) ? 'active' : ''} href={href}>{label}</a>)}
+    <a class="phone-link" href={site.phoneHref}>{site.phone}</a>
+    <a class="button button-red" href={site.orderUrl}>Order now</a>
+  </nav>
+</header>

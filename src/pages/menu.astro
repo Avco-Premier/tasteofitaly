@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import MenuCatalog from '../components/MenuCatalog.astro';
+import menu from '../data/menu.json';
+import { site } from '../data/site';
+const menuSchema = {
+  '@context': 'https://schema.org', '@type': 'Menu', name: 'Taste of Italy Menu',
+  hasMenuSection: menu.filter(c => !/catering/i.test(c.name)).map(category => ({
+    '@type': 'MenuSection', name: category.name,
+    hasMenuItem: category.items.map(item => ({ '@type': 'MenuItem', name: item.name, description: item.description || undefined, offers: { '@type': 'Offer', price: item.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: site.orderUrl } }))
+  }))
+};
+---
+<Layout title="Full Menu | Taste of Italy Corona" description="Browse 110+ pizzas, family combos, pasta dishes, wings, heroes, salads, wraps, dinners, and kids meals from Taste of Italy in Corona, Queens.">
+  <Fragment slot="head"><script type="application/ld+json" set:html={JSON.stringify(menuSchema)} /></Fragment>
+  <PageHero eyebrow="The full lineup" title="The Taste of Italy menu" intro="Browse every active item from our direct-ordering menu. Prices and availability reflect the current online catalog.">
+    <div class="button-row center"><a class="button button-red" href={site.orderUrl}>Order pickup or delivery</a><a class="text-link" href="/catering/">Looking for catering?</a></div>
+  </PageHero>
+  <section class="menu-section wrap"><MenuCatalog /></section>
+  <p class="menu-note wrap">Menu prices and availability may change. For the latest options and customization choices, continue to online ordering.</p>
+</Layout>

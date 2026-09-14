@@ -1,0 +1,21 @@
+export const site = {
+  name: 'Taste of Italy Restaurant & Pizzeria NYC',
+  shortName: 'Taste of Italy',
+  description: 'Neighborhood pizza, Italian favorites, family meals, delivery, pickup, and catering in Corona, Queens.',
+  url: 'https://tasteofitalyny.com',
+  orderUrl: 'https://tasteofitaly.direct-ordering.com/order-now',
+  phone: '(718) 606-8026',
+  phoneHref: 'tel:+17186068026',
+  address: '40-05 Junction Blvd, Corona, NY 11368',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=40-05%20Junction%20Blvd%2C%20Corona%2C%20NY%2011368',
+  latitude: 40.748988,
+  longitude: -73.869003,
+  appStore: 'https://apps.apple.com/us/app/taste-of-italy-queens/id6766136088',
+  playStore: 'https://play.google.com/store/apps/details?id=com.avco.tasteofitaly',
+  facebook: 'https://www.facebook.com/people/Taste-of-Italy/100067408540985/',
+  hours: [
+    ['Monday–Thursday', '11 AM–10 PM'],
+    ['Friday–Saturday', '10 AM–10 PM'],
+    ['Sunday', '11 AM–10 PM'],
+  ],
+};

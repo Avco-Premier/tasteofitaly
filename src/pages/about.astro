@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Layout title="Our Story | Taste of Italy Corona, Queens" description="Meet Taste of Italy, a neighborhood restaurant and pizzeria serving Corona, Queens with pizza, pasta, family meals, and Italian-American favorites.">
+  <PageHero eyebrow="Made for the neighborhood" title="A little taste of Italy, right here in Corona" intro="We’re the kind of neighborhood place built for weeknight dinners, birthday tables, quick slices, and big family orders." />
+  <section class="story section wrap">
+    <div class="story-image-stack"><img src="/images/menu/615.jpeg" width="900" height="675" alt="Margherita pizza from Taste of Italy" /><img src="/images/logo.png" width="250" height="250" alt="" /></div>
+    <div><p class="eyebrow">Our kitchen</p><h2>Familiar favorites, generous portions, and plenty to share.</h2><p class="large-copy">Our menu brings together classic pizza, specialty pies, pasta, hot heroes, wings, salads, dinners, and family combos. It’s a broad neighborhood menu with something for everyone at the table.</p><p>Whether you’re stopping in, feeding the family, planning lunch for the office, or ordering delivery, our goal is simple: make the meal easy and make it satisfying.</p><a class="button button-red" href={site.orderUrl}>Order from the kitchen</a></div>
+  </section>
+  <section class="values section section-green"><div class="wrap"><p class="eyebrow light">What matters here</p><h2>Neighborhood food should feel generous.</h2><div class="value-grid"><article><span>01</span><h3>Choice</h3><p>From pizza and pasta to wings, wraps, salads, and kids meals.</p></article><article><span>02</span><h3>Convenience</h3><p>Direct pickup and delivery ordering with live menu availability.</p></article><article><span>03</span><h3>Community</h3><p>Proudly serving Corona from Junction Boulevard, seven days a week.</p></article></div></div></section>
+</Layout>

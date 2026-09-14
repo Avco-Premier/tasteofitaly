@@ -1,0 +1,22 @@
+---
+import { site } from '../data/site';
+import AppBadges from './AppBadges.astro';
+---
+<footer class="footer">
+  <div class="footer-cta wrap">
+    <div><p class="eyebrow light">Dinner is a tap away</p><h2>Ready when you are.</h2></div>
+    <a class="button button-cream" href={site.orderUrl}>Order pickup or delivery</a>
+  </div>
+  <div class="footer-grid wrap">
+    <div class="footer-brand">
+      <img class="footer-logo" src="/images/logo.png" width="150" height="150" alt="Taste of Italy" loading="lazy" />
+      <p>Pizza, pasta, family meals, and neighborhood hospitality in Corona, Queens.</p>
+      <a class="social-link" href={site.facebook} target="_blank" rel="noopener" aria-label="Taste of Italy on Facebook"><span aria-hidden="true">f</span> Follow on Facebook</a>
+    </div>
+    <div class="footer-contact"><h2>Visit</h2><a href={site.mapsUrl}>{site.address}</a><a href={site.phoneHref}>{site.phone}</a></div>
+    <div class="footer-hours"><h2>Hours</h2>{site.hours.map(([days, hours]) => <p><span>{days}</span><strong>{hours}</strong></p>)}</div>
+    <div class="footer-nav"><h2>Explore</h2><a href="/menu/">Full menu</a><a href="/specials/">Specials</a><a href="/catering/">Catering</a><a href="/about/">Our story</a><a href="/visit/">Directions</a></div>
+    <div class="footer-download"><AppBadges compact label="Download our app" /></div>
+  </div>
+  <div class="footer-bottom wrap"><span>© {new Date().getFullYear()} Taste of Italy NYC</span><span>Powered by Avco Premier</span></div>
+</footer>

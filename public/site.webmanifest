@@ -1,0 +1,17 @@
+{
+  "name": "Taste of Italy Restaurant & Pizzeria NYC",
+  "short_name": "Taste of Italy",
+  "description": "Pizza and Italian favorites in Corona, Queens.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff8e9",
+  "theme_color": "#08683d",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "720x720",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

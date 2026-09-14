@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/menu.html", "destination": "/menu/", "permanent": true },
+    { "source": "/location.html", "destination": "/visit/", "permanent": true }
+  ]
+}
