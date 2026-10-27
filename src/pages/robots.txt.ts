@@ -1,2 +1,3 @@
 import type { APIRoute } from 'astro';
-export const GET: APIRoute = () => new Response('User-agent: *\nAllow: /\n\nSitemap: https://tasteofitalyny.com/sitemap.xml\n', { headers: { 'Content-Type': 'text/plain' } });
+import { site } from '../data/site';
+export const GET: APIRoute = () => new Response(`User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`, { headers: { 'Content-Type': 'text/plain' } });

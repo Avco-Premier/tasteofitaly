@@ -19,7 +19,7 @@
     "Sunday": "11:00 AM - 10:00 PM"
   },
   "order_url": "https://tasteofitaly.direct-ordering.com/order-now",
-  "public_domain": "https://tasteofitalyny.com",
+  "public_domain": "https://www.tasteofitalyny.com",
   "menu_source": "https://tasteofitaly.direct-ordering.com/api/menus/1/light",
   "menu_snapshot": "src/data/menu.json",
   "menu_item_count": 114,

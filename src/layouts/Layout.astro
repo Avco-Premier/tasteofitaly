@@ -25,10 +25,10 @@ const restaurantSchema = {
   telephone: '+1-718-606-8026',
   priceRange: '$$',
   servesCuisine: ['Pizza', 'Italian', 'Italian-American'],
-  areaServed: ['Corona', 'Queens', 'Elmhurst', 'Jackson Heights'],
+  areaServed: ['Corona', 'Queens'],
   hasMenu: `${site.url}/menu/`,
   sameAs: [site.facebook, site.appStore, site.playStore],
-  acceptsReservations: false,
+  hasMap: site.mapsUrl,
   potentialAction: {
     '@type': 'OrderAction',
     target: site.orderUrl,
@@ -45,6 +45,22 @@ const restaurantSchema = {
   openingHoursSpecification: [
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Sunday'], opens: '11:00', closes: '22:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday','Saturday'], opens: '10:00', closes: '22:00' },
+  ],
+};
+const pageName = Astro.url.pathname === '/' ? 'Home' : ({
+  '/menu/': 'Menu', '/specials/': 'Specials', '/catering/': 'Catering',
+  '/about/': 'Our Story', '/visit/': 'Visit',
+}[Astro.url.pathname] || title);
+const pageSchema = {
+  '@context': 'https://schema.org', '@type': 'WebPage',
+  '@id': `${canonical}#webpage`, url: canonical, name: title, description,
+  about: { '@id': restaurantSchema['@id'] },
+};
+const breadcrumbSchema = Astro.url.pathname === '/' || noindex ? null : {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: pageName, item: canonical },
   ],
 };
 ---
@@ -81,6 +97,8 @@ const restaurantSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet" />
     <script type="application/ld+json" set:html={JSON.stringify(restaurantSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
     <slot name="head" />
   </head>
   <body>

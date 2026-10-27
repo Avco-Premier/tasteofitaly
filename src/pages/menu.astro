@@ -8,7 +8,7 @@ const menuSchema = {
   '@context': 'https://schema.org', '@type': 'Menu', name: 'Taste of Italy Menu',
   hasMenuSection: menu.filter(c => !/catering/i.test(c.name)).map(category => ({
     '@type': 'MenuSection', name: category.name,
-    hasMenuItem: category.items.map(item => ({ '@type': 'MenuItem', name: item.name, description: item.description || undefined, offers: { '@type': 'Offer', price: item.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: site.orderUrl } }))
+    hasMenuItem: category.items.map(item => ({ '@type': 'MenuItem', name: item.name, description: item.description || undefined }))
   }))
 };
 ---

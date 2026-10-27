@@ -2,7 +2,7 @@ export const site = {
   name: 'Taste of Italy Restaurant & Pizzeria NYC',
   shortName: 'Taste of Italy',
   description: 'Neighborhood pizza, Italian favorites, family meals, delivery, pickup, and catering in Corona, Queens.',
-  url: 'https://tasteofitalyny.com',
+  url: 'https://www.tasteofitalyny.com',
   orderUrl: 'https://tasteofitaly.direct-ordering.com/order-now',
   phone: '(718) 606-8026',
   phoneHref: 'tel:+17186068026',
