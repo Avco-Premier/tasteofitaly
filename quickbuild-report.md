@@ -1,10 +1,6 @@
 # quickbuild report — Taste of Italy
 
-Built 2026-10-30 · 1 gate round(s) · **1 FAIL · 17 WARN**
-
-## Must fix before launch
-
-- On-Page · Meta description 120–160 (/visit/): 119 chars
+Built 2026-10-30 · 1 gate round(s) · **0 FAIL · 17 WARN**
 
 ## Warnings
 
