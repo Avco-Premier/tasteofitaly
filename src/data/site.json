@@ -1,75 +1,80 @@
 {
   "site": {
-    "url": "TODO: https://www.client-domain.com",
+    "url": "https://www.tasteofitalyny.com",
     "language": "en-US",
-    "marketTier": "TODO: dense-metro | large-city | mid-city | suburb-small",
+    "marketTier": "dense-metro",
     "locale": "en_US",
-    "themeColor": "#7a1f1f",
+    "themeColor": "#187e3f",
     "launched": false,
     "vercelProjectDomain": "",
     "aiTraining": true,
     "nav": [
       "menu",
-      "catering",
       "about",
       "visit",
       "faq"
     ],
-    "menuUpdated": "TODO: YYYY-MM-DD",
+    "menuUpdated": "2026-10-30",
     "analytics": {
       "ga4Id": ""
     },
     "searchConsoleVerification": "",
     "redirects": [],
-    "privacyUpdated": "",
-    "menuNotice": ""
+    "privacyUpdated": "2026-10-30",
+    "menuNotice": "",
+    "headerLogo": "image",
+    "colors": {
+      "brand": "#187e3f",
+      "background": "#fbf0db"
+    },
+    "theme": "slice"
   },
   "business": {
-    "name": "TODO: Exact name as on the Google Business Profile",
+    "name": "Taste of Italy Restaurant & Pizzeria NYC",
     "alternateNames": [],
-    "description": "TODO: One factual sentence: what it is, where, since when.",
-    "category": "TODO: Primary category in words, e.g. Italian deli",
+    "description": "Taste of Italy Restaurant & Pizzeria NYC is an Italian restaurant in Corona, NY.",
+    "category": "Italian restaurant",
     "gbpCategories": [
-      "TODO: GBP primary category"
+      "Italian restaurant",
+      "Pizza restaurant",
+      "European restaurant"
     ],
     "cuisines": [
-      "TODO: e.g. Italian"
+      "European",
+      "Italian",
+      "Pizza"
     ],
     "meals": [
-      "TODO: breakfast | brunch | lunch | dinner | late-night"
+      "breakfast",
+      "lunch",
+      "dinner"
     ],
     "services": {
       "dineIn": true,
       "takeout": true,
-      "delivery": false,
+      "delivery": true,
       "catering": false,
-      "reservations": false,
+      "reservations": true,
       "privateEvents": false
     },
     "priceRange": "$$",
     "foundingYear": null,
-    "founders": [
-      {
-        "name": "TODO: owner name",
-        "role": "Owner",
-        "bio": ""
-      }
-    ],
-    "phone": "TODO: +1-555-555-5555",
-    "phoneDisplay": "TODO: (555) 555-5555",
+    "founders": [],
+    "phone": "+1-718-606-8026",
+    "phoneDisplay": "(718) 606-8026",
     "additionalPhones": [],
     "email": "",
     "address": {
-      "street": "TODO",
-      "locality": "TODO",
-      "region": "TODO",
-      "postalCode": "TODO",
+      "street": "40-05 Junction Blvd",
+      "locality": "Queens",
+      "region": "NY",
+      "postalCode": "11368",
       "country": "US",
-      "neighborhood": ""
+      "neighborhood": "Corona"
     },
     "geo": {
-      "lat": null,
-      "lng": null
+      "lat": 40.74892,
+      "lng": -73.86912
     },
     "hours": [
       {
@@ -78,10 +83,12 @@
           "Tuesday",
           "Wednesday",
           "Thursday",
-          "Friday"
+          "Friday",
+          "Saturday",
+          "Sunday"
         ],
-        "opens": "TODO: 07:00",
-        "closes": "TODO: 17:00"
+        "opens": "11:00",
+        "closes": "22:00"
       }
     ],
     "hoursNote": "",
@@ -89,13 +96,13 @@
     "servicePeriods": [],
     "serviceArea": [],
     "delivery": {
-      "radiusMiles": null,
-      "fee": "",
-      "minimum": "",
+      "radiusMiles": 1,
+      "fee": "$3",
+      "minimum": "$12",
       "partners": []
     },
     "ordering": {
-      "url": "",
+      "url": "https://tasteofitaly.direct-ordering.com",
       "label": "Order online",
       "provider": ""
     },
@@ -103,22 +110,22 @@
       "url": ""
     },
     "apps": {
-      "iosAppId": "",
       "iosUrl": "",
-      "androidUrl": ""
+      "androidUrl": "",
+      "iosAppId": ""
     },
     "google": {
-      "placeId": "TODO",
-      "mapsUrl": "TODO: https://maps.google.com/?cid=...",
-      "reviewUrl": "TODO: https://search.google.com/local/writereview?placeid=...",
+      "placeId": "ChIJUec417lfwokRbx5w0uzFh30",
+      "mapsUrl": "https://maps.google.com/?cid=9045415997530447471",
+      "reviewUrl": "https://search.google.com/local/writereview?placeid=ChIJUec417lfwokRbx5w0uzFh30",
       "embedUrl": "",
-      "rating": null,
-      "reviewCount": null,
-      "ratingCheckedOn": ""
+      "rating": 3.5,
+      "reviewCount": 152,
+      "ratingCheckedOn": "2026-10-30"
     },
     "social": {
       "instagram": "",
-      "facebook": "",
+      "facebook": "https://www.facebook.com/people/Taste-of-Italy/100067408540985/",
       "tiktok": "",
       "yelp": "",
       "tripadvisor": "",
@@ -126,8 +133,40 @@
     },
     "press": [],
     "awards": [],
-    "reviews": [],
-    "featuredItems": [],
+    "reviews": [
+      {
+        "author": "Natali !!",
+        "text": "Taste of Italy Resturant & Pizzeria NYC feels like a hidden gem in Junction Blvd where you can taste Ecuadorian spices and dishes while also enjoying a well-baked Italian pizza. The atmosphere from the second you open the door feels warm and cozy, it almost feels as if you’re in your grandma’s kitchen by the vibes. The decorations surrounding the sitting area feels like a sense of home, the colors don’t feel too bright but it also doesn’t feel too dark, rather it feels just right. The Ecuadorian food here feels almost too close to home, which is the top reason as to why this is my go-to takeout place. When you’re ordering take-out you’re greeted by friendly staff and they let you know what is available to pick from that day. The food is always freshly cooked and steaming hot, they provide a salad that is freshly washed and cut before packaging it as well.\nI had picked out, pernil (roast pork) dinner and the staff who is usually the one who attends the take out orders was friendly, attentive, genuine and fast when I would tell him what I would like. The food overall was great and freshly cooked when I ate it, you could see the smoke coming from the recently cooked rice. It is often a common dish or food in Ecuador, and the flavors from the restaurant food felt truly identical to how it is often prepared in Ecuador. Taste of Italy Resturant becomes a place where you can find ways to connect with your own culture or another culture while feeling comfortable with the warm atmosphere they have. You get a small taste of what Ecuador can be like, specifically their food and who wouldn’t want to try new foods? I highly recommend this place, the food is overall unforgettable.",
+        "source": "Google",
+        "date": "2025-12-02",
+        "rating": 5,
+        "url": "",
+        "context": "dine-in"
+      },
+      {
+        "author": "Mari",
+        "text": "Been getting pizza here for years now! Service inside was offputting but food was good.",
+        "source": "Google",
+        "date": "2026-06-21",
+        "rating": 4,
+        "url": "",
+        "context": "dine-in"
+      },
+      {
+        "author": "henry campo",
+        "text": "This place has the best pizza in town. Always freshly made and they deliver it hot! I wish I had pictures of the hot food, it’s amazing! Me and my co workers come here for lunch.",
+        "source": "Google",
+        "date": "2025-03-17",
+        "rating": 5,
+        "url": "",
+        "context": "dine-in"
+      }
+    ],
+    "featuredItems": [
+      "Linguine Calamari",
+      "Taste of Italy Special",
+      "8 Buffalo Wings"
+    ],
     "catering": {
       "menuFile": "catering",
       "leadTime": "",
@@ -143,22 +182,153 @@
       "headcountGuide": "",
       "dietary": ""
     },
-    "faq": [],
+    "faq": [
+      {
+        "q": "Where is Taste of Italy Restaurant & Pizzeria NYC?",
+        "a": "Taste of Italy Restaurant & Pizzeria NYC is at 40-05 Junction Blvd, Queens, NY 11368, in Corona. It's in Queens, near Junction Dental Care and PLS Check Cashers.",
+        "topic": "Hours and visiting"
+      },
+      {
+        "q": "What are your hours?",
+        "a": "We're open Mon–Sun 11 AM to 10 PM.",
+        "topic": "Hours and visiting"
+      },
+      {
+        "q": "Do you take reservations?",
+        "a": "Yes. Call (718) 606-8026.",
+        "topic": "Hours and visiting"
+      },
+      {
+        "q": "Can I order ahead for pickup?",
+        "a": "Yes. Order online at tasteofitaly.direct-ordering.com and pick it up at the counter.",
+        "topic": "Ordering and delivery"
+      },
+      {
+        "q": "Do you deliver?",
+        "a": "Taste of Italy Restaurant & Pizzeria NYC delivers the full menu from 40-05 Junction Blvd to homes and offices in Queens, within about 1 miles of the restaurant. There's a $3 delivery fee and a $12 minimum order. Order online at tasteofitaly.direct-ordering.com or call (718) 606-8026 during our hours (Mon–Sun 11 AM to 10 PM).",
+        "topic": "Ordering and delivery"
+      },
+      {
+        "q": "What payment do you accept?",
+        "a": "We accept credit cards, debit cards and tap to pay.",
+        "topic": "Ordering and delivery"
+      },
+      {
+        "q": "Is the restaurant wheelchair accessible?",
+        "a": "Yes. Wheelchair-accessible entrance and seating.",
+        "topic": "Hours and visiting"
+      },
+      {
+        "q": "What should I order the first time?",
+        "a": "Start with our signature dishes: the Linguine Calamari ($20.95), the Taste of Italy Special ($12.95) and the 8 Buffalo Wings ($14.95).",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "How much does a meal cost?",
+        "a": "Most dishes on the Taste of Italy Restaurant & Pizzeria NYC menu cost $9.95 to $20.95. The menu has 14 sections: Menu Family Special Combo, Drinks, Gourmet Italian Pizza, Chef Salads, Buffalo Chicken Wings, Special Italian Pasta, Italian Hot Heros, Burgers, Taste of Italy special Dinner, Italian Wraps, Chef’s Speciality, Lunch Specials Every day, Mini Gourmet Pizzas and Kids menu, with every price listed on the menu page.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What is the Linguine Calamari?",
+        "a": "The Linguine Calamari costs $20.95. It's made with tender calamari rings served over linguine in your choice of red or white sauce, mild sweet or fiery hot and a true taste of the Italian coast.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What is the Taste of Italy Special?",
+        "a": "The Taste of Italy Special costs $12.95. It's made with our signature loaded pie topped with sweet sausage, pepperoni, fresh mushrooms, onions, bell peppers and and a generous layer of extra mozzarella.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What is the 8 Buffalo Wings?",
+        "a": "The 8 Buffalo Wings costs $14.95. It's made with 8 fresh jumbo chicken wings with crisp celery and carrots, hot, BBQ and or spicy BBQ., served with blue cheese or ranch dressing. Choose your sauce: medium.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What menu family special combo do you serve?",
+        "a": "The Menu Family Special Combo section of our menu has Two-Pizza Family Deal 1 cheese 1 pepperoni ($29.95), Pizza & Starters Combo ($27.95), Pizza & Chicken Fingers Combo ($24.95), Wings & Fries Combo ($14.95) and Combo 2 Mini pizza 10 1 Cheese 1 Pepperoni ($14.95), and 8 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What gourmet Italian pizza do you serve?",
+        "a": "The Gourmet Italian Pizza section of our menu has Traditional Pie with Soda ($22.95), Taste of Italy Special ($12.95), White Pizza ($12.95), Hawaiian Pizza ($12.95) and Mexican Pizza ($12.95), and 8 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What chef salads do you serve?",
+        "a": "The Chef Salads section of our menu has Pear & Shrimp Salad ($15.95), Avocado Salad ($12.95), Avocado Chicken Salad ($14.95), Caesar Salad with Chicken ($12.95) and Greek Salad ($12.95), and 1 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What buffalo chicken wings do you serve?",
+        "a": "The Buffalo Chicken Wings section of our menu has 8 Buffalo Wings ($14.95) and 12 Buffalo Wings ($17.95).",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What special Italian pasta do you serve?",
+        "a": "The Special Italian Pasta section of our menu has Spaghetti & Meatballs ($16.95), Penne Sausage & Pepper ($17.95), Linguine Calamari ($20.95), Fettuccine Alfredo with Chicken ($19.95) and Rigatoni Taste of Italy ($18.95), and 14 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What Italian hot heros do you serve?",
+        "a": "The Italian Hot Heros section of our menu has Grilled Chicken Hero ($9.95), Chicken Parmigiana Hero ($10.95), Meatball Parmigiana Hero ($9.95), Sausage & Pepper Hero ($9.95) and Shrimp Parmigiana Hero ($11.95).",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What burgers do you serve?",
+        "a": "The Burgers section of our menu has Mushroom Burger ($10.95), Cheeseburger Deluxe ($12.95), Bacon Cheeseburger Deluxe ($14.95) and Grilled Chicken Burger ($9.95).",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What Taste Of Italy special dinner do you serve?",
+        "a": "The Taste of Italy special Dinner section of our menu has Shrimp Scampi Dinner ($21.95), Chicken Marsala Dinner ($18.95), Shrimp Fra Diavolo Dinner ($17.95), Chicken Piccata Dinner ($18.95) and Chicken Parmigiana Dinner ($18.95), and 1 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What Italian wraps do you serve?",
+        "a": "The Italian Wraps section of our menu has Crispy Chicken & Cheese Wrap ($10.95), Grilled Chicken Italiano Wrap ($10.95), Caesar Chicken Wrap ($10.95), Buffalo Chicken Wrap ($10.95) and BLT Wrap ($11.95), and 1 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What chef’s speciality do you serve?",
+        "a": "The Chef’s Speciality section of our menu has Roast Pork Dinner ($14.95), Grilled Chicken Dinner ($18.95), Stewed Chicken Dinner ($13.95), Grilled Steak Dinner ($20.95) and Stewed Beef Dinner ($15.95), and 4 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What mini gourmet pizzas do you serve?",
+        "a": "The Mini Gourmet Pizzas section of our menu has Mini Pepperoni Pizza ($9.95), Mini Lasagna Pizza ($9.95), Mini Margherita Special ($11.95), Mini Mushroom Pizza ($8.95) and Mini Sweet Sausage Pizza ($8.95), and 7 more.",
+        "topic": "Food and menu"
+      },
+      {
+        "q": "What kids menu do you serve?",
+        "a": "The Kids menu section of our menu has Mozzarella Sticks & Fries ($7.95), Chicken Fingers & Fries ($8.95), Chicken Wings & Fries ($7.95), Mini Cheese Pizza & Fries ($9.95) and Mini Pepperoni Pizza & Sticks ($10.95), and 2 more.",
+        "topic": "Food and menu"
+      }
+    ],
     "video": null,
-    "logo": "logo.svg",
+    "logo": "logo.png",
     "healthInspectionUrl": "",
     "foundingDate": "",
     "visit": {
-      "landmarks": "",
+      "landmarks": "In Queens, near Junction Dental Care and PLS Check Cashers.",
       "parking": "",
-      "transit": "",
-      "accessibility": "",
+      "transit": "The nearest bus stop is Junction Blvd/Roosevelt Av, just steps away.",
+      "accessibility": "Wheelchair-accessible entrance and seating.",
       "arrival": "",
       "pickup": ""
     },
-    "amenities": {},
-    "paymentMethods": [],
-    "dietaryNote": ""
+    "amenities": {
+      "outdoorSeating": false,
+      "wheelchairAccessible": true
+    },
+    "paymentMethods": [
+      "Credit cards",
+      "Debit cards",
+      "Tap to pay"
+    ],
+    "dietaryNote": "",
+    "ownerWords": "We’re the kind of neighborhood place built for weeknight dinners, birthday tables, quick slices, and big family orders.\n\nOur menu brings together classic pizza, specialty pies, pasta, hot heroes, wings, salads, dinners, and family combos. It’s a broad neighborhood menu with something for everyone at the table.\n\nWhether you’re stopping in, feeding the family, planning lunch for the office, or ordering delivery, our goal is simple: make the meal easy and make it satisfying. Choose from current catering packages online, or call us to talk through larger orders and timing.",
+    "milestones": [],
+    "featuredNotes": {}
   },
   "seo": {
     "dishTerms": []

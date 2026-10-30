@@ -1,0 +1,272 @@
+{
+  "source": "playbook estimate (dense-metro tier, assets/keyword-playbook.json)",
+  "location": "Queens, NY",
+  "pages": {
+    "home": {
+      "primary": "italian restaurant corona",
+      "secondary": [
+        "best italian restaurant in queens",
+        "best italian restaurant queens",
+        "italian restaurant corona",
+        "breakfast queens",
+        "best breakfast in queens"
+      ],
+      "options": [
+        {
+          "query": "italian restaurant queens",
+          "volume": 1300
+        },
+        {
+          "query": "italian restaurant corona",
+          "volume": 680
+        },
+        {
+          "query": "breakfast queens",
+          "volume": 390
+        },
+        {
+          "query": "breakfast corona",
+          "volume": 200
+        },
+        {
+          "query": "dinner queens",
+          "volume": 140
+        },
+        {
+          "query": "dinner corona",
+          "volume": 70
+        }
+      ],
+      "decide": "Confirm primary = what the business is (e.g. 'breakfast asheville' for a breakfast cafe), not just the top volume.",
+      "decision": "italian restaurant corona: matches what Taste of Italy Restaurant & Pizzeria NYC is (italian restaurant); 680/mo (playbook estimate). Picked automatically by quickbuild."
+    },
+    "menu": {
+      "primary": "taste of italy restaurant & pizzeria nyc menu",
+      "secondary": []
+    }
+  },
+  "dishes": [
+    {
+      "term": "linguine calamaris",
+      "item": "Linguine Calamari",
+      "slug": "linguine-calamaris",
+      "primary": "linguine calamaris queens",
+      "secondary": [
+        "best linguine calamaris queens",
+        "best linguine calamaris in queens",
+        "linguine calamaris corona",
+        "best linguine calamaris corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: quickbuild doesn't write dish pages (they need 600+ words of real substance from the client); estimate None/mo. Covered on /menu/ and the homepage. Ask the builder for a dish page if it matters."
+    },
+    {
+      "term": "buffalo wings",
+      "item": "8 Buffalo Wings",
+      "slug": "buffalo-wings",
+      "primary": "buffalo wings queens",
+      "secondary": [
+        "best buffalo wings queens",
+        "best buffalo wings in queens",
+        "buffalo wings corona",
+        "best buffalo wings corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: quickbuild doesn't write dish pages (they need 600+ words of real substance from the client); estimate None/mo. Covered on /menu/ and the homepage. Ask the builder for a dish page if it matters."
+    },
+    {
+      "term": "gourmet italian pizza",
+      "item": "",
+      "slug": "gourmet-italian-pizza",
+      "primary": "gourmet italian pizza queens",
+      "secondary": [
+        "best gourmet italian pizza queens",
+        "best gourmet italian pizza in queens",
+        "gourmet italian pizza corona",
+        "best gourmet italian pizza corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "chef salads",
+      "item": "",
+      "slug": "chef-salads",
+      "primary": "chef salads queens",
+      "secondary": [
+        "best chef salads queens",
+        "best chef salads in queens",
+        "chef salads corona",
+        "best chef salads corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "buffalo chicken wings",
+      "item": "8 Buffalo Wings",
+      "slug": "buffalo-chicken-wings",
+      "primary": "buffalo chicken wings queens",
+      "secondary": [
+        "best buffalo chicken wings queens",
+        "best buffalo chicken wings in queens",
+        "buffalo chicken wings corona",
+        "best buffalo chicken wings corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: quickbuild doesn't write dish pages (they need 600+ words of real substance from the client); estimate None/mo. Covered on /menu/ and the homepage. Ask the builder for a dish page if it matters."
+    },
+    {
+      "term": "italian pasta",
+      "item": "",
+      "slug": "italian-pasta",
+      "primary": "italian pasta queens",
+      "secondary": [
+        "best italian pasta queens",
+        "best italian pasta in queens",
+        "italian pasta corona",
+        "best italian pasta corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "italian hot heros",
+      "item": "",
+      "slug": "italian-hot-heros",
+      "primary": "italian hot heros queens",
+      "secondary": [
+        "best italian hot heros queens",
+        "best italian hot heros in queens",
+        "italian hot heros corona",
+        "best italian hot heros corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "burgers",
+      "item": "",
+      "slug": "burgers",
+      "primary": "burgers queens",
+      "secondary": [
+        "best burgers queens",
+        "best burgers in queens",
+        "burgers corona",
+        "best burgers corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "italian wraps",
+      "item": "",
+      "slug": "italian-wraps",
+      "primary": "italian wraps queens",
+      "secondary": [
+        "best italian wraps queens",
+        "best italian wraps in queens",
+        "italian wraps corona",
+        "best italian wraps corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "speciality",
+      "item": "",
+      "slug": "speciality",
+      "primary": "speciality queens",
+      "secondary": [
+        "best speciality queens",
+        "best speciality in queens",
+        "speciality corona",
+        "best speciality corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    },
+    {
+      "term": "mini gourmet pizzas",
+      "item": "",
+      "slug": "mini-gourmet-pizzas",
+      "primary": "mini gourmet pizzas queens",
+      "secondary": [
+        "best mini gourmet pizzas queens",
+        "best mini gourmet pizzas in queens",
+        "mini gourmet pizzas corona",
+        "best mini gourmet pizzas corona"
+      ],
+      "volume": null,
+      "status": "no-page",
+      "decision": "no page: estimate None/mo (< 30). Covered on /menu/ and the homepage."
+    }
+  ],
+  "areas": [
+    {
+      "name": "Corona",
+      "slug": "corona",
+      "volume": 1010,
+      "primary": "italian restaurant corona",
+      "status": "section-only",
+      "decision": "no page: listed in the service-area table, areaServed and llms.txt."
+    }
+  ],
+  "nearMe": [
+    {
+      "query": "italian restaurant near me",
+      "volume": 126000
+    },
+    {
+      "query": "breakfast near me",
+      "volume": 37800
+    },
+    {
+      "query": "dinner near me",
+      "volume": 13570
+    },
+    {
+      "query": "lunch near me",
+      "volume": 3880
+    },
+    {
+      "query": "best italian restaurant near me",
+      "volume": 1790
+    },
+    {
+      "query": "european restaurant near me",
+      "volume": 620
+    },
+    {
+      "query": "best breakfast near me",
+      "volume": 540
+    },
+    {
+      "query": "burgers near me",
+      "volume": 260
+    },
+    {
+      "query": "best burgers near me",
+      "volume": 260
+    },
+    {
+      "query": "italian restaurant delivery near me",
+      "volume": 250
+    }
+  ],
+  "notes": [
+    "Dish/area pages marked 'candidate' still need the page gate in references/local-seo.md §3 (real substance from intake). Max 5 dish pages, 4 area pages.",
+    "'near me' queries are won through the Google Business Profile and relevance, never by writing 'near me' on pages.",
+    "Targets chosen automatically by quickbuild.py from the offline playbook."
+  ]
+}

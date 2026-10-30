@@ -1,9 +1,10 @@
 ---
-title: "TODO: Menu – {signature category} in {City}, {ST} | {Brand}  (30–60 chars)"
-description: "TODO: 120–160 chars naming real sections and 2–3 signature items, with prices if helpful."
-h1: "TODO: {Brand} menu"
-lede: "TODO: One line, e.g. Heroes, hot plates and Italian specialties, made to order."
-brief: "Menu intro, 120–200 words above the menu: what's popular, dietary notes that are actually true, how to order, catering pointer. The menu itself renders from src/data/menus/main.json."
+title: "Taste of Italy Restaurant & Pizzeria NYC Menu"
+description: "Try the Linguine Calamari and the Taste of Italy Special. Order online for pickup. Corona, Queens. The Taste of Italy Restaurant & Pizzeria NYC menu."
+h1: "Taste of Italy Restaurant & Pizzeria NYC menu: breakfast, lunch and dinner"
+lede: ""
 ---
 
-TODO: Short intro to the menu.
+## About this menu
+
+This is the Taste of Italy Restaurant & Pizzeria NYC menu, with current prices. We serve breakfast, lunch and dinner in Corona, Queens. It has 14 sections: menu family special combo, drinks, gourmet italian pizza, chef salads, buffalo chicken wings, special italian pasta, italian hot heros, burgers, taste of italy special dinner, italian wraps, chef’s speciality, lunch specials every day, mini gourmet pizzas and kids menu. First time here? Our signature dishes are the Linguine Calamari and the Taste of Italy Special. To skip the line, order ahead online. Questions about ingredients? See [ordering questions](/faq/) or call (718) 606-8026. [Hours and directions](/visit/) are on our visit page.

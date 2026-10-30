@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "file": "610.jpg",
+    "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 1)",
+    "subject": "dish",
+    "use": [
+      "home-hero",
+      "social"
+    ]
+  },
+  {
+    "file": "619.jpg",
+    "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 2)",
+    "subject": "dish"
+  },
+  {
+    "file": "615.jpg",
+    "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 3)",
+    "subject": "dish"
+  },
+  {
+    "file": "640.jpg",
+    "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 4)",
+    "subject": "dish"
+  }
+]
