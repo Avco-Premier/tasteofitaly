@@ -4,3 +4,5 @@ dist/
 .vercel/
 seo-report/
 .DS_Store
+.vercel
+.env*
