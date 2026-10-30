@@ -1,7 +1,7 @@
 ---
-title: "About Taste of Italy Restaurant & Pizzeria NYC"
-description: "The story of Taste of Italy Restaurant & Pizzeria NYC. Breakfast, lunch and dinner in Queens. A Italian restaurant at 40-05 Junction Blvd, Queens, NY."
-h1: "About Taste of Italy Restaurant & Pizzeria NYC in Corona"
+title: "About Taste of Italy | Queens, NY"
+description: "The story of Taste of Italy. We’re the kind of neighborhood place built for weeknight dinners, birthday tables, quick slices, and big family orders."
+h1: "About Taste of Italy in Corona"
 lede: ""
 ---
 
@@ -17,7 +17,7 @@ You'll find a wheelchair-accessible entrance. We don't have outdoor seating. We 
 
 ## Where to find us
 
-Taste of Italy Restaurant & Pizzeria NYC is at 40-05 Junction Blvd, Queens, NY. We're open Mon–Sun 11 AM to 10 PM.
+Taste of Italy is at 40-05 Junction Blvd, Queens, NY. We're open Mon–Sun 11 AM to 10 PM.
 
 ## What we serve
 

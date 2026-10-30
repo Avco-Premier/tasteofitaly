@@ -4,8 +4,7 @@
     "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 1)",
     "subject": "dish",
     "use": [
-      "home-hero",
-      "social"
+      "home-hero"
     ]
   },
   {
@@ -21,6 +20,71 @@
   {
     "file": "640.jpg",
     "alt": "Food at Taste of Italy Restaurant & Pizzeria NYC in Queens (photo 4)",
+    "subject": "dish"
+  },
+  {
+    "file": "storefront.jpg",
+    "alt": "Taste of Italy storefront on Junction Blvd in Corona",
+    "subject": "exterior",
+    "use": [
+      "visit-hero",
+      "social",
+      "about-gallery"
+    ]
+  },
+  {
+    "file": "old-611.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 1)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-613.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 2)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-614.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 3)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-631.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 4)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-632.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 5)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-635.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 6)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-668.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 7)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-674.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 8)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-677.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 9)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-678.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 10)",
+    "subject": "dish"
+  },
+  {
+    "file": "old-684.jpg",
+    "alt": "Food at Taste of Italy in Corona (photo 11)",
     "subject": "dish"
   }
 ]

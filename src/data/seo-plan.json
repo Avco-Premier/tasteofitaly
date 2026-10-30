@@ -38,10 +38,10 @@
         }
       ],
       "decide": "Confirm primary = what the business is (e.g. 'breakfast asheville' for a breakfast cafe), not just the top volume.",
-      "decision": "italian restaurant corona: matches what Taste of Italy Restaurant & Pizzeria NYC is (italian restaurant); 680/mo (playbook estimate). Picked automatically by quickbuild."
+      "decision": "italian restaurant corona: matches what Taste of Italy is (italian restaurant); 680/mo (playbook estimate). Picked automatically by quickbuild."
     },
     "menu": {
-      "primary": "taste of italy restaurant & pizzeria nyc menu",
+      "primary": "taste of italy menu",
       "secondary": []
     }
   },

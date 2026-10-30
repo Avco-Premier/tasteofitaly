@@ -1,7 +1,7 @@
 ---
-title: "Visit Taste of Italy Restaurant & Pizzeria NYC | Queens, NY"
-description: "Taste of Italy Restaurant & Pizzeria NYC is at 40-05 Junction Blvd in Corona, Queens. Open Mon–Sun 11 AM to 10 PM. Directions and pickup details."
-h1: "Visit Taste of Italy Restaurant & Pizzeria NYC in Corona"
+title: "Hours and Directions | Taste of Italy, Queens"
+description: "Taste of Italy is at 40-05 Junction Blvd in Corona, Queens. Open Mon–Sun 11 AM to 10 PM. Directions and pickup details."
+h1: "Visit Taste of Italy in Corona"
 lede: "40-05 Junction Blvd, Corona, Queens. Open Mon–Sun 11 AM to 10 PM."
 ---
 
@@ -29,10 +29,10 @@ We’re the kind of neighborhood place built for weeknight dinners, birthday tab
 
 ## Where to find us
 
-Taste of Italy Restaurant & Pizzeria NYC is at 40-05 Junction Blvd, Queens, NY. We're open Mon–Sun 11 AM to 10 PM.
+Taste of Italy is at 40-05 Junction Blvd, Queens, NY. We're open Mon–Sun 11 AM to 10 PM.
 
 ## Before you come: the menu
 
 In burgers, there are four choices, including Mushroom Burger, Cheeseburger Deluxe and Bacon Cheeseburger Deluxe. In Taste Of Italy special dinner, there are six choices, including Shrimp Scampi Dinner, Chicken Marsala Dinner and Shrimp Fra Diavolo Dinner. In Italian wraps, there are six choices, including Crispy Chicken & Cheese Wrap, Grilled Chicken Italiano Wrap and Caesar Chicken Wrap. In chef’s speciality, there are nine choices, including Roast Pork Dinner, Grilled Chicken Dinner and Stewed Chicken Dinner. In mini gourmet pizzas, there are 12 choices, including Mini Pepperoni Pizza, Mini Lasagna Pizza and Mini Margherita Special. In kids menu, there are seven choices, including Mozzarella Sticks & Fries, Chicken Fingers & Fries and Chicken Wings & Fries. See every dish and price on the [menu](/menu/).
 
-See the [Taste of Italy Restaurant & Pizzeria NYC menu with prices](/menu/) before you come, or read [answers about hours and ordering](/faq/).
+See the [Taste of Italy menu with prices](/menu/) before you come, or read [answers about hours and ordering](/faq/).

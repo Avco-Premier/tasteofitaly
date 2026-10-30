@@ -2,7 +2,7 @@
 
 ```yaml
 business:
-  name: Taste of Italy Restaurant & Pizzeria NYC
+  name: Taste of Italy
   category: Italian restaurant
   cuisines:
   - European
@@ -22,10 +22,10 @@ business:
   description: ''
   tagline: ''
   known_for: 'The menu does the talking: 14 sections and 107 dishes. It runs from menu family special combo and
-    drinks to gourmet Italian pizza and chef salads. If it''s your first visit, start with the Linguine Calamari,
-    the Taste of Italy Special or the 8 Buffalo Wings. You can eat in, take out or order delivery. You can order
-    ahead online and pick it up at the restaurant. We deliver within about 1 miles for a $3 fee with a $12 minimum.
-    Every dish and price is on our menu page, so you know what you''re ordering before you call.'
+    drinks to gourmet Italian pizza and chef salads. First time here? Try the Linguine Calamari, the Taste of Italy
+    Special or the 8 Buffalo Wings. You can eat in, take out or order delivery. You can order ahead online and pick
+    it up at the restaurant. We deliver within about 1 miles for a $3 fee with a $12 minimum. Every dish and price
+    is on our menu page, so you know what you''re ordering before you call.'
   story: 'We’re the kind of neighborhood place built for weeknight dinners, birthday tables, quick slices, and big
     family orders.
 
@@ -151,6 +151,42 @@ photos:
     subject: dish
   - file: 640.jpg
     alt: Food at Taste of Italy Restaurant & Pizzeria NYC in Queens
+    subject: dish
+  - file: storefront.jpg
+    alt: Taste of Italy storefront on Junction Blvd in Corona
+    subject: exterior
+  - file: old-611.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-613.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-614.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-631.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-632.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-635.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-668.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-674.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-677.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-678.jpg
+    alt: Food at Taste of Italy in Corona
+    subject: dish
+  - file: old-684.jpg
+    alt: Food at Taste of Italy in Corona
     subject: dish
 founders: []
 featured:

@@ -1,7 +1,7 @@
 ---
-title: "FAQ | Taste of Italy Restaurant & Pizzeria NYC, Queens, NY"
-description: "Answers about Taste of Italy Restaurant & Pizzeria NYC in Queens: hours, location, ordering, the menu and more. Call (718) 606-8026 with anything else."
-h1: "Taste of Italy Restaurant & Pizzeria NYC questions, answered"
+title: "FAQ: Hours, Menu and Ordering | Taste of Italy, Queens"
+description: "Answers about Taste of Italy in Queens: hours, location, ordering, the menu and more. Call (718) 606-8026 with anything else."
+h1: "Taste of Italy questions, answered"
 lede: ""
 ---
 
