@@ -16,8 +16,15 @@ const shortName = ((biz as any).alternateNames ?? []).find((n: string) => n && n
 const rawLen = (s: string) => s.replace(/&/g, '&amp;').length;
 const title = [`Privacy Notice | ${biz.name}`, ...(shortName ? [`Privacy Notice | ${shortName}, ${(biz as any).address?.locality ?? ''}`, `Privacy Notice | ${shortName}`] : [])]
   .find((t) => rawLen(t) >= 30 && rawLen(t) <= 56) ?? `Privacy Notice | ${biz.name}`;
+// 120-160 characters whatever the name length (a short name like "Bonbino's" made the fixed sentence 117).
+const descs = [
+  `How the ${biz.name} website handles visitor data: analytics, maps, ordering links and how to contact us with questions.`,
+  `How the ${biz.name} website handles visitor data: analytics, maps, ordering links and how to contact us with any questions about your privacy.`,
+  `How the ${biz.name} website handles visitor data: analytics, maps, ordering links and how to contact us with questions about your privacy in ${(biz as any).address?.locality ?? 'our area'}.`,
+];
+const description = descs.find((d) => rawLen(d) >= 120 && rawLen(d) <= 158) ?? descs[0];
 ---
-<Base kind="page" title={title} description={`How the ${biz.name} website handles visitor data: analytics, maps, ordering links and how to contact us with questions.`} crumbs={[{ name: 'Privacy', path: '/privacy/' }]}>
+<Base kind="page" title={title} description={description} crumbs={[{ name: 'Privacy', path: '/privacy/' }]}>
   <PageHero h1="Privacy notice" lede={updated ? `Last updated ${updated}.` : undefined} crumbs={[{ name: 'Privacy', path: '/privacy/' }]} />
   <section class="section"><div class="narrow card prose">
     <p>This notice explains what information the {biz.name} website collects when you visit it. The site has no accounts or sign-up forms, and we don't sell personal information.</p>

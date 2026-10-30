@@ -1,6 +1,6 @@
 ---
 title: "Hours and Directions | Taste of Italy, Queens"
-description: "Taste of Italy is at 40-05 Junction Blvd in Corona, Queens. Open Mon–Sun 11 AM to 10 PM. Directions and pickup details."
+description: "Taste of Italy is at 40-05 Junction Blvd in Corona, Queens. Open Mon–Sun 11 AM to 10 PM. Order Taste of Italy online for pickup."
 h1: "Visit Taste of Italy in Corona"
 lede: "40-05 Junction Blvd, Corona, Queens. Open Mon–Sun 11 AM to 10 PM."
 ---

@@ -1,0 +1,1 @@
+/* Per-client overrides. Loaded after the look (theme.css) so it wins. Put them in <client folder>/overrides/client-override.css (kept across every launch); this empty file is what ships. */
