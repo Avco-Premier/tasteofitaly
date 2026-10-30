@@ -1,0 +1,18 @@
+---
+// A strip of short items that scrolls sideways in a loop (static under reduced motion). The list is written twice for
+// a seamless loop; the copy is hidden from screen readers and its links from the tab order. The round button pauses it
+// (WCAG 2.2.2: anything that moves for more than five seconds needs a pause control).
+export type Tick = { text: string; href?: string };
+interface Props { items: Tick[]; label: string; class?: string }
+const { items, label, class: cls } = Astro.props;
+const id = `mq-${label.toLowerCase().replace(/[^a-z]+/g, '-')}`;
+const ext = (h: string) => (h.startsWith('http') ? 'noopener' : undefined);
+---
+{items.length >= 2 && (
+  <div class:list={['marquee', cls]} role="region" aria-label={label}>
+    <input type="checkbox" id={id} class="marquee-pause sr-only" aria-label="Pause the scrolling strip" />
+    <label for={id} class="marquee-toggle" aria-hidden="true"><span></span><span></span></label>
+    <ul>{items.map((t) => <li>{t.href ? <a href={t.href} rel={ext(t.href)}>{t.text} <span aria-hidden="true">→</span></a> : t.text}</li>)}</ul>
+    <ul aria-hidden="true">{items.map((t) => <li>{t.href ? <a href={t.href} rel={ext(t.href)} tabindex="-1">{t.text} <span>→</span></a> : t.text}</li>)}</ul>
+  </div>
+)}

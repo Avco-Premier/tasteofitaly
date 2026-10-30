@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import PageHero from '../components/PageHero.astro';
+import VisitBlock from '../components/VisitBlock.astro';
+import DeliveryAreas from '../components/DeliveryAreas.astro';
+import GettingHere from '../components/GettingHere.astro';
+import Reviews from '../components/Reviews.astro';
+import { frontmatter as fm, Content } from '../copy/visit.md';
+import { biz, telHref } from '../lib/site';
+import { pageHero, venuePhotos } from '../lib/photos';
+
+const hero = pageHero('visit');
+const venue = venuePhotos().filter((p) => p !== hero);
+const extra = biz.additionalPhones as { label: string; phone: string; display: string }[];
+const d = biz.delivery;
+---
+<Base kind="visit" title={fm.title} description={fm.description} crumbs={[{ name: 'Visit', path: '/visit/' }]} image={hero?.src}>
+  <PageHero h1={fm.h1} lede={fm.lede} photo={hero} crumbs={[{ name: 'Visit', path: '/visit/' }]} />
+  <section class="section"><div class="wrap"><VisitBlock showMap /></div></section>
+  <section class="section" style="padding-top:0">
+    <div class="narrow prose visit-more">
+      <GettingHere />
+      <section class="contact" aria-labelledby="contact-h">
+        <h2 id="contact-h">{biz.email ? <>Phone &amp; email</> : 'Phone'}</h2>
+        <ul class="plain">
+          <li>Phone: <a href={telHref()}>{biz.phoneDisplay}</a></li>
+          {extra.map((p) => <li>{p.label}: <a href={telHref(p.phone)}>{p.display}</a></li>)}
+          {biz.email && <li>Email: <a href={`mailto:${biz.email}`}>{biz.email}</a></li>}
+        </ul>
+      </section>
+      {biz.services.delivery && biz.serviceArea.length > 0 && (
+        <section aria-labelledby="area-h">
+          <h2 id="area-h">Delivery area</h2>
+          <p>
+            We deliver to {biz.serviceArea.join(', ')}{d.radiusMiles ? ` — about ${d.radiusMiles} miles around the restaurant` : ''}.
+            {d.minimum && ` Minimum order ${d.minimum}.`}{d.fee && ` Delivery fee ${d.fee}.`}
+          </p>
+        </section>
+      )}
+      <DeliveryAreas service="delivery" />
+      <Content />
+    </div>
+  </section>
+  {venue.length >= 2 && (
+    <ul class="gallery" aria-label="The restaurant">
+      {venue.map((p) => <li><Img photo={p} sizes="(min-width: 960px) 25vw, 100vw" widths={[400, 800]} /></li>)}
+    </ul>
+  )}
+  <Reviews limit={2} exclude="catering" skip={3} heading="What guests say about visiting" />
+</Base>

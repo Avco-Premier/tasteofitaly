@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import VisitBlock from '../../components/VisitBlock.astro';
+import FeaturedItems from '../../components/FeaturedItems.astro';
+import { biz, telHref, directionsUrl } from '../../lib/site';
+import { findArea } from '../../lib/areas';
+
+// One page per neighborhood that passed the area-page gate (references/local-seo.md §3).
+// Copy lives in src/copy/areas/<slug>.md with frontmatter: title, description, h1, lede, area (exact areas.json name), query.
+export function getStaticPaths() {
+  const files = import.meta.glob<any>('../../copy/areas/*.md', { eager: true });
+  return Object.entries(files).map(([path, mod]) => ({
+    params: { slug: (path.split('/').pop() as string).replace(/\.md$/, '') },
+    props: { mod },
+  }));
+}
+
+const { mod } = Astro.props;
+const fm = mod.frontmatter;
+const Content = mod.Content;
+const area = findArea(fm.area);
+if (!area) throw new Error(`src/copy/areas: "${fm.area}" is not a confirmed (serve: true) area in src/data/areas.json.`);
+const facts = [
+  ['Distance', `${area.distanceMi} miles from ${biz.address.street}`],
+  area.zips.length && ['Zip codes', area.zips.join(', ')],
+  area.services.length && ['Available', area.services.join(' & ')],
+  area.terms && ['Terms', area.terms],
+].filter(Boolean) as [string, string][];
+---
+<Base kind="area" title={fm.title} description={fm.description}
+  crumbs={[{ name: 'Visit', path: '/visit/' }, { name: area.name, path: Astro.url.pathname }]} area={area.name}>
+  <PageHero h1={fm.h1} lede={fm.lede} crumbs={[{ name: 'Visit', path: '/visit/' }, { name: area.name, path: Astro.url.pathname }]}>
+    <p class="actions center">
+      {biz.ordering.url && <a class="btn btn-cream" href={biz.ordering.url} rel="noopener">{biz.ordering.label || 'Order online'}</a>}
+      <a class="btn btn-ghost-light" href={telHref()}>Call {biz.phoneDisplay}</a>
+      <a class="btn btn-ghost-light" href={directionsUrl()} rel="noopener">Directions</a>
+    </p>
+  </PageHero>
+  <dl class="wrap fact-list section">
+    {facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+  </dl>
+  <div class="wrap prose"><Content /></div>
+  <div class="wrap"><FeaturedItems heading={`Favorites in ${area.name}`} /></div>
+  <section class="section"><div class="wrap"><VisitBlock /></div></section>
+</Base>

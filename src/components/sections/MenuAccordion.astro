@@ -1,0 +1,41 @@
+---
+import Img from '../Img.astro';
+import type { Photo } from '../../lib/photos';
+import { slug } from '../../lib/menu';
+import { mainMenu, topSections, sectionDishes, priceLabel } from '../../lib/picks';
+
+// The menu as an accordion: one row per menu section (first one open, one open at a time), each with its first dishes
+// and prices and a button to that section on /menu/. Beside it, a photo when there is one to spare.
+interface Props { heading: string; tag?: string; max?: number; photo?: Photo }
+const { heading, tag, max = 5, photo } = Astro.props;
+const sections = topSections(max);
+const total = mainMenu?.subcategories.length ?? 0;
+---
+{sections.length > 0 && (
+  <section class:list={['menu-acc', { 'no-photo': !photo }]} aria-labelledby="menu-acc-h">
+    <div class="wrap menu-acc-grid">
+      <div class="menu-acc-main">
+        <header class="section-head">
+          {tag && <span class="tag">{tag}</span>}
+          <h2 id="menu-acc-h">{heading}</h2>
+        </header>
+        <div class="acc-list">
+          {sections.map((s, i) => (
+            <details class="acc" name="menu-acc" open={i === 0}>
+              <summary><span class="acc-name">{s.name}</span> <span class="acc-count">{s.items.length} {s.items.length === 1 ? 'choice' : 'choices'}</span></summary>
+              <div class="acc-body">
+                {s.description && <p>{s.description}</p>}
+                <ul class="acc-items plain">
+                  {sectionDishes(s, 4).map((d) => <li><span class="acc-dish">{d.name}</span> <span class="acc-price">{priceLabel(d)}</span></li>)}
+                </ul>
+                <a class="btn btn-pill" href={`/menu/#${slug(s.name)}`}>See all {s.name}</a>
+              </div>
+            </details>
+          ))}
+        </div>
+        {total > sections.length && <p class="section-more"><a href="/menu/">All {total} menu sections <span aria-hidden="true">→</span></a></p>}
+      </div>
+      {photo && <div class="menu-acc-media"><Img photo={photo} sizes="(min-width: 900px) 45vw, 100vw" widths={[480, 800, 1200]} /></div>}
+    </div>
+  </section>
+)}

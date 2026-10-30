@@ -1,0 +1,56 @@
+---
+import { biz, ratingLine } from '../lib/site';
+
+// Real reviews only, always with their source. No aggregateRating markup:
+// Google treats first-party review stars on a business's own site as self-serving.
+// `context` filters by review.context ("catering", "dine-in", …) so a catering page
+// never shows dine-in praise under a catering heading.
+interface Props { limit?: number; heading?: string; context?: string; exclude?: string; skip?: number }
+// skip: leave out the first N reviews (the ones the homepage shows), so pages don't repeat each other.
+const { limit = 3, heading = 'What our guests say', context, exclude, skip = 0 } = Astro.props;
+const reviews = (biz.reviews as any[]).filter((r) => (!context || r.context === context) && (!exclude || r.context !== exclude)).slice(skip, skip + limit);
+const g = biz.google;
+const rating = context === 'catering' ? null : ratingLine();
+// Long reviews make one card tower over the others: show about 60 words, ending on a sentence when one ends
+// between 30 and 60 words, else on a word with "…". The full text stays in the data.
+const clip = (t: string, max = 60) => {
+  const words = t.trim().split(/\s+/);
+  if (words.length <= max + 10) return t.trim();
+  let n = 0, end = -1;
+  for (const m of t.matchAll(/[.!?](?=\s|$)/g)) {
+    n = t.slice(0, m.index! + 1).trim().split(/\s+/).length;
+    if (n > max) break;
+    if (n >= 30) end = m.index! + 1;
+  }
+  return end > 0 ? t.slice(0, end).trim() + ' …' : words.slice(0, max).join(' ').replace(/[,;:—-]+$/, '') + '…';
+};
+const month = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+{reviews.length > 0 && (
+  <section class="quotes section" aria-labelledby="reviews-h">
+    <div class="wrap">
+      <h2 id="reviews-h" class="caps-h">{heading}</h2>
+      {rating && (
+        <p class="rating-line">
+          {rating.url ? <a href={rating.url} rel="noopener">{rating.text} on Google</a> : `${rating.text} on Google`}
+          {rating.writeUrl && <> · <a href={rating.writeUrl} rel="noopener">Leave a review</a></>}
+        </p>
+      )}
+      <ul class="quote-grid">
+        {reviews.map((r) => (
+          <li>
+            <figure>
+              <span class="mark" aria-hidden="true">“</span>
+              <blockquote><p>{clip(r.text)}</p></blockquote>
+              <figcaption>
+                {r.author} · {r.url ? <a href={r.url} rel="noopener">{r.source}</a> : r.source}
+                {r.date && <> · <time datetime={r.date}>{month(r.date)}</time></>}
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+      {!rating?.writeUrl && g.reviewUrl?.startsWith('http') && <p class="actions center"><a class="btn btn-ghost" href={g.reviewUrl} rel="noopener">Leave us a Google review</a></p>}
+    </div>
+  </section>
+)}

@@ -1,0 +1,130 @@
+---
+import { slug, money, priceOptions, addOns, DIETS, type Menu } from '../lib/menu';
+
+// Renders a menu-to-json menu as plain HTML: every section, item, description
+// and price is in the page source, readable by any crawler or AI agent.
+// Design: section "tabs" are anchor chips in one row that sticks under the header; each section is a white card with a
+// ruled item list. The script below only adds the follow-along highlight and arrow buttons: without it the chips still link.
+interface Props { menu: Menu; idPrefix?: string; headingLevel?: 2 | 3 }
+const { menu, idPrefix = '', headingLevel = 2 } = Astro.props;
+// A one-section menu (most catering menus) needs no chips and no extra heading level.
+const single = menu.subcategories.length === 1;
+const SH = `h${headingLevel}` as 'h2' | 'h3';
+const IH = (single ? SH : `h${headingLevel + 1}`) as 'h2' | 'h3' | 'h4';
+// Ids must be unique: an item can sit in two sections (Eggplant Parmigiana as a sandwich and an entree)
+// or share a section's name (Wings). The first keeps the plain slug, so /menu/#dish links still land.
+const used = new Set<string>();
+const uniq = (base: string, alt: string) => {
+  let id = used.has(base) ? alt : base;
+  for (let n = 2; used.has(id); n++) id = `${alt}-${n}`;
+  used.add(id);
+  return id;
+};
+const secIds = menu.subcategories.map((s) => uniq(`${idPrefix}${slug(s.name)}`, `${idPrefix}${slug(s.name)}-section`));
+const itemIds = menu.subcategories.map((s, si) => s.items.map((item) => {
+  const base = `${idPrefix}${slug(item.name)}`;
+  return uniq(base, base === secIds[si] ? `${base}-item` : `${base}-${slug(s.name)}`);
+}));
+---
+{!single && (
+  <nav class="chip-nav" aria-label={`${menu.menuName} sections`}>
+    <ul>
+      {menu.subcategories.map((s, si) => <li><a href={`#${secIds[si]}`}>{s.name}</a></li>)}
+    </ul>
+  </nav>
+)}
+<slot />
+<div class="menu-grid">
+  {menu.subcategories.map((s, si) => (
+    <section class="menu-section card" id={secIds[si]}>
+      {!single && <SH>{s.name}</SH>}
+      {s.description && <p class="section-desc">{s.description}</p>}
+      <ul class="menu-items">
+        {s.items.map((item, ii) => {
+          const options = priceOptions(item);
+          const extras = addOns(item);
+          return (
+            <li class="menu-item" id={itemIds[si][ii]}>
+              <div class="item-head">
+                <IH class="item-name">{item.name}{(item.diets ?? []).filter((d) => DIETS[d]).map((d) => <>{' '}<abbr class="diet" title={d.replace(/([A-Z])/g, ' $1').toLowerCase()}>{DIETS[d].label}</abbr></>)}</IH>
+                <p class="item-price">{options.length ? options.map((o, k) => <>{k > 0 && ' · '}<span class="opt">{o.label} {o.price}</span></>) : money(item.price) + (parseFloat(item.price) < 1 ? ' each' : '')}</p>
+              </div>
+              {item.description && <p class="item-desc">{item.description}</p>}
+              {extras && <p class="item-extras">Add-ons: {extras}</p>}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<script>
+  // Menu chips follow the reader: the chip of the section on screen is marked (aria-current) and slid into the middle of
+  // the row, so the neighbouring sections stay one swipe away. Arrow buttons scroll the row with a mouse (hidden on touch).
+  const root = document.documentElement;
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+  const navs = [...document.querySelectorAll<HTMLElement>('.chip-nav')];
+  const setTop = () => {
+    const pos = header ? getComputedStyle(header).position : '';
+    const h = header && (pos === 'sticky' || pos === 'fixed') ? header.getBoundingClientRect().height : 0;
+    root.style.setProperty('--chips-top', `${Math.round(h)}px`);
+    navs.forEach((nav) => nav.parentElement?.style.setProperty('--chips-h', `${nav.offsetHeight}px`));
+  };
+  for (const nav of navs) {
+    const ul = nav.querySelector('ul')!;
+    const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')];
+    const secs = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter((s): s is HTMLElement => Boolean(s));
+    const step = (dir: number, label: string, text: string) => {
+      const b = document.createElement('button');
+      Object.assign(b, { type: 'button', className: 'chip-step', textContent: text });
+      b.setAttribute('aria-label', label);
+      b.addEventListener('click', () => ul.scrollBy({ left: dir * ul.clientWidth * 0.7, behavior: motion.matches ? 'smooth' : 'auto' }));
+      return b;
+    };
+    const prev = step(-1, 'Show earlier menu sections', '‹'), next = step(1, 'Show more menu sections', '›');
+    nav.prepend(prev); nav.append(next);
+    const edges = () => {
+      const left = ul.scrollLeft > 2, right = ul.scrollLeft + ul.clientWidth < ul.scrollWidth - 2;
+      nav.classList.toggle('more-left', left); nav.classList.toggle('more-right', right);
+      prev.hidden = !left; next.hidden = !right;
+    };
+    let current: HTMLAnchorElement | undefined;
+    const mark = (a?: HTMLAnchorElement) => {
+      if (!a || a === current) return;
+      current?.removeAttribute('aria-current');
+      a.setAttribute('aria-current', 'true');
+      current = a;
+      const li = a.parentElement!;
+      ul.scrollTo({ left: li.offsetLeft - (ul.clientWidth - li.offsetWidth) / 2, behavior: motion.matches ? 'smooth' : 'auto' });
+    };
+    // A tapped chip stays marked until the jump finishes (on two-column desktops the left column's section would win).
+    let held: HTMLAnchorElement | undefined, release = 0;
+    const update = () => {
+      const r = nav.getBoundingClientRect();
+      if (held) { nav.classList.toggle('stuck', window.scrollY > 0); return; }
+      nav.classList.toggle('stuck', r.top <= parseFloat(getComputedStyle(root).getPropertyValue('--chips-top')) + 1 && window.scrollY > 0);
+      // the section under the bottom of the chip row (two menu columns on desktop: the first one there, in reading order)
+      const line = r.bottom + 24;
+      const hit = secs.find((s) => { const b = s.getBoundingClientRect(); return b.top <= line && b.bottom > line; });
+      if (hit) mark(links[secs.indexOf(hit)]);
+      else if (secs[0] && secs[0].getBoundingClientRect().top > line) { current?.removeAttribute('aria-current'); current = undefined; }
+    };
+    const letGo = () => { held = undefined; };
+    links.forEach((a) => a.addEventListener('click', () => {
+      mark(a); held = a;
+      clearTimeout(release); release = window.setTimeout(letGo, 1200);  // browsers without scrollend
+    }));
+    addEventListener('scrollend', () => { if (held) { clearTimeout(release); release = window.setTimeout(letGo, 100); } });
+    addEventListener('wheel', letGo, { passive: true });
+    addEventListener('touchstart', letGo, { passive: true });
+    ul.addEventListener('scroll', edges, { passive: true });
+    let queued = false;
+    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
+    addEventListener('resize', () => { setTop(); edges(); update(); });
+    edges();
+    update();
+  }
+  setTop();
+</script>

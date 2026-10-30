@@ -1,0 +1,37 @@
+---
+import Img from './Img.astro';
+import { biz } from '../lib/site';
+import { getMenu, findItem, slug, money, priceOptions } from '../lib/menu';
+import { dishPhoto, heroSlides } from '../lib/photos';
+
+// Signature dishes come from site.json featuredItems and must exist on a real menu,
+// so the homepage can never promote food the restaurant doesn't serve.
+// Design: tall photo panels that link to the dish on /menu/. The dish name and price are real text under the photo
+// (.panel-cap): the classic look hides it visually (photos only), the other themes show it.
+const price = (i: NonNullable<ReturnType<typeof findItem>>) => {
+  const o = priceOptions(i);
+  return o.length ? `from ${o[0].price}` : money(i.price);
+};
+interface Props { heading?: string; max?: number }
+const { heading = 'House favorites', max = 3 } = Astro.props;
+const menus = [getMenu('main'), getMenu(biz.catering.menuFile)];
+const withPhoto = (biz.featuredItems as string[])
+  .map((name) => findItem(name, menus))
+  .filter((i): i is NonNullable<typeof i> => Boolean(i) && Boolean(dishPhoto(i!.name)) && dishPhoto(i!.name) !== heroSlides()[0])  // not the hero photo again
+  .slice(0, max);
+---
+{withPhoto.length > 0 && (
+  <section class="featured" aria-labelledby="featured-h">
+    <h2 id="featured-h" class="sr-only">{heading}</h2>
+    <ul class="panels plain">
+      {withPhoto.map((item) => (
+        <li class="panel">
+          <a href={`/menu/#${slug(item.name)}`} aria-label={`${item.name} on the menu`}>
+            <Img photo={dishPhoto(item.name)!} sizes="(min-width: 720px) 34vw, 100vw" widths={[480, 800, 1200]} class="cover" />
+            <span class="panel-cap"><span class="panel-name">{item.name}</span> <span class="panel-price">{price(item)}</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

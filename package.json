@@ -1,0 +1,19 @@
+{
+  "name": "restaurant-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "node scripts/gen-vercel.mjs",
+    "build": "astro build",
+    "preview": "astro preview --port 4321 --host 127.0.0.1",
+    "check:seo": "python3 \"$HOME/.claude/skills/restaurant-site-builder/scripts/seo_check.py\" --project .",
+    "preview:bg": "astro preview --background --port 4321 --host 127.0.0.1",
+    "preview:stop": "astro preview stop",
+    "check:full": "python3 \"$HOME/.claude/skills/restaurant-site-builder/scripts/seo_check.py\" --project . --render http://127.0.0.1:4321/ --lighthouse http://127.0.0.1:4321/"
+  },
+  "dependencies": {
+    "astro": "7.3.5",
+    "sharp": "0.35.4"
+  }
+}

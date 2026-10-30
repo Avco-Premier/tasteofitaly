@@ -1,0 +1,574 @@
+/* market theme: overrides on top of global.css. Scoped to html[data-variant="market"].
+   Warm, friendly fast-casual: cream paper, one sunny yellow for every primary action, rust accents,
+   pastel tiles, rounded photo cards, Young Serif headings over Figtree UI and body.
+   Contrast (AA): ink on yellow 10.9:1 · rust-ink on cream 6.4, on white 6.9, on every pastel ≥5.5 (butter 5.9) ·
+   cream on rust bar 5.1 · ink on footer yellow 10.9, ink-soft 7.6 · muted on cream 7.1, on the blue band 5.7. */
+@font-face { font-family: 'Young Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/young-serif-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Figtree'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('./fonts/figtree-latin.woff2') format('woff2'); }
+
+/* :root in the selector outranks the client's inline html:root{--brand…} block, so the theme palette always wins. */
+html[data-variant="market"]:root {
+  --t-cream: #fbf6ea;
+  --t-white: #ffffff;
+  --t-ink: #1c1b19;
+  --t-muted: #5a524a;
+  --t-yellow: #f7c934;
+  --t-yellow-hover: #ffd75a;
+  --t-rust: #b5431f;          /* announcement bar */
+  --t-rust-ink: #9e3816;      /* kickers and links (rust that passes AA on cream, white and the pastels) */
+  --t-brown: #2b2420;         /* footer */
+  --t-brown-muted: #d8cab6;
+  --t-butter: #fcebbd;        /* warm pastel tile (rust-ink on it 5.9:1) */
+  --t-sky: #dbe7f3;
+  --t-blush: #f6e1d6;
+  --t-line: #e9e0ce;
+  --t-ink-soft: #3b342e;      /* secondary text on the yellow footer (7.6:1) */
+  --t-lime: #e4f5a1;          /* hero highlight boxes, marquee band, photo-card tags (ink on it 15.8:1) */
+  --t-sage: #dfe9dc;
+  --t-blue: #d0e0f7;          /* menu accordion band */
+  --t-blue-soft: #e5edfa;     /* its closed rows */
+  --t-straw: #f2e49a;         /* photo-cards band */
+  --t-radius: 24px;
+  --t-radius-sm: 18px;
+  --t-shadow: 0 1px 2px rgb(43 36 32 / .05), 0 10px 30px rgb(43 36 32 / .07);
+
+  /* Wire the shared tokens to the palette (global.css reads these). */
+  --bg: var(--t-cream);
+  --surface: var(--t-white);
+  --ink: var(--t-ink);
+  --muted: var(--t-muted);
+  --brand: var(--t-ink);
+  --brand-2: var(--t-rust-ink);
+  --brand-ink: var(--t-cream);
+  --on-brand-muted: var(--t-brown-muted);
+  --on-brand-soft: var(--t-cream);
+  --line: var(--t-line);
+  --line-warm: var(--t-line);
+  --sand: #efe6d3;
+  --night: #3a302a;
+  --font-body: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-script: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
+  --shadow: var(--t-shadow);
+}
+
+/* ---------- Base type */
+html[data-variant="market"] body { color: var(--t-ink); font: 400 1.0625rem/1.6 var(--font-body); }
+html[data-variant="market"] a { color: var(--t-rust-ink); text-decoration-thickness: 1.5px; }
+html[data-variant="market"] a:hover { color: var(--t-ink); }
+html[data-variant="market"] h1, html[data-variant="market"] h2, html[data-variant="market"] h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; line-height: 1.12; }
+html[data-variant="market"] h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
+html[data-variant="market"] .kicker,
+html[data-variant="market"] .hero .eyebrow,
+html[data-variant="market"] .page-hero .eyebrow { font: 800 .8rem/1.3 var(--font-body); letter-spacing: .09em; text-transform: uppercase; color: var(--t-rust-ink); }
+html[data-variant="market"] .note { color: var(--t-muted); }
+
+/* ---------- Buttons: full pills. Primary = yellow with dark ink, secondary = outlined dark. */
+html[data-variant="market"] .btn { min-height: var(--tap); padding: 12px 26px; border: 2px solid var(--t-ink); border-radius: 999px; font: 700 1rem/1.15 var(--font-body); letter-spacing: .005em; text-transform: none; transition: background .2s, color .2s, border-color .2s, transform .2s; }
+html[data-variant="market"] .btn.btn-primary,
+html[data-variant="market"] .btn.btn-cream { background: var(--t-yellow); border-color: var(--t-ink); color: var(--t-ink); }
+html[data-variant="market"] .btn.btn-primary:hover,
+html[data-variant="market"] .btn.btn-cream:hover { background: var(--t-yellow-hover); border-color: var(--t-ink); color: var(--t-ink); }
+html[data-variant="market"] .btn.btn-ghost,
+html[data-variant="market"] .btn.btn-ghost-light { background: transparent; border-color: var(--t-ink); color: var(--t-ink); }
+html[data-variant="market"] .btn.btn-ghost:hover,
+html[data-variant="market"] .btn.btn-ghost-light:hover { background: var(--t-ink); border-color: var(--t-ink); color: var(--t-cream); }
+/* On a photo (inner-page heroes, catering band) the outline turns cream. */
+html[data-variant="market"] .page-hero:not(.no-photo) .btn.btn-ghost-light,
+html[data-variant="market"] .band .btn.btn-ghost-light { border-color: var(--t-cream); color: var(--t-cream); }
+html[data-variant="market"] .page-hero:not(.no-photo) .btn.btn-ghost-light:hover,
+html[data-variant="market"] .band .btn.btn-ghost-light:hover { background: var(--t-cream); color: var(--t-ink); }
+html[data-variant="market"] a:focus-visible, html[data-variant="market"] summary:focus-visible, html[data-variant="market"] button:focus-visible,
+html[data-variant="market"] label:focus-visible, html[data-variant="market"] .btn:focus-visible, html[data-variant="market"] [tabindex]:focus-visible { outline: 3px solid var(--t-rust-ink); outline-offset: 3px; }
+
+/* ---------- Announcement bar (market only): rust, cream, small bold caps, the link underlined. */
+html[data-variant="market"] .announce { background: var(--t-rust); color: var(--t-cream); }
+html[data-variant="market"] .announce p { margin-block: 0; padding-block: 10px; font: 800 .8rem/1.5 var(--font-body); letter-spacing: .04em; text-transform: uppercase; text-align: center; text-wrap: balance; }
+html[data-variant="market"] .announce a { margin-left: .4em; padding-block: 4px; color: var(--t-cream); white-space: nowrap; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html[data-variant="market"] .announce a:hover { color: #fff; }
+html[data-variant="market"] .announce a:focus-visible { outline-color: var(--t-cream); outline-offset: 0; }
+/* Phones: the services line can't fit one line legibly, so it wraps into two even lines (balance) in a smaller size. */
+@media (max-width: 640px) {
+  html[data-variant="market"] .announce p { padding-block: 8px; font-size: .75rem; line-height: 1.5; letter-spacing: .02em; }
+  html[data-variant="market"] .announce a { margin-left: .2em; }
+}
+
+/* ---------- Header: compact cream bar on phones; a floating white pill inside the gutter on desktop. */
+html[data-variant="market"] .site-header { position: sticky; top: 0; background: var(--t-cream); color: var(--t-ink); text-shadow: none; box-shadow: 0 1px 0 var(--t-line); }
+html[data-variant="market"] .site-header a { color: var(--t-ink); }
+html[data-variant="market"] .header-row { min-height: 64px; gap: 10px; }
+html[data-variant="market"] .brand { flex-direction: row; align-items: center; gap: 10px; min-width: 0; color: var(--t-ink); }
+html[data-variant="market"] .brand img { height: 48px; flex: none; }
+/* The restaurant's name beside the logo: a bold Figtree wordmark (the base hides it). */
+html[data-variant="market"] .brand .brand-name { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; min-width: 0; color: var(--t-ink); font: 900 1.05rem/1 var(--font-body); letter-spacing: -.01em; text-transform: uppercase; text-wrap: balance; }
+html[data-variant="market"] .wordmark { flex-direction: row; gap: .3em; align-items: baseline; color: var(--t-ink); font: 900 1.35rem/1 var(--font-body); letter-spacing: -.02em; text-transform: uppercase; }
+html[data-variant="market"] .wordmark .w1, html[data-variant="market"] .wordmark .w2 { font-size: 1em; margin: 0; }
+html[data-variant="market"] .site-header .header-order { display: inline-flex; padding: 10px 20px; font-size: .95rem; }
+/* Menu toggle: a 48px outlined circle around the base's CSS hamburger. */
+html[data-variant="market"] .nav-toggle { flex: none; }
+html[data-variant="market"] .nav-toggle summary { width: var(--tap); height: var(--tap); justify-content: center; padding: 0; border: 2px solid var(--t-ink); border-radius: 999px; color: var(--t-ink); transition: background .2s, color .2s; }
+html[data-variant="market"] .nav-toggle summary:hover, html[data-variant="market"] .nav-toggle[open] summary { background: var(--t-ink); color: var(--t-cream); }
+html[data-variant="market"] .nav-toggle .burger { width: 20px; border-radius: 2px; }
+html[data-variant="market"] .nav-toggle .burger::before, html[data-variant="market"] .nav-toggle .burger::after { width: 20px; border-radius: 2px; top: -6px; }
+html[data-variant="market"] .nav-toggle .burger::after { top: 6px; }
+html[data-variant="market"] .nav-toggle > nav { background: var(--t-white); border-top: 1px solid var(--t-line); border-radius: 0 0 var(--t-radius) var(--t-radius); box-shadow: 0 18px 30px rgb(43 36 32 / .12); padding: 6px var(--gutter) 14px; }
+html[data-variant="market"] .nav-toggle nav a { color: var(--t-ink); font: 700 1.05rem var(--font-body); letter-spacing: 0; text-transform: none; border-bottom: 1px solid var(--t-line); }
+html[data-variant="market"] .nav-toggle nav li:last-child a { border-bottom: 0; }
+html[data-variant="market"] .nav-desktop a[aria-current="page"], html[data-variant="market"] .nav-toggle nav a[aria-current="page"] { text-decoration-color: var(--t-rust); text-decoration-thickness: 3px; }
+/* Small phones: Order is already in the bottom action bar, so the header is logo + wordmark + menu. */
+@media (max-width: 479px) {
+  html[data-variant="market"] .site-header .header-order { display: none; }
+}
+@media (max-width: 380px) {
+  html[data-variant="market"] .brand img { height: 44px; }
+  html[data-variant="market"] .brand .brand-name { font-size: .95rem; }
+}
+
+@media (min-width: 960px) {
+  html[data-variant="market"] .site-header { position: sticky; inset: auto; top: 0; padding: 12px 0 8px; background: linear-gradient(var(--t-cream) 0 55%, rgb(251 246 234 / 0)); box-shadow: none; text-shadow: none; animation: none; }
+  html[data-variant="market"] .header-row { flex-direction: row; justify-content: flex-start; gap: 6px; min-height: 72px; padding: 8px 10px 8px 18px; background: var(--t-white); border-radius: 999px; box-shadow: var(--t-shadow); }
+  html[data-variant="market"] .brand { margin-right: auto; align-items: center; gap: 12px; }
+  html[data-variant="market"] .brand img { height: 56px; }
+  html[data-variant="market"] .brand .brand-name { max-width: 16em; font-size: 1.3rem; }
+  html[data-variant="market"] .wordmark { font-size: 1.6rem; }
+  html[data-variant="market"] .nav-desktop { gap: 4px 6px; flex-wrap: nowrap; }
+  html[data-variant="market"] .nav-desktop ul { gap: 0 2px; flex-wrap: nowrap; }
+  html[data-variant="market"] .nav-desktop a { padding: 0 16px; border-radius: 999px; font: 700 1rem var(--font-body); letter-spacing: 0; text-transform: none; }
+  html[data-variant="market"] .nav-desktop a:hover { background: var(--t-cream); color: var(--t-ink); }
+  html[data-variant="market"] .header-social { border-radius: 999px; }
+  html[data-variant="market"] .header-phone { position: static; transform: none; padding: 0 14px; font-weight: 700; letter-spacing: 0; white-space: nowrap; }
+  html[data-variant="market"] .site-header .header-order { position: static; transform: none; padding: 12px 26px; font-size: 1rem; flex: none; }
+}
+/* Narrow desktops: logo + wordmark + nav + Order fill the pill; the phone number waits for more room (Call is in the hero). */
+@media (min-width: 960px) and (max-width: 1179px) {
+  html[data-variant="market"] .header-phone { display: none; }
+  html[data-variant="market"] .brand .brand-name { max-width: 9em; }
+}
+
+/* ---------- Home hero: the photo fills a rounded frame inside the gutter. The H1 sits on the photo as highlighted
+   text: every line of the name in its own solid lime box (inline spans + box-decoration-break: clone), the query line
+   in a smaller box under it, the lede and rating on cream tags, the yellow pill below. No overlay on the food. */
+html[data-variant="market"] .hero { position: relative; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); width: min(100% - 2 * var(--gutter), var(--wrap)); min-height: clamp(520px, 138vw, 620px); margin: 12px auto 0; overflow: hidden; border-radius: var(--t-radius); background: var(--sand); color: var(--t-ink); }
+html[data-variant="market"] .hero::before { display: none; }
+html[data-variant="market"] .hero .slides { grid-area: 1 / 1; align-self: stretch; position: relative; inset: auto; z-index: 0; }
+html[data-variant="market"] .hero-inner { grid-area: 1 / 1; align-self: end; position: relative; z-index: 1; width: auto; max-width: 780px; margin: 0; padding: 88px 16px 18px; align-items: flex-start; text-align: left; gap: 0; background: none; }
+html[data-variant="market"] .hero .eyebrow { align-self: flex-start; margin: 0 0 10px; padding: 5px 10px; background: var(--t-cream); border-radius: 4px; }
+html[data-variant="market"] .hero h1.hero-title { display: block; margin: 0; font: 400 1rem/1 var(--font-body); text-shadow: none; color: var(--t-ink); }
+html[data-variant="market"] .hero-title .hero-name,
+html[data-variant="market"] .hero-title .hero-what { display: inline; color: var(--t-ink); background: var(--t-lime); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+html[data-variant="market"] .hero-title .hero-name { padding: .07em .2em .01em; font: 900 clamp(2.05rem, 9vw, 4.6rem)/1.08 var(--font-body); letter-spacing: -.012em; text-transform: uppercase; }
+html[data-variant="market"] .hero-title .hero-name.long { font-size: clamp(1.75rem, 7.2vw, 3.7rem); }
+html[data-variant="market"] .hero-title .hero-name::after { content: "\A"; white-space: pre; }
+html[data-variant="market"] .hero-title .hero-what { order: 0; padding: .16em .5em .22em; font: 600 clamp(1.12rem, 1.9vw, 1.5rem)/1.55 var(--font-body); letter-spacing: 0; text-transform: none; }
+html[data-variant="market"] .hero .lede { align-self: flex-start; max-width: min(46ch, 100%); margin: 14px 0 0; padding: 7px 12px; background: var(--t-cream); border-radius: 6px; color: var(--t-ink); font-size: clamp(.98rem, 1.3vw, 1.08rem); line-height: 1.45; text-wrap: pretty; }
+html[data-variant="market"] .hero a:not(.btn) { color: var(--t-rust-ink); }
+html[data-variant="market"] .hero .proof { align-self: flex-start; margin: 6px 0 0; padding: 0 12px; background: var(--t-cream); border-radius: 6px; font-style: normal; font-weight: 700; font-size: .95rem; color: var(--t-ink); }
+html[data-variant="market"] .hero .proof a { display: inline-flex; align-items: center; min-height: 44px; }
+html[data-variant="market"] .hero .app-badges-label { align-self: flex-start; padding: 5px 10px; background: var(--t-cream); border-radius: 6px; color: var(--t-ink); }
+html[data-variant="market"] .hero .actions { justify-content: flex-start; gap: 10px; margin: 16px 0 0; }
+html[data-variant="market"] .hero .btn.btn-ghost-light { background: var(--t-cream); border-color: var(--t-ink); color: var(--t-ink); }
+html[data-variant="market"] .hero .btn.btn-ghost-light:hover { background: var(--t-ink); color: var(--t-cream); }
+html[data-variant="market"] .hero.no-photo { min-height: 0; background: var(--t-butter); }
+html[data-variant="market"] .hero.no-photo .hero-inner { padding: clamp(40px, 7vw, 88px) clamp(22px, 5vw, 64px); }
+/* Pause control: a white circle on the photo's top-right corner. */
+html[data-variant="market"] .pause-toggle { left: auto; bottom: auto; top: 14px; right: 14px; z-index: 2; gap: 5px; background: var(--t-white); border-radius: 999px; box-shadow: var(--t-shadow); }
+html[data-variant="market"] .pause-toggle span { width: 5px; height: 16px; background: var(--t-ink); }
+html[data-variant="market"] #hero-pause:checked + .pause-toggle span:first-child { border-top-width: 9px; border-bottom-width: 9px; border-left: 14px solid var(--t-ink); margin-left: 4px; }
+html[data-variant="market"] #hero-pause:focus-visible + .pause-toggle { outline: 3px solid var(--t-rust-ink); }
+@media (max-width: 640px) {
+  html[data-variant="market"] .hero .actions { width: 100%; }
+  html[data-variant="market"] .hero .actions .btn { flex: 1 1 auto; padding-inline: 18px; }
+}
+@media (min-width: 641px) {
+  html[data-variant="market"] .hero { min-height: clamp(540px, 74vw, 640px); }
+  html[data-variant="market"] .hero-inner { padding: 96px clamp(24px, 4vw, 48px) clamp(24px, 4vw, 44px); }
+}
+@media (min-width: 960px) {
+  html[data-variant="market"] .hero { min-height: clamp(560px, calc(100svh - 150px), 740px); margin-top: 4px; border-radius: 28px; }
+  html[data-variant="market"] .hero-inner { padding: 120px clamp(36px, 4.4vw, 64px) clamp(36px, 4vw, 56px); }
+}
+
+/* ---------- Inner-page heroes: the same inset rounded photo, shaded at the bottom for cream text. */
+html[data-variant="market"] .page-hero { width: min(100% - 2 * var(--gutter), var(--wrap)); margin: 12px auto 0; min-height: clamp(360px, 54vh, 540px); border-radius: var(--t-radius); }
+html[data-variant="market"] .page-hero::before { background: linear-gradient(180deg, rgb(28 22 18 / .2) 0%, rgb(28 22 18 / .25) 35%, rgb(28 22 18 / .78) 100%); }
+html[data-variant="market"] .page-hero-inner { width: auto; max-width: 860px; margin: 0; padding: 72px clamp(22px, 4vw, 56px) clamp(28px, 4vw, 52px); align-items: flex-start; text-align: left; gap: 10px; }
+html[data-variant="market"] .page-hero .crumbs ol { justify-content: flex-start; }
+html[data-variant="market"] .crumbs a { min-width: var(--tap); justify-content: center; }
+html[data-variant="market"] .page-hero h1 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); text-shadow: 0 2px 18px rgb(0 0 0 / .25); }
+html[data-variant="market"] .page-hero h1.long { font-size: clamp(2rem, 3.8vw, 3.3rem); }
+html[data-variant="market"] .page-hero .lede { font-size: clamp(1.02rem, 1.4vw, 1.15rem); }
+html[data-variant="market"] .page-hero .eyebrow { color: var(--t-cream); }
+html[data-variant="market"] .page-hero .actions { justify-content: flex-start; margin-bottom: 0; }
+html[data-variant="market"] .page-hero a:focus-visible, html[data-variant="market"] .page-hero .btn:focus-visible { outline-color: var(--t-cream); }
+html[data-variant="market"] .page-hero.no-photo { background: var(--t-sky); color: var(--t-ink); }
+html[data-variant="market"] .page-hero.no-photo h1 { text-shadow: none; }
+html[data-variant="market"] .page-hero.no-photo a:not(.btn), html[data-variant="market"] .page-hero.no-photo .crumbs a { color: var(--t-ink); }
+html[data-variant="market"] .page-hero.no-photo .eyebrow { color: var(--t-rust-ink); }
+html[data-variant="market"] .page-hero.no-photo .page-hero-inner { padding-top: clamp(40px, 6vw, 80px); }
+html[data-variant="market"] .page-hero.no-photo a:focus-visible { outline-color: var(--t-rust-ink); }
+@media (min-width: 960px) { html[data-variant="market"] .page-hero { margin-top: 4px; } }
+
+/* ---------- Story copy: a calm, left-aligned reading column (~660px) centred on the page; headings left too. */
+html[data-variant="market"] .story h2,
+html[data-variant="market"] .prose.story h2,
+html[data-variant="market"] .caps-h { font: 400 clamp(1.7rem, 2.8vw, 2.4rem)/1.15 var(--font-display); letter-spacing: -.01em; text-transform: none; color: var(--t-ink); }
+html[data-variant="market"] .story p, html[data-variant="market"] .story li { font-size: clamp(1.06rem, 1.3vw, 1.14rem); line-height: 1.7; }
+html[data-variant="market"] .prose h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); }
+html[data-variant="market"] .prose.story { text-align: left; }
+html[data-variant="market"] .prose.story > * { max-width: 660px; margin-inline: auto; }
+html[data-variant="market"] .prose.story h2 { margin: 2.6rem auto .7rem; font-size: clamp(1.55rem, 2.4vw, 2rem); line-height: 1.18; text-align: left; }
+html[data-variant="market"] .prose.story h2:first-child { margin-top: 0; }
+html[data-variant="market"] .prose.story ul, html[data-variant="market"] .prose.story ol { display: block; padding-left: 1.25em; }
+html[data-variant="market"] .prose.story .actions { justify-content: flex-start; margin-top: 1.75rem; }
+/* "Good to know" teaser: the same column, left heading, the list full width (the base's inline-block shrank it). */
+html[data-variant="market"] .story > .faq { max-width: 660px; margin-inline: auto; text-align: left; }
+html[data-variant="market"] .story > .faq .caps-h { text-align: left; }
+html[data-variant="market"] .story .faq-teaser { display: block; width: 100%; max-width: none; }
+
+/* ---------- Photo strip: rounded tiles on cream. */
+html[data-variant="market"] .strip { background: transparent; }
+html[data-variant="market"] .strip ul { gap: 14px; padding: 0 var(--gutter); scroll-padding-inline: var(--gutter); }
+html[data-variant="market"] .strip li { border-radius: 20px; }
+
+/* ---------- "Green" bands become soft butter blocks; the highlights become three pastel tiles. */
+html[data-variant="market"] .green { background: var(--t-butter); color: var(--t-ink); }
+html[data-variant="market"] .green a:not(.btn), html[data-variant="market"] .green h2, html[data-variant="market"] .green h3 { color: var(--t-ink); }
+html[data-variant="market"] .highlights.green { background: transparent; }
+html[data-variant="market"] .highlight-grid { gap: clamp(16px, 2vw, 24px); }
+html[data-variant="market"] .highlight-grid li { padding: clamp(30px, 3.4vw, 44px) clamp(22px, 2.6vw, 34px); border-radius: var(--t-radius); background: var(--t-butter); gap: 10px; }
+html[data-variant="market"] .highlight-grid li:nth-child(3n+2) { background: var(--t-sky); }
+html[data-variant="market"] .highlight-grid li:nth-child(3n) { background: var(--t-blush); }
+html[data-variant="market"] .highlight-grid h2 { font-size: clamp(1.9rem, 2.8vw, 2.4rem); color: var(--t-ink); }
+html[data-variant="market"] .highlight-grid .kicker { color: var(--t-rust-ink); }
+html[data-variant="market"] .highlight-grid p { color: var(--t-ink); }
+html[data-variant="market"] .highlight-grid .btn { margin-top: auto; }
+html[data-variant="market"] .highlight-grid p { margin-bottom: 10px; max-width: 34ch; font-size: .97rem; text-wrap: pretty; }
+
+/* ---------- Featured dishes: white rounded cards, the photo inset on top. */
+html[data-variant="market"] .featured { width: min(100% - 2 * var(--gutter), var(--wrap)); margin: 0 auto; padding-bottom: clamp(8px, 2vw, 24px); }
+html[data-variant="market"] .panels { gap: clamp(16px, 2vw, 24px); background: transparent; }
+html[data-variant="market"] .panel { min-height: clamp(300px, 40vw, 460px); background: var(--t-white); border-radius: var(--t-radius); box-shadow: var(--t-shadow); }
+/* No background on the link: the photo sits at z-index -2 inside the panel and would be painted under it. */
+html[data-variant="market"] .panel > a { inset: 10px; display: flex; flex-direction: column; border-radius: var(--t-radius-sm); overflow: hidden; color: var(--t-ink); text-decoration: none; }
+html[data-variant="market"] .panel > a:focus-visible { outline: 3px solid var(--t-rust-ink); outline-offset: 4px; }
+/* Caption under the photo: the <picture> takes whatever height the caption leaves, so a two-line dish name never covers it. */
+html[data-variant="market"] .panel > a > picture { position: relative; display: block; flex: 1 1 auto; min-height: 0; border-radius: var(--t-radius-sm); overflow: clip; }
+html[data-variant="market"] .panel img.cover { border-radius: var(--t-radius-sm); }
+html[data-variant="market"] .panel .panel-cap { position: relative; flex: none; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; display: flex; align-items: baseline; justify-content: space-between; gap: 2px 14px; flex-wrap: wrap; padding: 14px 8px 6px; background: var(--t-white); }
+html[data-variant="market"] .panel-name { font: 400 clamp(1.25rem, 1.8vw, 1.45rem)/1.2 var(--font-display); color: var(--t-ink); }
+html[data-variant="market"] .panel-price { font: 700 1rem/1.3 var(--font-body); color: var(--t-rust-ink); white-space: nowrap; }
+html[data-variant="market"] .panel > a:hover .panel-name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* ---------- Reviews: white rounded cards. */
+html[data-variant="market"] .quote-grid { gap: clamp(16px, 2vw, 24px); }
+html[data-variant="market"] .quote-grid li { display: flex; }
+html[data-variant="market"] .quote-grid figure { flex: 1; padding: clamp(26px, 3vw, 38px) clamp(22px, 2.6vw, 32px); background: var(--t-white); border-radius: var(--t-radius); box-shadow: var(--t-shadow); gap: 12px; }
+html[data-variant="market"] .quote-grid .mark { font: 400 3.4rem/.7 var(--font-display); color: var(--t-rust-ink); }
+html[data-variant="market"] .quote-grid blockquote { flex: 1; font: 400 1.08rem/1.6 var(--font-body); color: var(--t-ink); }
+html[data-variant="market"] .quote-grid blockquote p { margin: 0; }
+html[data-variant="market"] .quote-grid figcaption { font: 700 .82rem/1.5 var(--font-body); letter-spacing: .05em; color: var(--t-muted); }
+html[data-variant="market"] .rating-line { font-style: normal; font-weight: 600; }
+/* "· Leave a review" travels as one piece: the bare " · " between the links is made transparent and the visible dot
+   is drawn as part of the second link, so a wrap never leaves a dot dangling at the end of the first line. */
+html[data-variant="market"] .rating-line:has(a + a) { color: transparent; }
+html[data-variant="market"] .rating-line a + a { position: relative; margin-left: .3em; white-space: nowrap; }
+html[data-variant="market"] .rating-line a + a::before { content: '·'; content: '·' / ''; position: absolute; left: -.65em; color: var(--t-ink); text-decoration: none; }
+html[data-variant="market"] .press-list li { border-top-color: var(--t-line); }
+html[data-variant="market"] .press-outlet { font-weight: 800; color: var(--t-rust-ink); }
+
+/* ---------- Cards (menu sections, FAQ groups, privacy, contact) */
+html[data-variant="market"] .card { border-radius: var(--t-radius); box-shadow: var(--t-shadow); }
+html[data-variant="market"] .card a:not(.btn) { color: var(--t-rust-ink); }
+html[data-variant="market"] .card h2 { color: var(--t-ink); font-size: clamp(1.6rem, 2.4vw, 2rem); }
+
+/* FAQ teaser: one white rounded list. */
+html[data-variant="market"] .faq-teaser { padding: 6px clamp(18px, 3vw, 30px); background: var(--t-white); border-radius: var(--t-radius); box-shadow: var(--t-shadow); }
+html[data-variant="market"] .faq-teaser a { color: var(--t-ink); font-weight: 600; border-bottom-color: var(--t-line); padding-block: 8px; }
+html[data-variant="market"] .faq-teaser li:last-child a { border-bottom: 0; color: var(--t-rust-ink); font-weight: 800; }
+html[data-variant="market"] .faq-teaser a:hover { color: var(--t-rust-ink); }
+
+/* ---------- Menu: pill chips, white rounded section cards, pastel section titles. */
+html[data-variant="market"] .menu-page { color: var(--t-ink); }
+html[data-variant="market"] .chip-nav a { padding: 0 18px; border: 2px solid var(--t-line); border-radius: 999px; background: var(--t-white); color: var(--t-ink); font: 700 .95rem var(--font-body); letter-spacing: 0; text-transform: none; white-space: nowrap; }
+html[data-variant="market"] .chip-nav a:hover, html[data-variant="market"] .chip-nav a[aria-current] { background: var(--t-yellow); border-color: var(--t-yellow); color: var(--t-ink); }
+html[data-variant="market"] .menu-grid { column-gap: clamp(16px, 2.2vw, 28px); }
+html[data-variant="market"] .menu-grid > * { margin-bottom: clamp(16px, 2.2vw, 28px); }
+html[data-variant="market"] .menu-section { padding: clamp(14px, 1.6vw, 20px) clamp(14px, 1.6vw, 20px) clamp(18px, 2.4vw, 30px); }
+html[data-variant="market"] .menu-section h2 { margin: 0; padding: clamp(16px, 2vw, 22px) clamp(16px, 2vw, 22px); border-radius: var(--t-radius-sm); background: var(--t-butter); text-align: left; font-size: clamp(1.55rem, 2.2vw, 1.9rem); }
+html[data-variant="market"] .menu-section:nth-child(3n+2) h2 { background: var(--t-sky); }
+html[data-variant="market"] .menu-section:nth-child(3n) h2 { background: var(--t-blush); }
+html[data-variant="market"] .section-desc { text-align: left; padding-inline: clamp(6px, 1vw, 10px); color: var(--t-muted); }
+html[data-variant="market"] .menu-items { margin-top: 10px; padding: 0 clamp(6px, 1vw, 10px); border-left: 0; }
+html[data-variant="market"] .menu-item { padding: 15px 0; border-bottom-color: var(--t-line); }
+html[data-variant="market"] .item-name { font: 700 1.08rem/1.35 var(--font-body); color: var(--t-ink); }
+html[data-variant="market"] .item-price { font-weight: 700; font-size: 1.02rem; color: var(--t-ink); }
+html[data-variant="market"] .item-desc, html[data-variant="market"] .item-extras { color: var(--t-muted); }
+html[data-variant="market"] .diet { border: 0; border-radius: 999px; padding: 0 8px; background: var(--t-butter); color: var(--t-ink); font: 800 .78rem/1.6 var(--font-body); }
+html[data-variant="market"] .menu-legend { color: var(--t-muted); }
+
+/* ---------- About */
+html[data-variant="market"] .split-media { border-radius: var(--t-radius); }
+html[data-variant="market"] .timeline .year { color: var(--t-rust-ink); }
+html[data-variant="market"] .timeline p { color: var(--t-ink); }
+html[data-variant="market"] .people-list .portrait { border-radius: var(--t-radius); }
+html[data-variant="market"] .people-list .role { font-weight: 800; color: var(--t-rust-ink); }
+
+/* ---------- Catering */
+html[data-variant="market"] .package { border-radius: var(--t-radius); box-shadow: var(--t-shadow); }
+html[data-variant="market"] .package h3 { color: var(--t-ink); }
+html[data-variant="market"] .package:nth-child(3n+2) { background: var(--t-sky); color: var(--t-ink); }
+html[data-variant="market"] .package:nth-child(3n+2) h3 { color: var(--t-ink); }
+html[data-variant="market"] .package:nth-child(3n+2) .btn { background: var(--t-yellow); border-color: var(--t-yellow); color: var(--t-ink); }
+html[data-variant="market"] .package .tag { font-weight: 800; color: var(--t-rust-ink); }
+html[data-variant="market"] .package .price { font: 700 1.3rem/1.2 var(--font-body); }
+html[data-variant="market"] .band { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; border-radius: var(--t-radius); }
+html[data-variant="market"] .fact-list dt { font-weight: 800; }
+
+/* ---------- FAQ */
+html[data-variant="market"] .faq-item { border-bottom-color: var(--t-line); }
+html[data-variant="market"] .faq-item:last-child { border-bottom: 0; }
+html[data-variant="market"] .faq-item summary h3 { font: 700 1.08rem/1.4 var(--font-body); color: var(--t-ink); }
+html[data-variant="market"] .faq-item summary::after { content: '+'; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; background: var(--t-cream); font: 700 1.3rem/1 var(--font-body); color: var(--t-ink); }
+html[data-variant="market"] .faq-item[open] summary::after { background: var(--t-yellow); }
+html[data-variant="market"] .faq-item p { color: var(--t-muted); }
+html[data-variant="market"] .ask-box { background: var(--t-blush); border-radius: var(--t-radius); }
+html[data-variant="market"] .ask-box p:first-child { font: 400 clamp(1.7rem, 3vw, 2.1rem)/1.15 var(--font-display); color: var(--t-ink); }
+
+/* ---------- Visit */
+html[data-variant="market"] .visit-info h2 { font-size: clamp(1.8rem, 2.6vw, 2.2rem); text-transform: none; }
+html[data-variant="market"] .visit-info address a { color: var(--t-ink); font-weight: 600; }
+html[data-variant="market"] .map { border-radius: var(--t-radius); box-shadow: var(--t-shadow); }
+html[data-variant="market"] .hours th, html[data-variant="market"] .hours td { border-bottom-color: var(--t-line); }
+html[data-variant="market"] .hours th { font-weight: 700; }
+html[data-variant="market"] .gallery { gap: 14px; padding: 0 var(--gutter); }
+html[data-variant="market"] .gallery li { border-radius: 20px; }
+html[data-variant="market"] .areas-table th, html[data-variant="market"] .areas-table td, html[data-variant="market"] .fact-list div { border-bottom-color: var(--t-line); }
+/* Phones hide the areas table's header row visually; clip (like .sr-only) rather than a scrolling hidden box. */
+@media (max-width: 640px) { html[data-variant="market"] .areas-table thead { overflow: clip; white-space: nowrap; } }
+
+/* ---------- Footer: sunny yellow with dark ink, small bold caps column heads, one dark Order pill, and the
+   restaurant's name as a giant cream wordmark across the bottom (aria-hidden, decorative brand text), cut off by
+   the footer's bottom edge. Ink on yellow 10.9:1, ink-soft on yellow 7.6:1. */
+html[data-variant="market"] .site-footer { overflow: clip; background: var(--t-yellow); color: var(--t-ink); border-radius: 28px 28px 0 0; }
+html[data-variant="market"] .site-footer a { color: var(--t-ink); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+html[data-variant="market"] .site-footer a:hover { color: var(--t-ink); text-decoration-thickness: 2.5px; }
+html[data-variant="market"] .site-footer a:focus-visible { outline-color: var(--t-ink); }
+html[data-variant="market"] .footer-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 4px; padding-bottom: clamp(36px, 5vw, 56px); }
+html[data-variant="market"] .footer-buttons a { min-height: var(--tap); padding: 0 14px; border-radius: 999px; background: transparent; color: var(--t-ink); font: 700 1.05rem var(--font-body); letter-spacing: 0; text-transform: none; transition: background .2s, color .2s; }
+html[data-variant="market"] .footer-buttons a:hover { background: rgb(28 27 25 / .08); color: var(--t-ink); text-decoration: underline; text-underline-offset: 4px; }
+html[data-variant="market"] .footer-buttons li:first-child { margin-right: 14px; }
+html[data-variant="market"] .footer-buttons li:first-child a { min-height: 52px; padding: 0 30px; background: var(--t-ink); color: var(--t-cream); }
+html[data-variant="market"] .footer-buttons li:first-child a:hover { background: #3b342e; color: var(--t-cream); text-decoration: none; }
+html[data-variant="market"] .footer-buttons li:first-child a:focus-visible { outline-color: var(--t-ink); outline-offset: 3px; }
+@media (max-width: 599px) {
+  html[data-variant="market"] .footer-buttons li:first-child { flex: 1 1 100%; margin: 0 0 6px; }
+  html[data-variant="market"] .footer-buttons li:first-child a { width: 100%; }
+  html[data-variant="market"] .footer-buttons li:nth-child(2) { margin-left: -14px; }  /* the text row lines up with the column edge */
+}
+html[data-variant="market"] .footer-cols { column-gap: 40px; }
+html[data-variant="market"] .footer-cols h2 { margin-bottom: 10px; font: 900 .85rem/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--t-ink); }
+html[data-variant="market"] .footer-cols p { color: var(--t-ink-soft); }
+/* "Find us on…" and "Contact us" share one section: from 600px it becomes two columns of its own,
+   so Contact sits beside Find us (top-aligned) instead of under it, and nothing leaves a column empty. */
+@media (min-width: 600px) {
+  html[data-variant="market"] .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-variant="market"] .footer-cols > section:has(#f-find) { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; grid-auto-flow: row dense; align-content: start; }
+  html[data-variant="market"] .footer-cols > section:has(#f-find) > * { grid-column: 1; }
+  html[data-variant="market"] .footer-cols > section:has(#f-find) > #f-contact,
+  html[data-variant="market"] .footer-cols > section:has(#f-find) > #f-contact ~ * { grid-column: 2; }
+  html[data-variant="market"] .footer-cols h2.later { margin-top: 0; }
+}
+@media (min-width: 960px) {
+  html[data-variant="market"] .footer-cols:has(#f-find) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  html[data-variant="market"] .footer-cols > section:has(#f-find) { grid-column: span 2; }
+}
+html[data-variant="market"] .footer-base { padding-top: 24px; border-top-color: rgb(28 27 25 / .22); color: var(--t-ink-soft); }
+html[data-variant="market"] .footer-base a { color: var(--t-ink-soft); min-width: var(--tap); justify-content: center; }
+html[data-variant="market"] .footer-base a:hover { color: var(--t-ink); }
+html[data-variant="market"] .footer-base .wordmark { color: var(--t-ink); font: 900 clamp(1.7rem, 3vw, 2.3rem)/1 var(--font-body); letter-spacing: -.02em; text-transform: uppercase; }
+html[data-variant="market"] .footer-base .wordmark span { font-size: 1em; }
+html[data-variant="market"] .footer-base .footer-logo { padding: 10px 18px; background: var(--t-cream); border-radius: 22px; }
+html[data-variant="market"] .footer-base .footer-logo img { height: 76px; }
+html[data-variant="market"] .footer-base .footer-logo:focus-visible { outline-offset: 4px; }
+/* The giant wordmark: the name in Figtree 900 caps, sized with the viewport (one line for a short name on desktop,
+   balanced lines on phones or for long names; a word never runs past the edge). The footer clips its bottom.
+   It is filled with a cream gradient through background-clip: decorative brand text, hidden from screen readers. */
+html[data-variant="market"] .footer-mark { display: block; width: min(100% - 2 * var(--gutter), var(--wrap)); margin: clamp(36px, 6vw, 72px) auto -.17em; font: 900 clamp(2.9rem, 11.4vw, 7.1rem)/.8 var(--font-body); letter-spacing: -.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: break-word; color: transparent; background: linear-gradient(180deg, #fffbf1 0%, #fbf3df 100%); -webkit-background-clip: text; background-clip: text; pointer-events: none; user-select: none; }
+@media (min-width: 960px) {
+  html[data-variant="market"] .site-footer { padding-bottom: 0; }
+  html[data-variant="market"] .footer-mark { font-size: clamp(5rem, 8.3vw, 9.2rem); }
+}
+/* Phones: the fixed action bar (65px) covers the footer's last strip, so the wordmark ends just above it. */
+@media (max-width: 959px) { html[data-variant="market"] .site-footer { padding-bottom: calc(66px + env(safe-area-inset-bottom)); } }
+
+/* ========== Home sections (components/sections/*): the market look of the shared layout in global.css. ========== */
+
+/* ---------- Tags and the small "pill" button used inside cards */
+html[data-variant="market"] .tag { padding: 5px 12px; border-radius: 999px; background: var(--t-lime); color: var(--t-ink); font: 800 .78rem/1.3 var(--font-body); letter-spacing: .08em; }
+html[data-variant="market"] .btn.btn-pill { min-height: var(--tap); padding: 10px 22px; background: transparent; border: 2px solid var(--t-ink); color: var(--t-ink); font: 700 .98rem/1.15 var(--font-body); }
+html[data-variant="market"] .btn.btn-pill:hover { background: var(--t-ink); border-color: var(--t-ink); color: var(--t-cream); }
+html[data-variant="market"] .section-more a { display: inline-flex; align-items: center; gap: .35em; min-height: var(--tap); color: var(--t-ink); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+html[data-variant="market"] .section-more a:hover { color: var(--t-rust-ink); }
+html[data-variant="market"] .section-more { margin-top: 18px; }
+
+/* ---------- Dish marquee: a lime band with a wavy top and bottom edge (a CSS mask of offset circles), dark
+   medium-weight links, each a 48px tap target. Pauses on hover/focus; static under reduced motion (base). */
+html[data-variant="market"] .marquee {
+  --w: 8px;                       /* wave height */
+  --r: calc(var(--w) * 1.28);     /* circle radius for a smooth sine-like wave */
+  --p: calc(var(--w) * 4);        /* wave period */
+  margin-top: clamp(20px, 3vw, 36px); padding-block: calc(var(--w) * 1.75); overflow: clip;
+  background: var(--t-lime); color: var(--t-ink);
+  -webkit-mask:
+    radial-gradient(var(--r) at 50% calc(var(--w) * 1.8), #000 99%, #0000 101%) calc(50% - var(--w) * 2) 0 / var(--p) 100%,
+    radial-gradient(var(--r) at 50% calc(var(--w) * -.8), #0000 99%, #000 101%) 50% var(--w) / var(--p) 51% repeat-x,
+    radial-gradient(var(--r) at 50% calc(100% - var(--w) * 1.8), #000 99%, #0000 101%) calc(50% - var(--w) * 2) 0 / var(--p) 100%,
+    radial-gradient(var(--r) at 50% calc(100% + var(--w) * .8), #0000 99%, #000 101%) 50% calc(100% - var(--w)) / var(--p) 51% repeat-x;
+  mask:
+    radial-gradient(var(--r) at 50% calc(var(--w) * 1.8), #000 99%, #0000 101%) calc(50% - var(--w) * 2) 0 / var(--p) 100%,
+    radial-gradient(var(--r) at 50% calc(var(--w) * -.8), #0000 99%, #000 101%) 50% var(--w) / var(--p) 51% repeat-x,
+    radial-gradient(var(--r) at 50% calc(100% - var(--w) * 1.8), #000 99%, #0000 101%) calc(50% - var(--w) * 2) 0 / var(--p) 100%,
+    radial-gradient(var(--r) at 50% calc(100% + var(--w) * .8), #0000 99%, #000 101%) 50% calc(100% - var(--w)) / var(--p) 51% repeat-x;
+}
+html[data-variant="market"] .marquee ul { max-width: max-content; gap: 0 6px; padding: 0 3px; animation-duration: 46s; }
+html[data-variant="market"] .marquee li { display: flex; }
+html[data-variant="market"] .marquee a { display: inline-flex; align-items: center; gap: .3em; min-height: var(--tap); padding: 0 16px; border-radius: 999px; color: var(--t-ink); font: 600 clamp(1.05rem, 1.45vw, 1.2rem)/1.2 var(--font-body); text-decoration: none; }
+html[data-variant="market"] .marquee a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+html[data-variant="market"] .marquee a:focus-visible { outline: 3px solid var(--t-ink); outline-offset: -3px; }
+html[data-variant="market"] .marquee:hover ul, html[data-variant="market"] .marquee:focus-within ul { animation-play-state: paused; }
+
+/* ---------- Intro: one centred serif statement. */
+html[data-variant="market"] .intro-band { padding-block: clamp(52px, 7.5vw, 104px) clamp(20px, 3vw, 40px); }
+html[data-variant="market"] .intro-band p { max-width: 28ch; font: 400 clamp(1.55rem, 3.2vw, 2.55rem)/1.26 var(--font-display); letter-spacing: -.012em; color: var(--t-ink); text-wrap: balance; }
+html[data-variant="market"] .intro-band p + p { margin-top: .8em; font: 400 clamp(1.06rem, 1.4vw, 1.2rem)/1.6 var(--font-body); max-width: 52ch; }
+
+/* ---------- Dish tabs: big bold caps tab labels, the active one underlined thick; three cards with a rounded
+   photo (or a pastel tile with a serif initial on a "plate"), bold name, small description, price and an Order pill. */
+html[data-variant="market"] .dish-tabs { padding-block: clamp(36px, 5vw, 72px) var(--section); }
+html[data-variant="market"] .dish-tabs .section-head { margin-bottom: clamp(10px, 1.6vw, 18px); }
+html[data-variant="market"] .tab-list { gap: 2px clamp(18px, 2.6vw, 34px); margin: 0 0 clamp(22px, 3vw, 40px); }
+html[data-variant="market"] .tab-list label { min-height: var(--tap); padding: 6px 0 2px; border-bottom: 5px solid transparent; color: var(--t-ink); font: 900 clamp(1.2rem, 2.3vw, 1.95rem)/1.1 var(--font-body); letter-spacing: -.005em; text-transform: uppercase; transition: border-color .2s; }
+html[data-variant="market"] .tab-list label:hover { border-bottom-color: rgb(28 27 25 / .22); }
+html[data-variant="market"] .tab-radio:checked + label { border-bottom-color: var(--t-ink); }
+html[data-variant="market"] .tab-radio:focus-visible + label { outline: 3px solid var(--t-rust-ink); outline-offset: 4px; border-radius: 4px; }
+html[data-variant="market"] .dish-grid { gap: clamp(18px, 2.6vw, 36px); }
+@media (min-width: 640px) { html[data-variant="market"] .dish-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+html[data-variant="market"] .dish-card { gap: 6px; }
+html[data-variant="market"] .dish-media { margin-bottom: 10px; border-radius: 22px; background: var(--t-sage); color: var(--t-ink); text-decoration: none; }
+html[data-variant="market"] .dish-media img { border-radius: 22px; }
+html[data-variant="market"] .dish-tile { --tile: var(--t-sage); background: radial-gradient(circle, rgb(255 255 255 / .62) 0 31%, rgb(255 255 255 / 0) calc(31% + 1px)), var(--tile); color: var(--t-ink); font: 400 clamp(4.2rem, 8vw, 6.6rem)/1 var(--font-display); }
+html[data-variant="market"] .dish-card:nth-child(3n+2) .dish-tile { --tile: var(--t-sky); }
+html[data-variant="market"] .dish-card:nth-child(3n) .dish-tile { --tile: var(--t-blush); }
+html[data-variant="market"] .dish-name { margin: 0; font: 800 clamp(1.1rem, 1.4vw, 1.22rem)/1.3 var(--font-body); letter-spacing: 0; }
+html[data-variant="market"] .dish-name a { color: var(--t-ink); }
+html[data-variant="market"] .dish-name a:hover { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html[data-variant="market"] .dish-desc { color: var(--t-muted); font-size: .94rem; line-height: 1.5; text-wrap: pretty; }
+html[data-variant="market"] .dish-foot { padding-top: 10px; }
+html[data-variant="market"] .dish-price { color: var(--t-ink); font-size: 1.05rem; }
+/* Phones: the three cards become a sideways swipe row (the row scrolls, not the page), the next card peeking in. */
+@media (max-width: 639px) {
+  html[data-variant="market"] .dish-tabs .dish-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; gap: 14px; margin-inline: calc(-1 * var(--gutter)); padding: 4px var(--gutter) 10px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  html[data-variant="market"] .dish-tabs .dish-card { scroll-snap-align: start; }
+}
+
+/* ---------- Feature panels: rounded inset cards on sage / sky / blush, a rounded photo on one side. */
+html[data-variant="market"] .feature { width: min(100% - 2 * var(--gutter), var(--wrap)); margin: clamp(14px, 2.4vw, 28px) auto; padding-block: clamp(22px, 4.4vw, 64px); border-radius: clamp(24px, 3vw, 36px); background: var(--t-sage); color: var(--t-ink); }
+html[data-variant="market"] .feature.tone-b { background: var(--t-sky); }
+html[data-variant="market"] .feature.tone-c { background: var(--t-blush); }
+html[data-variant="market"] .feature .feature-grid { width: auto; margin: 0; padding-inline: clamp(20px, 4.6vw, 72px); gap: clamp(22px, 4.4vw, 72px); }
+html[data-variant="market"] .feature h2 { margin: 0 0 .45em; font-size: clamp(2rem, 3.6vw, 3.05rem); color: var(--t-ink); text-wrap: balance; }
+html[data-variant="market"] .feature-copy p { font-size: clamp(1.02rem, 1.2vw, 1.1rem); line-height: 1.65; text-wrap: pretty; }
+html[data-variant="market"] .feature-copy a { color: var(--t-rust-ink); }
+html[data-variant="market"] .feature-actions { gap: 10px; margin-top: 24px; }
+html[data-variant="market"] .feature-media { order: -1; aspect-ratio: 4 / 3; border-radius: clamp(18px, 2.4vw, 28px); }
+@media (min-width: 900px) {
+  html[data-variant="market"] .feature-media { order: 0; aspect-ratio: 5 / 4; }
+  html[data-variant="market"] .feature.reverse .feature-media { order: -1; }
+}
+/* No photo: a centred text card. */
+html[data-variant="market"] .feature.no-photo .feature-text { text-align: center; }
+html[data-variant="market"] .feature.no-photo .feature-actions { justify-content: center; }
+html[data-variant="market"] .feature.no-photo .feature-copy p { margin-inline: auto; max-width: 60ch; }
+@media (max-width: 599px) {
+  html[data-variant="market"] .feature-actions .btn { flex: 1 1 auto; }
+  html[data-variant="market"] .feature.no-photo .feature-text { text-align: left; }
+}
+
+/* ---------- Menu accordion: a pale blue band, big caps heading, rounded rows (closed light blue, open white)
+   with chevrons, the yellow pill inside the open one, a big rounded photo on the right. */
+html[data-variant="market"] .menu-acc { margin-top: clamp(28px, 4vw, 56px); padding-block: clamp(48px, 7vw, 100px); background: var(--t-blue); color: var(--t-ink); }
+html[data-variant="market"] .menu-acc h2 { font: 900 clamp(2.05rem, 4.4vw, 3.5rem)/1 var(--font-body); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; }
+html[data-variant="market"] .menu-acc .section-head { margin-bottom: clamp(20px, 3vw, 36px); }
+html[data-variant="market"] .menu-acc-grid { gap: clamp(24px, 3vw, 40px); }
+@media (min-width: 900px) {
+  html[data-variant="market"] .menu-acc:not(.no-photo) .menu-acc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); align-items: stretch; }
+}
+html[data-variant="market"] .acc-list { gap: 12px; }
+html[data-variant="market"] .acc { border-radius: 18px; background: var(--t-blue-soft); transition: background .2s, box-shadow .2s; }
+html[data-variant="market"] .acc[open] { background: var(--t-white); box-shadow: 0 10px 28px rgb(31 52 92 / .1); }
+html[data-variant="market"] .acc summary { min-height: 68px; padding: 14px 22px; border-radius: 18px; font: 800 clamp(1.06rem, 1.3vw, 1.16rem)/1.3 var(--font-body); }
+html[data-variant="market"] .acc summary::after { width: 10px; height: 10px; border-width: 0 2.5px 2.5px 0; margin-top: -4px; }
+html[data-variant="market"] .acc[open] summary::after { margin-top: 6px; }
+html[data-variant="market"] .acc summary:hover .acc-name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+html[data-variant="market"] .acc summary:focus-visible { outline: 3px solid var(--t-rust-ink); outline-offset: 2px; }
+html[data-variant="market"] .acc-count { opacity: 1; color: var(--t-muted); font-weight: 600; font-size: .9rem; }
+html[data-variant="market"] .acc-body { padding: 0 22px 24px; }
+html[data-variant="market"] .acc:not([open]) > .acc-body { display: none; }  /* a closed row's body isn't rendered anyway; this keeps its links out of focus/size audits */
+html[data-variant="market"] .acc-body > p { margin: 0 0 8px; color: var(--t-muted); font-size: .96rem; }
+html[data-variant="market"] .acc-items li { padding: 9px 0; border-bottom: 1px solid var(--t-line); font-size: .98rem; }
+html[data-variant="market"] .acc-items li:last-child { border-bottom: 0; }
+html[data-variant="market"] .acc-price { font-weight: 700; white-space: nowrap; }
+html[data-variant="market"] .acc-body .btn.btn-pill { margin-top: 14px; background: var(--t-yellow); border-color: var(--t-ink); color: var(--t-ink); }
+html[data-variant="market"] .acc-body .btn.btn-pill:hover { background: var(--t-yellow-hover); color: var(--t-ink); }
+html[data-variant="market"] .menu-acc-media { aspect-ratio: 4 / 3; border-radius: clamp(22px, 2.6vw, 32px); }
+@media (min-width: 900px) { html[data-variant="market"] .menu-acc-media { aspect-ratio: auto; min-height: 420px; } }
+
+/* ---------- Photo cards: a warm straw band, a serif heading, tall rounded photo cards with a lime label tag
+   at the bottom-left. A card without a photo gets a pastel tile with a "plate" circle. */
+html[data-variant="market"] .photo-cards { padding-block: clamp(48px, 7vw, 100px); background: var(--t-straw); color: var(--t-ink); }
+html[data-variant="market"] .photo-cards h2 { margin: 0 0 clamp(20px, 3vw, 36px); font-size: clamp(2.1rem, 4.2vw, 3.5rem); text-wrap: balance; }
+html[data-variant="market"] .photo-card-grid { gap: clamp(14px, 1.6vw, 22px); }
+@media (min-width: 640px) { html[data-variant="market"] .photo-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+html[data-variant="market"] .photo-card a { border-radius: clamp(20px, 2.2vw, 28px); background: var(--t-sage); }
+html[data-variant="market"] .photo-card a:focus-visible { outline: 3px solid var(--t-ink); outline-offset: 4px; }
+html[data-variant="market"] .photo-card-tile { background: radial-gradient(circle at 50% 44%, rgb(255 255 255 / .55) 0 26%, rgb(255 255 255 / 0) calc(26% + 1px)), var(--tile, var(--t-sage)); }
+html[data-variant="market"] .photo-card.pc2 .photo-card-tile { --tile: var(--t-sky); }
+html[data-variant="market"] .photo-card.pc3 .photo-card-tile { --tile: var(--t-blush); }
+html[data-variant="market"] .photo-card-tag { left: 14px; bottom: 14px; padding: 3px 10px 4px; border-radius: 3px; background: var(--t-lime); color: var(--t-ink); font: 600 clamp(1.05rem, 1.4vw, 1.22rem)/1.3 var(--font-body); }
+html[data-variant="market"] .photo-card a:hover .photo-card-tag { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html[data-variant="market"] .photo-card-line { margin: 12px 4px 0; color: var(--t-ink); font-weight: 600; }
+@media (max-width: 639px) {
+  html[data-variant="market"] .photo-card-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 74%; gap: 12px; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 6px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  html[data-variant="market"] .photo-card { scroll-snap-align: start; }
+}
+
+/* ---------- Text cards: white rounded cards. */
+html[data-variant="market"] .text-cards { padding-block: clamp(20px, 3.4vw, 44px); }
+html[data-variant="market"] .text-card-grid { gap: clamp(14px, 2vw, 24px); }
+html[data-variant="market"] .text-card { padding: clamp(26px, 3.4vw, 44px); border-radius: var(--t-radius); background: var(--t-white); box-shadow: var(--t-shadow); }
+html[data-variant="market"] .text-card h2 { margin-bottom: .5em; font-size: clamp(1.65rem, 2.6vw, 2.2rem); text-wrap: balance; }
+html[data-variant="market"] .text-card p { margin-bottom: 0; line-height: 1.65; }
+
+/* ---------- Page links: outlined pills (the " · " separators between them turn transparent and become the gap). */
+html[data-variant="market"] .page-links { padding-block: clamp(24px, 4vw, 48px) var(--section); }
+html[data-variant="market"] .page-links p { margin: 0; color: transparent; }
+html[data-variant="market"] .page-links a { display: inline-flex; align-items: center; min-height: var(--tap); margin-block: 5px; padding: 0 22px; border: 2px solid var(--t-ink); border-radius: 999px; background: var(--t-white); color: var(--t-ink); font: 700 1rem/1.2 var(--font-body); text-decoration: none; transition: background .2s, color .2s; }
+html[data-variant="market"] .page-links a:hover { background: var(--t-ink); color: var(--t-cream); }
+
+/* Gentle zoom on card photos (motion only when the visitor allows it). */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-variant="market"] .dish-media img, html[data-variant="market"] .photo-card img { transition: transform .5s ease; }
+  html[data-variant="market"] .dish-card:hover .dish-media img, html[data-variant="market"] .photo-card a:hover img { transform: scale(1.04); }
+}
+
+/* ---------- Mobile action bar: three pills on white, Order in yellow. */
+html[data-variant="market"] .action-bar { gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: var(--t-white); border-top: 1px solid var(--t-line); box-shadow: 0 -6px 20px rgb(43 36 32 / .08); }
+html[data-variant="market"] .action-bar a { min-height: var(--tap); border: 2px solid var(--t-ink); border-radius: 999px; background: var(--t-white); color: var(--t-ink); font: 700 .95rem var(--font-body); letter-spacing: 0; text-transform: none; }
+html[data-variant="market"] .action-bar a.primary { background: var(--t-yellow); border-color: var(--t-yellow); color: var(--t-ink); }
+
+/* ---------- Motion */
+html[data-variant="market"] .btn:hover { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) {
+  html[data-variant="market"] .btn, html[data-variant="market"] .footer-buttons a, html[data-variant="market"] .panel img.cover { transition: none; }
+  html[data-variant="market"] .btn:hover, html[data-variant="market"] .panel:hover img.cover { transform: none; }
+}

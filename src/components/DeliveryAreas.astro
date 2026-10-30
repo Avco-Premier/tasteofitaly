@@ -1,0 +1,37 @@
+---
+import { servedAreas, areaSlug } from '../lib/areas';
+import { biz } from '../lib/site';
+
+// Every confirmed neighborhood and zip code on one page: the long tail of "{category} {zip}" and
+// "{dish} {neighborhood}" searches is served here, without thin per-town pages.
+interface Props { heading?: string; service?: string }
+const { heading, service } = Astro.props;
+const rows = servedAreas.filter((a) => !service || a.services.includes(service));
+const onlyCatering = rows.length > 0 && rows.every((a) => a.services.length === 1 && a.services[0] === 'catering');
+const title = heading ?? (onlyCatering ? 'Catering areas' : 'Areas we serve');
+// Shared by every row (one service, the same terms): said once in the caption, not repeated down the table.
+const oneService = !onlyCatering && new Set(rows.map((a) => a.services.join(' & '))).size === 1;
+const terms = new Set(rows.map((a) => a.terms || ''));
+const sharedTerms = terms.size === 1 ? [...terms][0] : null;
+const street = biz.address.street.replace(/\.$/, '');
+---
+{rows.length > 0 && (
+  <section class="areas" aria-labelledby="areas-h">
+    <h2 id="areas-h">{title}</h2>
+    <table class="areas-table">
+      <caption>{oneService ? `${rows[0].services.join(' & ').replace(/^./, (c) => c.toUpperCase())} areas` : 'Areas'} and distances from {street}.{sharedTerms ? ` Terms for every area: ${sharedTerms}.` : ''}</caption>
+      <thead><tr><th scope="col">Area</th><th scope="col">Zip codes</th><th scope="col">Distance from us</th>{!onlyCatering && !oneService && <th scope="col">Available</th>}{!sharedTerms && <th scope="col">Terms</th>}</tr></thead>
+      <tbody>
+        {rows.map((a) => (
+          <tr>
+            <th scope="row">{a.page ? <a href={`/areas/${areaSlug(a.name)}/`}>{a.name}</a> : a.name}</th>
+            <td class="zip">{a.zips.join(', ')}</td>
+            <td class="dist">{a.distanceMi} mi</td>
+            {!onlyCatering && !oneService && <td>{a.services.join(' & ')}</td>}
+            {!sharedTerms && <td>{a.terms || '—'}</td>}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+)}

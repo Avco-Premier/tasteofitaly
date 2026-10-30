@@ -1,0 +1,43 @@
+---
+import Img from '../Img.astro';
+import { biz, serviceBits, telHref } from '../../lib/site';
+import { photoPool } from '../../lib/picks';
+
+// Tall photo cards, one per way to get the food (dine in, pickup, delivery, catering), each with a label tag on the
+// photo, one line of real terms under it and a link to act on it. Cards without a photo to spare get a colour tile.
+interface Props { heading?: string; pool?: ReturnType<typeof photoPool> }
+const { heading, pool = photoPool() } = Astro.props;
+const s = biz.services as Record<string, boolean>;
+const bits = serviceBits();
+const order = biz.ordering.url;
+const res = (biz as any).reservations?.url as string | undefined;
+const cards = [
+  s.dineIn && { label: 'Dine in', line: s.reservations && res ? 'Reservations taken online' : `Tables at ${biz.address.street}`,
+    href: s.reservations && res ? res : '/visit/', photo: pool.take(['interior', 'exterior']) },
+  s.takeout && { label: 'Pickup', line: order ? 'Order ahead online, then pick it up' : `Call ${biz.phoneDisplay} to order ahead`,
+    href: order || telHref(), photo: pool.take(['dish']) },
+  s.delivery && { label: 'Delivery', line: bits.find((b) => /^Delivery/i.test(b))?.replace(/^Delivery/, 'Delivered') ?? 'Delivered to your door',
+    href: order || telHref(), photo: pool.take(['dish']) },
+  s.catering && { label: 'Catering', line: 'Group orders and events', href: '/catering/', photo: pool.take(['catering', 'dish']) },
+].filter(Boolean).slice(0, 3) as { label: string; line: string; href: string; photo?: ReturnType<typeof pool.take> }[];
+const join = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1].toLowerCase()}` : xs[0] ?? '');
+const title = heading ?? join(cards.map((c, i) => (i ? c.label.toLowerCase() : c.label)));
+---
+{cards.length >= 2 && (
+  <section class="photo-cards" aria-labelledby="ways-h">
+    <div class="wrap">
+      <h2 id="ways-h">{title}</h2>
+      <ul class="photo-card-grid plain">
+        {cards.map((c, i) => (
+          <li class:list={['photo-card', `pc${i + 1}`, { 'no-photo': !c.photo }]}>
+            <a href={c.href} rel={c.href.startsWith('http') ? 'noopener' : undefined}>
+              {c.photo ? <Img photo={c.photo} decorative sizes="(min-width: 900px) 31vw, 90vw" widths={[400, 640, 900]} /> : <span class="photo-card-tile" aria-hidden="true"></span>}
+              <span class="photo-card-tag">{c.label}</span>
+            </a>
+            <p class="photo-card-line">{c.line}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

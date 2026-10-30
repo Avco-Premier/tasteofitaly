@@ -1,0 +1,65 @@
+---
+import Img from '../Img.astro';
+import { biz } from '../../lib/site';
+import { slug, type MenuItem } from '../../lib/menu';
+import { dishPhoto, heroSlides } from '../../lib/photos';
+import { signatureDishes, topSections, sectionDishes, priceLabel, shortDesc } from '../../lib/picks';
+
+// Dish cards, optionally in tabs: the signature dishes first, then the first menu sections. Every card is a real menu
+// item with its real price, linked to its row on /menu/. Dishes without a photo (or whose photo
+// is the hero) get a colour tile with their initial.
+// The tabs are CSS-only radios (arrow keys move between them); every panel is in the HTML, so all dishes are crawlable.
+interface Props { heading: string; tag?: string; tabs?: number; max?: number; id?: string }
+const { heading, tag, tabs = 3, max = 3, id = 'dishes' } = Astro.props;
+const hero = heroSlides()[0];
+const sig = signatureDishes().slice(0, max);
+const seen = new Set(sig.map((i) => i.name));
+const panels: { label: string; items: MenuItem[] }[] = [];
+if (sig.length) panels.push({ label: 'Favorites', items: sig });
+for (const s of topSections(8, max)) {
+  if (panels.length >= tabs) break;
+  const items = sectionDishes(s, max, seen);
+  if (items.length < Math.min(max, 2)) continue;
+  items.forEach((i) => seen.add(i.name));
+  panels.push({ label: s.name, items });
+}
+const order = biz.ordering.url;
+---
+{panels.length > 0 && (
+  <section class:list={['dish-tabs', { tabbed: panels.length > 1 }]} aria-labelledby={`${id}-h`}>
+    <div class="wrap">
+      <header class="section-head">
+        {tag && <span class="tag">{tag}</span>}
+        <h2 id={`${id}-h`}>{heading}</h2>
+      </header>
+      {panels.length > 1 && (
+        <div class="tab-list" role="radiogroup" aria-label="Show dishes from">
+          {panels.map((p, i) => <><input type="radio" class="tab-radio sr-only" name={`${id}-tab`} id={`${id}-t${i}`} checked={i === 0} /><label for={`${id}-t${i}`}>{p.label}</label></>)}
+        </div>
+      )}
+      {panels.map((p) => (
+        <ul class="tab-panel dish-grid plain" aria-label={panels.length > 1 ? p.label : undefined}>
+          {p.items.map((item) => {
+            const photo = dishPhoto(item.name) === hero ? undefined : dishPhoto(item.name);  // not the hero photo again
+            const desc = shortDesc(item.description);
+            return (
+              <li class="dish-card">
+                <a class="dish-media" href={`/menu/#${slug(item.name)}`} tabindex="-1" aria-hidden="true">
+                  {photo ? <Img photo={photo} decorative sizes="(min-width: 900px) 30vw, (min-width: 600px) 45vw, 90vw" widths={[400, 640, 900]} />
+                         : <span class="dish-tile">{item.name.charAt(0)}</span>}
+                </a>
+                <h3 class="dish-name"><a href={`/menu/#${slug(item.name)}`}>{item.name}</a></h3>
+                {desc && <p class="dish-desc">{desc}</p>}
+                <p class="dish-foot">
+                  <span class="dish-price">{priceLabel(item)}</span>
+                  {order && <a class="btn btn-pill" href={order} rel="noopener" aria-label={`Order ${item.name}`}>Order</a>}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      ))}
+      <p class="section-more"><a href="/menu/">See the full menu <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+)}

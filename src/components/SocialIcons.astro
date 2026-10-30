@@ -1,0 +1,19 @@
+---
+import { biz } from '../lib/site';
+import { socialLinks } from '../lib/social';
+
+// Round icon links to the restaurant's profiles (Instagram, Facebook, Yelp, Tripadvisor, TikTok, X): only the ones
+// with a link. Used in the footer and the social band; each look colours them through currentColor.
+interface Props { class?: string; size?: number }
+const { class: cls, size = 20 } = Astro.props;
+const links = socialLinks();
+---
+{links.length > 0 && (
+  <ul class:list={['social-icons plain', cls]}>
+    {links.map((l) => (
+      <li><a class={`social-icon social-${l.key}`} href={l.url} rel="noopener" aria-label={`${biz.name} on ${l.label}`}>
+        <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true"><path fill="currentColor" d={l.path} /></svg>
+      </a></li>
+    ))}
+  </ul>
+)}

@@ -1,0 +1,22 @@
+---
+import { biz } from '../lib/site';
+
+// Location-page facts (parking, transit, landmarks, accessibility, arrival tips) from site.json business.visit.
+const v = ((biz as any).visit ?? {}) as Record<string, string>;
+const rows = [
+  ['Landmarks', v.landmarks],
+  ['Parking', v.parking],
+  ['Transit', v.transit],
+  ['Accessibility', v.accessibility],
+  ['Best time to come', v.arrival],
+  ['Pickup', v.pickup],
+].filter(([, val]) => val) as [string, string][];
+---
+{rows.length > 0 && (
+  <section class="getting-here" aria-labelledby="getting-here-h">
+    <h2 id="getting-here-h">Getting here</h2>
+    <dl class="fact-list">
+      {rows.map(([k, val]) => <div><dt>{k}</dt><dd>{val}</dd></div>)}
+    </dl>
+  </section>
+)}

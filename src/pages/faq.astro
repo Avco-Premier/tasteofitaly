@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import { frontmatter as fm, Content } from '../copy/faq.md';
+import { biz, telHref } from '../lib/site';
+import { pageHero } from '../lib/photos';
+---
+<Base kind="faq" title={fm.title} description={fm.description} crumbs={[{ name: 'FAQ', path: '/faq/' }]}>
+  <PageHero h1={fm.h1} lede={fm.lede} photo={pageHero('faq')} crumbs={[{ name: 'FAQ', path: '/faq/' }]} />
+  <section class="section">
+    <div class="narrow">
+      <div class="prose story"><Content /></div>
+      <FaqList />
+      <div class="green ask-box">
+        <p>Still have a question?</p>
+        <p class="actions center">
+          <a class="btn btn-cream" href={telHref()}>Call {biz.phoneDisplay}</a>
+          {biz.email && <a class="btn btn-ghost-light" href={`mailto:${biz.email}`}>Email us</a>}
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

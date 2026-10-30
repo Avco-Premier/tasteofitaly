@@ -1,0 +1,17 @@
+---
+import { biz, ratingLine } from '../lib/site';
+
+// One factual line of proof under the hero: the Google rating, awards and press — what site.json holds.
+// It answers "best X in Y" searches with evidence instead of an unbacked "best".
+const rating = ratingLine();
+const parts: string[] = [];
+for (const a of (biz.awards as { name: string; issuer: string; year: string }[]).slice(0, 2)) parts.push(`${a.name}, ${a.issuer} ${a.year}`.trim());
+const press = (biz.press as { outlet: string }[]).map((p) => p.outlet);
+if (press.length) parts.push(`Featured in ${press.slice(0, 2).join(' and ')}`);
+---
+{(rating || parts.length > 0) && (
+  <p class="proof">
+    {rating && (rating.url ? <a href={rating.url} rel="noopener">{rating.text} on Google</a> : <span>{rating.text} on Google</span>)}
+    {rating && parts.length > 0 && ' · '}{parts.join(' · ')}
+  </p>
+)}

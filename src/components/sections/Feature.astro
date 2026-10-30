@@ -1,0 +1,22 @@
+---
+import Img from '../Img.astro';
+import type { Photo } from '../../lib/photos';
+import { accent } from '../../lib/blocks';
+
+// A split panel: heading and copy on one side, a photo on the other (or a centred text panel without one).
+// `html` is the home copy block (lib/blocks.ts), marked data-copy so the SEO gate reads it as page copy.
+// The slot holds the panel's buttons. `tone` picks one of the theme's panel colours; `shape` a theme's photo shape.
+interface Props { id: string; heading?: string; tag?: string; html: string; photo?: Photo; reverse?: boolean; tone?: string; shape?: string; center?: boolean; class?: string }
+const { id, heading, tag, html, photo, reverse = false, tone, shape, center = false, class: cls } = Astro.props;
+---
+<section class:list={['feature', tone && `tone-${tone}`, shape && `shape-${shape}`, { reverse, center, 'no-photo': !photo }, cls]} aria-labelledby={heading ? `${id}-h` : undefined} id={id}>
+  <div class="wrap feature-grid">
+    <div class="feature-text">
+      {tag && <span class="tag">{tag}</span>}
+      {heading && <h2 id={`${id}-h`} set:html={accent(heading)} />}
+      <div class="feature-copy" data-copy set:html={html} />
+      {Astro.slots.has('default') && <div class="feature-actions"><slot /></div>}
+    </div>
+    {photo && <div class="feature-media"><Img photo={photo} sizes="(min-width: 900px) 45vw, 100vw" widths={[480, 800, 1200]} /></div>}
+  </div>
+</section>

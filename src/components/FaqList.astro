@@ -1,0 +1,47 @@
+---
+import { biz } from '../lib/site';
+import { slug } from '../lib/menu';
+
+// Full mode: every question in an accordion (<details>: the answer is in the HTML, so crawlers and the
+// FAQPage schema see the same text; no JS). Questions are grouped by topic, one card per topic.
+// Teaser mode: questions only, linking to their answers on /faq/, so no answer is duplicated across pages.
+interface Props { limit?: number; heading?: string; teaser?: boolean }
+const { limit, heading, teaser = false } = Astro.props;
+const faq = (biz.faq as { q: string; a: string; topic?: string }[]).slice(0, limit ?? undefined);
+// site.json topics win; otherwise sort by what the question asks (checked in this order).
+const RULES: [string, RegExp][] = [
+  ['Catering & events', /\bcater|\bevent|\bpart(y|ies)\b|\bprivate\b|\bgroups?\b/i],
+  ['Ordering & delivery', /\border|\bdeliver|\bpick ?up|\btake ?out|\breserv|\bwalk-?in|\bpay|\bgift/i],
+  ['Hours & location', /\bhours?\b|\bopen\b|\bclose|\bholiday|\bwhere\b|\bpark|\blocat|\baddress|\bdirection|\btransit|\bwheelchair|\baccessib/i],
+  ['Menu & dietary', /\bmenu|\bserve|\bvegan|\bvegetarian|\bgluten|\ballerg|\bkids?\b|\bprice|\bspecial|\bdish|\bdrink|\bbar\b|\bhappy hour/i],
+];
+const ORDER = ['Hours & location', 'Menu & dietary', 'Ordering & delivery', 'Catering & events', 'More questions'];
+const topicOf = (f: { q: string; topic?: string }) => f.topic || RULES.find(([, re]) => re.test(f.q))?.[0] || 'More questions';
+const topics = [...new Set(faq.map(topicOf))].sort((a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99));
+---
+{faq.length > 0 && (teaser ? (
+  <section class="faq" aria-labelledby="faq-teaser-h">
+    <h2 id="faq-teaser-h" class="caps-h">{heading ?? 'Good to know'}</h2>
+    <ul class="faq-teaser">
+      {faq.map((f) => <li><a href={`/faq/#${slug(f.q)}`}>{f.q}</a></li>)}
+      <li><a href="/faq/">All questions answered →</a></li>
+    </ul>
+  </section>
+) : (
+  <section class="faq" aria-label={heading ?? 'Frequently asked questions'}>
+    <div class="faq-groups">
+      {topics.map((t, ti) => (
+        <div class="faq-group card" id={`topic-${slug(t)}`}>
+          <h2>{t}</h2>
+          {faq.filter((f) => topicOf(f) === t).map((f, i) => (
+            <details class="faq-item" open={ti === 0 && i === 0}>
+              <summary><h3>{f.q}</h3></summary>
+              {/* The id sits inside <details>: following /faq/#question opens the answer in current browsers. */}
+              <div id={slug(f.q)}><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+))}

@@ -1,0 +1,16 @@
+---
+import SocialIcons from '../SocialIcons.astro';
+import { socialLinks } from '../../lib/social';
+
+// "Follow us": round icon links to the restaurant's profiles. Renders only when site.json has at least one.
+interface Props { heading?: string }
+const { heading = 'Follow along' } = Astro.props;
+---
+{socialLinks().length > 0 && (
+  <section class="social-band" aria-labelledby="social-h">
+    <div class="wrap">
+      <h2 id="social-h">{heading}</h2>
+      <SocialIcons class="social-links" size={22} />
+    </div>
+  </section>
+)}

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { biz, telHref } from '../lib/site';
+---
+<Base kind="page" title={`Page not found | ${biz.name}`} description={`This page doesn't exist. Find the ${biz.name} menu, hours and directions here.`} noindex>
+  <PageHero h1="We couldn't find that page" lede="It may have moved when our website was updated.">
+    <p class="actions center">
+      <a class="btn btn-cream" href="/menu/">See the menu</a>
+      <a class="btn btn-ghost-light" href="/visit/">Hours &amp; directions</a>
+      <a class="btn btn-ghost-light" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </p>
+  </PageHero>
+</Base>

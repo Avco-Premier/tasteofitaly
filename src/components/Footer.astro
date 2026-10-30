@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import Wordmark from './Wordmark.astro';
+import AppBadges from './AppBadges.astro';
+import SocialIcons from './SocialIcons.astro';
+import { socialLinks } from '../lib/social';
+import { biz, site, addressLine, telHref, hoursSummary, ratingLine, NAV_LABELS } from '../lib/site';
+import { brandImage } from '../lib/photos';
+
+// Same rule as the header (the footer is the same brand color): the logo image when site.headerLogo resolved to "image".
+const logo = brandImage(biz.logo);
+const useLogo = Boolean(logo) && (site as any).headerLogo === 'image';
+
+const social = Object.entries(biz.social as Record<string, string>).filter(([, url]) => url && url.startsWith('http'));
+const SOCIAL_LABELS: Record<string, string> = {
+  instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', yelp: 'Yelp', tripadvisor: 'Tripadvisor', x: 'X',
+};
+const a = biz.address;
+const reviewUrl = biz.google.reviewUrl?.startsWith('http') ? biz.google.reviewUrl : '';
+const iconKeys = new Set(socialLinks().map((l) => l.key));  // these show as icons (SocialIcons); others stay text links
+const findUs = [...social.filter(([k]) => !iconKeys.has(k)).map(([k, url]) => ({ label: SOCIAL_LABELS[k] ?? k, url })),
+  ...(biz.google.mapsUrl?.startsWith('http') ? [{ label: 'Google Maps', url: biz.google.mapsUrl }] : []),
+  ...(biz.healthInspectionUrl ? [{ label: 'Health inspection', url: biz.healthInspectionUrl }] : [])];
+const year = new Date().getFullYear();
+const rating = ratingLine();
+const hasApp = [biz.apps.iosUrl, biz.apps.androidUrl].some((u) => u?.startsWith('https://'));
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <ul class="footer-buttons">
+      {biz.ordering.url && <li><a href={biz.ordering.url} rel="noopener">{biz.ordering.label || 'Order online'}</a></li>}
+      {site.nav.map((k) => <li><a href={`/${k}/`}>{NAV_LABELS[k] ?? k}</a></li>)}
+    </ul>
+    <div class="footer-cols">
+      <section aria-labelledby="f-visit">
+        <h2 id="f-visit">Location</h2>
+        <p><a href={biz.google.mapsUrl} rel="noopener" aria-label={`${addressLine()} on Google Maps`}>{a.street}<br />{a.locality}, {a.region} {a.postalCode}</a></p>
+      </section>
+      <section aria-labelledby="f-hours">
+        <h2 id="f-hours">Hours</h2>
+        {hoursSummary().map((h) => <p>{h.label}<br />{h.text}</p>)}
+      </section>
+      <section aria-labelledby="f-contact">
+        {(findUs.length > 0 || iconKeys.size > 0) && <>
+          <h2 id="f-find">Find us on…</h2>
+          <SocialIcons class="footer-social" />
+          {findUs.length > 0 && <p class="footer-links">{findUs.map((f) => <a href={f.url} rel="noopener">{f.label}</a>)}</p>}
+          {rating && rating.url && <p><a href={rating.url} rel="noopener">{rating.text} on Google</a></p>}
+          {reviewUrl && <p><a href={reviewUrl} rel="noopener">Review us on Google</a></p>}
+        </>}
+        <h2 id="f-contact" class={findUs.length || iconKeys.size ? 'later' : undefined}>Contact us</h2>
+        <p><a href={telHref()}>{biz.phoneDisplay}</a></p>
+        {biz.email && <p><a href={`mailto:${biz.email}`}>{biz.email}</a></p>}
+      </section>
+      <section aria-labelledby="f-app" class="footer-app">
+        <h2 id="f-app">{hasApp ? 'Get the app' : 'App coming soon'}</h2>
+        <AppBadges label={false} />
+      </section>
+    </div>
+    <div class="footer-base">
+      {useLogo && logo ? <a class="footer-logo" href="/" aria-label={`${biz.name} home`}><Image src={logo} alt={biz.name} height={88} loading="lazy" /></a> : <Wordmark inline />}
+      <nav aria-label="Footer">
+        <span>© {year} {biz.name}</span>
+        <a href="/faq/">FAQ</a>
+        <a href="/privacy/">Privacy</a>
+      </nav>
+    </div>
+  </div>
+  <p class="footer-mark" aria-hidden="true">{biz.name}</p>
+</footer>

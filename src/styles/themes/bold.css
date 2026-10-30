@@ -1,0 +1,700 @@
+/* bold theme: overrides on top of global.css. Scoped to html[data-variant="bold"].
+   Loud, poster-like: bright blue fields, deep navy ink, a giant wide wordmark, tall Anton headlines,
+   outlined pill buttons with a hard offset shadow, colour-block cards. Original CSS; style inspiration only.
+   Contrast notes: navy on --t-blue 4.8:1, on cream 14:1, on green 7.1:1, on orange 7.7:1; navy on red 4.0:1 (large text only).
+   White text never sits on blue (3.3:1). */
+@font-face { font-family: 'Anton'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/anton-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Archivo'; font-style: normal; font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; src: url('./fonts/archivo-latin.woff2') format('woff2'); }
+
+/* ---------- Tokens. ":root" adds specificity so the theme palette beats the client's inline html:root{--brand…}. */
+html[data-variant="bold"]:root {
+  --t-blue: #4a8bff;
+  --t-navy: #1b1464;
+  --t-navy-2: #2d2496;
+  --t-cream: #f4f1ea;
+  --t-white: #ffffff;
+  --t-orange: #ff9f1c;
+  --t-red: #ef3b24;
+  --t-green: #4cc38a;
+  --t-muted: #4a4775;          /* 7.6:1 on cream, 8.6:1 on white */
+  --t-on-navy: #d6d4f7;        /* soft text on navy */
+  --t-line: rgb(27 20 100 / .2);
+  --t-shadow: 4px 4px 0 var(--t-navy);
+  --t-wide: 125%;
+  --t-ui: 'Archivo', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+
+  --bg: var(--t-cream);
+  --surface: var(--t-white);
+  --ink: var(--t-navy);
+  --muted: var(--t-muted);
+  --brand: var(--t-navy);
+  --brand-2: var(--t-navy-2);
+  --brand-ink: var(--t-white);
+  --on-brand-muted: var(--t-on-navy);
+  --on-brand-soft: var(--t-on-navy);
+  --line: var(--t-line);
+  --line-warm: var(--t-line);
+  --sand: #dde6fb;
+  --night: var(--t-navy);
+  --font-body: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --shadow: none;
+}
+
+html[data-variant="bold"] body { color: var(--t-navy); font: 400 1.0625rem/1.6 var(--font-body); }
+html[data-variant="bold"] h1,
+html[data-variant="bold"] h2,
+html[data-variant="bold"] h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.06; letter-spacing: .005em; }
+html[data-variant="bold"] a { color: var(--t-navy); }
+html[data-variant="bold"] a:hover { color: var(--t-navy-2); }
+/* Visually hidden text: same 1px box and clip as global.css; overflow: clip (with hidden as the fallback) clips without making a scroll box. */
+html[data-variant="bold"] .sr-only { overflow: hidden; overflow: clip; }
+@media (max-width: 640px) { html[data-variant="bold"] .areas-table thead { overflow: hidden; overflow: clip; } }
+html[data-variant="bold"] .kicker { font: 800 .8rem/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; text-transform: uppercase; }
+
+/* ---------- Buttons: outlined pills with a hard navy offset shadow. */
+html[data-variant="bold"] .btn {
+  min-height: var(--tap); padding: 12px 28px; border: 2px solid var(--t-navy); border-radius: 999px;
+  font: 800 .85rem/1.1 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase;
+  box-shadow: var(--t-shadow); transition: transform .15s, box-shadow .15s, background .2s, color .2s;
+}
+html[data-variant="bold"] .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--t-navy); }
+html[data-variant="bold"] .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--t-navy); }
+html[data-variant="bold"] .btn.btn-primary { background: var(--t-navy); border-color: var(--t-navy); color: var(--t-white); box-shadow: 4px 4px 0 var(--t-blue); }
+html[data-variant="bold"] .btn.btn-primary:hover { background: var(--t-navy-2); color: var(--t-white); box-shadow: 2px 2px 0 var(--t-blue); }
+html[data-variant="bold"] .btn.btn-cream { background: var(--t-white); border-color: var(--t-navy); color: var(--t-navy); }
+html[data-variant="bold"] .btn.btn-cream:hover { background: var(--t-cream); color: var(--t-navy); }
+html[data-variant="bold"] .btn.btn-ghost,
+html[data-variant="bold"] .btn.btn-ghost-light { background: transparent; border-color: var(--t-navy); color: var(--t-navy); }
+html[data-variant="bold"] .btn.btn-ghost:hover,
+html[data-variant="bold"] .btn.btn-ghost-light:hover { background: var(--t-white); color: var(--t-navy); }
+html[data-variant="bold"] a:focus-visible,
+html[data-variant="bold"] summary:focus-visible,
+html[data-variant="bold"] button:focus-visible,
+html[data-variant="bold"] label:focus-visible,
+html[data-variant="bold"] .btn:focus-visible,
+html[data-variant="bold"] [tabindex]:focus-visible { outline: 3px solid var(--t-navy); outline-offset: 3px; }
+
+/* ---------- Header: a blue bar, small wide-caps nav, white "order" pill. In the page flow on every width. */
+html[data-variant="bold"] .site-header { background: var(--t-blue); color: var(--t-navy); border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .site-header a { color: var(--t-navy); }
+html[data-variant="bold"] .header-row { min-height: 64px; }
+html[data-variant="bold"] .brand img { height: 48px; }
+html[data-variant="bold"] .wordmark { flex-direction: row; align-items: baseline; gap: .3em; color: var(--t-navy); font-family: var(--t-ui); font-weight: 900; font-stretch: var(--t-wide); text-transform: uppercase; line-height: 1; letter-spacing: -.01em; }
+html[data-variant="bold"] .wordmark .w1,
+html[data-variant="bold"] .wordmark .w2 { font-size: clamp(1rem, 4.6vw, 1.3rem); margin: 0; white-space: nowrap; }
+html[data-variant="bold"] .nav-toggle summary {
+  width: var(--tap); height: var(--tap); min-height: var(--tap); padding: 0; justify-content: center;
+  border: 2px solid var(--t-navy); border-radius: 50%; background: var(--t-white); color: var(--t-navy); box-shadow: 3px 3px 0 var(--t-navy);
+}
+html[data-variant="bold"] .nav-toggle[open] summary { background: var(--t-navy); color: var(--t-white); }
+html[data-variant="bold"] .nav-toggle:not([open]) > nav { display: none; }
+html[data-variant="bold"] .nav-toggle > nav { background: var(--t-blue); border-top: 2px solid var(--t-navy); border-bottom: 2px solid var(--t-navy); box-shadow: 0 10px 0 rgb(27 20 100 / .12); }
+html[data-variant="bold"] .nav-toggle nav a { color: var(--t-navy); font: 800 .95rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .02em; border-bottom: 1px solid rgb(27 20 100 / .3); }
+html[data-variant="bold"] .nav-desktop a[aria-current="page"],
+html[data-variant="bold"] .nav-toggle nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+
+@media (min-width: 960px) {
+  html[data-variant="bold"] header.site-header { position: sticky; inset: 0 auto auto auto; top: 0; background: var(--t-blue); text-shadow: none; animation: none; box-shadow: none; }
+  html[data-variant="bold"] .header-row { flex-direction: row; justify-content: flex-start; gap: 8px 28px; min-height: 76px; padding: 8px 0; }
+  html[data-variant="bold"] .brand { margin: 0; align-items: flex-start; }
+  html[data-variant="bold"] .brand img { height: 58px; }
+  html[data-variant="bold"] .wordmark .w1,
+  html[data-variant="bold"] .wordmark .w2 { font-size: 1.45rem; }
+  html[data-variant="bold"] .nav-desktop { margin-right: auto; justify-content: flex-start; gap: 4px 18px; }
+  html[data-variant="bold"] .nav-desktop ul { gap: 0 10px; justify-content: flex-start; }
+  html[data-variant="bold"] .nav-desktop a { padding: 0 8px; font: 800 .82rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; color: var(--t-navy); }
+  html[data-variant="bold"] .nav-desktop a:hover { color: var(--t-navy-2); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  html[data-variant="bold"] .header-phone { position: static; transform: none; font: 800 .82rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; }
+  html[data-variant="bold"] .header-order { position: static; transform: none; }
+}
+
+/* ---------- The giant wordmark band (home only, decorative): the name as wide as the page, navy on blue. */
+html[data-variant="bold"] .wordmark-band {
+  margin: 0; padding: clamp(10px, 1.4vw, 22px) var(--gutter) clamp(6px, 1vw, 16px);
+  background: var(--t-blue); color: var(--t-navy); border-bottom: 2px solid var(--t-navy);
+  font: 900 clamp(1.9rem, 9vw, 3.6rem)/.88 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: -.02em;
+  text-transform: uppercase; text-align: center; text-wrap: balance; overflow-wrap: break-word;
+}
+@media (min-width: 768px) { html[data-variant="bold"] .wordmark-band { font-size: min(6.3vw, 7rem); } }
+
+/* ---------- Home hero: split. Phones: photo on top, blue text panel below. 768px+: blue panel left, photo right, full height. */
+html[data-variant="bold"] .hero { display: flex; align-items: stretch; min-height: 0; background: var(--t-blue); color: var(--t-navy); }
+html[data-variant="bold"] .hero::before { display: none; }
+html[data-variant="bold"] .hero .slides { inset: 0 0 auto 0; height: min(84vw, 560px); border-bottom: 2px solid var(--t-navy); background: var(--t-navy); }
+html[data-variant="bold"] .hero-inner {
+  width: 100%; margin: 0; padding: calc(min(84vw, 560px) + 28px) var(--gutter) 40px;
+  align-items: flex-start; justify-content: center; text-align: left; gap: 14px;
+}
+html[data-variant="bold"] .hero.no-photo .hero-inner { padding-top: clamp(40px, 6vw, 80px); }
+html[data-variant="bold"] .hero h1 { text-shadow: none; }
+html[data-variant="bold"] .hero-title { align-items: flex-start; gap: 12px; }
+html[data-variant="bold"] .hero-title .hero-name,
+html[data-variant="bold"] .hero-title .hero-name.long { font: 800 clamp(.82rem, 1.1vw, .95rem)/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .05em; text-transform: uppercase; }
+html[data-variant="bold"] .hero-title .hero-what { font: 400 clamp(2.8rem, 13vw, 4.6rem)/1.04 var(--font-display); letter-spacing: .005em; text-transform: none; }
+html[data-variant="bold"] .hero .lede { font-weight: 500; font-size: clamp(1rem, 1.4vw, 1.12rem); max-width: 46ch; }
+html[data-variant="bold"] .hero a:not(.btn),
+html[data-variant="bold"] .page-hero a:not(.btn) { color: var(--t-navy); }
+html[data-variant="bold"] .proof,
+html[data-variant="bold"] .hero .proof,
+html[data-variant="bold"] .page-hero .proof { font-style: normal; font-weight: 700; }
+html[data-variant="bold"] .hero .actions,
+html[data-variant="bold"] .page-hero .actions { justify-content: flex-start; margin: .5rem 0 0; gap: 14px 16px; }
+html[data-variant="bold"] .pause-toggle { border-radius: 50%; background: var(--t-navy); gap: 5px; }
+html[data-variant="bold"] .pause-toggle span { width: 6px; height: 18px; background: var(--t-white); }
+html[data-variant="bold"] #hero-pause:checked + .pause-toggle span:first-child { border-top-width: 10px; border-bottom-width: 10px; border-left: 15px solid var(--t-white); margin-left: 4px; }
+html[data-variant="bold"] #hero-pause:focus-visible + .pause-toggle { outline-color: var(--t-white); box-shadow: 0 0 0 6px var(--t-navy); }
+
+@media (min-width: 768px) {
+  html[data-variant="bold"] .hero { min-height: clamp(460px, 44vw, 680px); }
+  html[data-variant="bold"] .hero .slides { inset: 0 0 0 max(42%, 340px); height: auto; border-bottom: 0; border-left: 2px solid var(--t-navy); }
+  html[data-variant="bold"] .hero-inner { width: max(42%, 340px); flex: none; padding: 48px clamp(24px, 3vw, 56px) 48px max(var(--gutter), (100vw - var(--wrap)) / 2); }
+  html[data-variant="bold"] .hero.no-photo .hero-inner { width: 100%; }
+  html[data-variant="bold"] .hero-title .hero-what { font-size: clamp(3rem, 5.4vw, 6.2rem); }
+  html[data-variant="bold"] .pause-toggle { left: auto; right: 20px; bottom: 20px; top: auto; }
+}
+/* Desktop: a wider text panel and slimmer pills keep the three hero actions on one row. */
+@media (min-width: 1200px) {
+  html[data-variant="bold"] .hero .slides { left: 54%; }
+  html[data-variant="bold"] .hero-inner { width: 54%; }
+  html[data-variant="bold"] .hero .actions { gap: 14px 12px; }
+  html[data-variant="bold"] .hero .actions .btn { padding-inline: 20px; font-size: .8rem; font-stretch: 112.5%; }
+}
+
+/* ---------- Marquee: a navy strip of facts scrolling slowly; the second list is the seamless copy. Clips inside its own strip. */
+html[data-variant="bold"] .marquee { display: flex; overflow: hidden; overflow: clip; background: var(--t-navy); color: var(--t-white); border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .marquee ul { display: flex; flex: none; min-width: 100%; justify-content: space-around; gap: 0; margin: 0; padding: 0; list-style: none; animation: bold-marquee 34s linear infinite; }
+html[data-variant="bold"] .marquee li {
+  display: flex; align-items: center; gap: .8em; padding: 13px 1.1em; white-space: nowrap;
+  font: 800 .9rem/1.2 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase;
+}
+html[data-variant="bold"] .marquee li::before {
+  content: ''; flex: none; width: .95em; height: .95em; background: var(--t-orange);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+html[data-variant="bold"] .marquee:hover ul { animation-play-state: paused; }
+@keyframes bold-marquee { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) {
+  html[data-variant="bold"] .marquee ul { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; }
+  html[data-variant="bold"] .marquee ul[aria-hidden="true"] { display: none; }
+  html[data-variant="bold"] .marquee li { padding-block: 6px; }
+  html[data-variant="bold"] .marquee { padding-block: 5px; }
+  html[data-variant="bold"] .btn { transition: none; }
+}
+
+/* ---------- Page heroes: the same split, with the H1 on blue and the photo on its own panel (no dark overlay). */
+html[data-variant="bold"] .page-hero { display: block; min-height: 0; background: var(--t-blue); color: var(--t-navy); border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .page-hero::before { display: none; }
+html[data-variant="bold"] .page-hero img.cover { inset: 0 0 auto 0; height: min(62vw, 420px); border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .page-hero-inner {
+  width: 100%; margin: 0; padding: calc(min(62vw, 420px) + 24px) var(--gutter) 36px;
+  align-items: flex-start; text-align: left; gap: 12px;
+}
+html[data-variant="bold"] .page-hero.no-photo { background: var(--t-blue); }
+html[data-variant="bold"] .page-hero.no-photo .page-hero-inner { padding-top: clamp(36px, 6vw, 72px); padding-bottom: clamp(36px, 5vw, 64px); }
+html[data-variant="bold"] .page-hero h1 { font-size: clamp(2.8rem, 12vw, 4.6rem); line-height: 1.04; text-shadow: none; }
+html[data-variant="bold"] .page-hero h1.long { font-size: clamp(2.3rem, 9vw, 3.6rem); }
+html[data-variant="bold"] .page-hero .lede { font-weight: 500; max-width: 52ch; }
+html[data-variant="bold"] .hero .eyebrow,
+html[data-variant="bold"] .page-hero .eyebrow { font: 800 .82rem/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; }
+html[data-variant="bold"] .crumbs { font: 700 .78rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase; }
+html[data-variant="bold"] .crumbs ol { justify-content: flex-start; }
+html[data-variant="bold"] .crumbs a { color: var(--t-navy); }
+@media (min-width: 768px) {
+  html[data-variant="bold"] .page-hero { display: flex; align-items: stretch; min-height: clamp(400px, 40vw, 560px); }
+  html[data-variant="bold"] .page-hero img.cover { inset: 0 0 0 50%; width: 50%; height: 100%; border-bottom: 0; border-left: 2px solid var(--t-navy); }
+  html[data-variant="bold"] .page-hero-inner { width: 50%; justify-content: center; padding: 48px clamp(24px, 3vw, 56px) 48px max(var(--gutter), (100vw - var(--wrap)) / 2); }
+  html[data-variant="bold"] .page-hero.no-photo { min-height: 0; }
+  html[data-variant="bold"] .page-hero.no-photo .page-hero-inner { width: 100%; padding-top: clamp(48px, 6vw, 88px); }
+  html[data-variant="bold"] .page-hero h1 { font-size: clamp(3rem, 6vw, 6.4rem); }
+  html[data-variant="bold"] .page-hero h1.long { font-size: clamp(2.4rem, 3.8vw, 4rem); }
+}
+/* Tablets and small laptops: the text side takes more room so keyword H1s break between phrases, not inside the name. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  html[data-variant="bold"] .page-hero img.cover { left: 58%; width: 42%; }
+  html[data-variant="bold"] .page-hero-inner { width: 58%; }
+}
+
+/* ---------- Story and prose. */
+html[data-variant="bold"] .story h2,
+html[data-variant="bold"] .prose.story h2 { font: 400 clamp(1.9rem, 3.2vw, 2.6rem)/1.06 var(--font-display); letter-spacing: .005em; text-transform: none; margin: 2.6rem auto .9rem; }
+html[data-variant="bold"] .story h2:first-child,
+html[data-variant="bold"] .prose.story h2:first-child { margin-top: 0; }
+html[data-variant="bold"] .story p,
+html[data-variant="bold"] .story li { font-size: clamp(1.02rem, 1.3vw, 1.12rem); line-height: 1.65; }
+html[data-variant="bold"] .prose h2 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); }
+html[data-variant="bold"] .caps-h { font: 400 clamp(2.1rem, 3.4vw, 2.9rem)/1.06 var(--font-display); letter-spacing: .005em; text-transform: none; margin-bottom: 1.25rem; }
+
+/* ---------- Generic colour section (used by the about timeline and the FAQ ask box). */
+html[data-variant="bold"] .green { background: var(--t-green); color: var(--t-navy); }
+html[data-variant="bold"] .green a,
+html[data-variant="bold"] .green h2,
+html[data-variant="bold"] .green h3 { color: var(--t-navy); }
+html[data-variant="bold"] .timeline .year { font-family: var(--font-display); }
+html[data-variant="bold"] .timeline p { color: var(--t-navy); }
+
+/* ---------- Photo strip: navy-framed squares over a cream-to-blue split, leading into the blue highlights. */
+html[data-variant="bold"] .strip { background: linear-gradient(180deg, var(--t-cream) 0 55%, var(--t-blue) 55% 100%); }
+html[data-variant="bold"] .strip li { border: 2px solid var(--t-navy); }
+
+/* ---------- Highlights: colour-block panels (green, orange, cream) on a blue field. */
+html[data-variant="bold"] .highlights { background: var(--t-blue); color: var(--t-navy); padding: clamp(40px, 5vw, 72px) 0 var(--section); }
+html[data-variant="bold"] .highlight-grid { gap: clamp(20px, 2.4vw, 32px); }
+html[data-variant="bold"] .highlight-grid li {
+  align-items: flex-start; text-align: left; gap: 10px; background: var(--t-green); border: 2px solid var(--t-navy);
+  padding: clamp(26px, 3vw, 40px) clamp(20px, 2.4vw, 32px); box-shadow: 6px 6px 0 var(--t-navy);
+}
+html[data-variant="bold"] .highlight-grid li:nth-child(3n+2) { background: var(--t-orange); }
+html[data-variant="bold"] .highlight-grid li:nth-child(3n) { background: var(--t-cream); }
+html[data-variant="bold"] .highlight-grid h2 { font-size: clamp(2.4rem, 3.6vw, 3.2rem); color: var(--t-navy); }
+html[data-variant="bold"] .highlight-grid .kicker,
+html[data-variant="bold"] .highlight-grid p { color: var(--t-navy); }
+html[data-variant="bold"] .highlight-grid p { max-width: 36ch; }
+html[data-variant="bold"] .highlight-grid .btn { margin-top: auto; align-self: flex-start; }
+html[data-variant="bold"] .highlight-grid li > :nth-last-child(2) { margin-bottom: 14px; }
+
+/* ---------- Featured dishes: colour-block cards (blue, orange, red) framing the photo, with the dish name and price
+   on a white strip below it. The whole card is the link; .panel-cap is real text (global.css hides it, this theme shows it). */
+html[data-variant="bold"] .featured { padding-block: var(--section) 0; }
+html[data-variant="bold"] .panels {
+  width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; background: none; gap: clamp(20px, 2.4vw, 32px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 400px)); justify-content: center;
+}
+html[data-variant="bold"] .panel {
+  --c: var(--t-blue); --pad: clamp(18px, 2.4vw, 28px);
+  display: block; min-height: 0; border: 2px solid var(--t-navy); background: var(--c); box-shadow: 6px 6px 0 var(--t-navy);
+}
+html[data-variant="bold"] .panel:nth-child(3n+2) { --c: var(--t-orange); }
+html[data-variant="bold"] .panel:nth-child(3n) { --c: var(--t-red); }
+html[data-variant="bold"] .panel > a { position: relative; inset: auto; display: flex; flex-direction: column; height: 100%; color: var(--t-navy); text-decoration: none; }
+html[data-variant="bold"] .panel picture { display: block; margin: var(--pad) var(--pad) 0; }
+html[data-variant="bold"] .panel img.cover { position: static; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--t-navy); z-index: 0; }
+html[data-variant="bold"] .panel-cap {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal;
+  flex: 1 0 auto; display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  margin-top: var(--pad); padding: 16px var(--pad) 18px; background: var(--t-white); border-top: 2px solid var(--t-navy);
+}
+html[data-variant="bold"] .panel-name { font: 400 clamp(1.6rem, 2.4vw, 2rem)/1.06 var(--font-display); letter-spacing: .005em; text-wrap: balance; }
+html[data-variant="bold"] .panel-price { font: 800 .82rem/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; text-transform: uppercase; color: var(--t-muted); }
+html[data-variant="bold"] .panel > a:hover .panel-name { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 5px; }
+html[data-variant="bold"] .panel > a:focus-visible { outline-color: var(--t-navy); outline-offset: -8px; }
+html[data-variant="bold"] .featured-more { padding-top: 32px; }
+
+/* ---------- Reviews: white bordered cards on blue. */
+html[data-variant="bold"] .quotes { background: var(--t-blue); color: var(--t-navy); margin-top: var(--section); border-block: 2px solid var(--t-navy); }
+html[data-variant="bold"] .rating-line { font-style: normal; font-weight: 700; }
+/* 9. "· Leave a review" never splits: the line itself doesn't wrap, only the first link's words do (its padding keeps a 48px tap height). */
+html[data-variant="bold"] .rating-line:has(> a + a) { white-space: nowrap; }
+html[data-variant="bold"] .rating-line:has(> a + a) > a:first-child { display: inline; padding-block: 11px; white-space: normal; }
+html[data-variant="bold"] .quote-grid { gap: clamp(20px, 2.4vw, 32px); }
+html[data-variant="bold"] .quote-grid > li { background: var(--t-white); border: 2px solid var(--t-navy); box-shadow: 6px 6px 0 var(--t-navy); padding: clamp(22px, 2.6vw, 32px); text-align: left; }
+html[data-variant="bold"] .quote-grid figure { align-items: flex-start; gap: 12px; height: 100%; }
+html[data-variant="bold"] .quote-grid .mark { font: 400 4.4rem/.7 var(--font-display); color: var(--t-blue); height: .5em; }
+html[data-variant="bold"] .quote-grid blockquote { font: 400 1.05rem/1.6 var(--font-body); text-wrap: pretty; }
+html[data-variant="bold"] .quote-grid blockquote p { margin: 0; }
+html[data-variant="bold"] .quote-grid figcaption {
+  margin-top: auto; min-height: calc(3em + 4px); padding-top: 4px; font: 700 .8rem/1.5 var(--t-ui); letter-spacing: .02em; color: var(--t-muted); text-wrap: wrap;
+}
+html[data-variant="bold"] .quote-grid figcaption time { white-space: nowrap; }
+html[data-variant="bold"] .quote-grid figcaption a { color: var(--t-navy); }
+html[data-variant="bold"] .quotes .actions { margin-top: 2.25rem; }
+
+/* ---------- Cards: white, navy frame, a colour band carrying the Anton heading (menu sections, FAQ groups). */
+html[data-variant="bold"] .card {
+  --pad-y: clamp(24px, 3vw, 40px); --pad-x: clamp(18px, 2.6vw, 36px);
+  padding: var(--pad-y) var(--pad-x); background: var(--t-white); color: var(--t-navy); border: 2px solid var(--t-navy); box-shadow: none;
+}
+html[data-variant="bold"] .card a { color: var(--t-navy); }
+html[data-variant="bold"] .card h2 { color: var(--t-navy); font-size: clamp(2rem, 3vw, 2.6rem); }
+html[data-variant="bold"] .menu-section > h2,
+html[data-variant="bold"] .faq-group > h2 {
+  margin: calc(-1 * var(--pad-y)) calc(-1 * var(--pad-x)) 0; padding: 18px var(--pad-x) 14px;
+  background: var(--t-blue); border-bottom: 2px solid var(--t-navy); text-align: left; line-height: 1;
+}
+html[data-variant="bold"] .menu-section:nth-child(4n+2) > h2,
+html[data-variant="bold"] .faq-group:nth-child(4n+2) > h2 { background: var(--t-orange); }
+html[data-variant="bold"] .menu-section:nth-child(4n+3) > h2,
+html[data-variant="bold"] .faq-group:nth-child(4n+3) > h2 { background: var(--t-green); }
+html[data-variant="bold"] .menu-section:nth-child(4n) > h2,
+html[data-variant="bold"] .faq-group:nth-child(4n) > h2 { background: var(--t-cream); }
+html[data-variant="bold"] .faq-group > h2 { margin-bottom: .4rem; }
+
+/* ---------- Menu page */
+html[data-variant="bold"] .menu-page { color: var(--t-navy); }
+html[data-variant="bold"] .chip-nav ul { gap: 8px 6px; }
+html[data-variant="bold"] .chip-nav li { padding: 0 3px 3px 0; }
+html[data-variant="bold"] .chip-nav a {
+  padding: 0 14px; border: 2px solid var(--t-navy); border-radius: 999px; background: var(--t-white); color: var(--t-navy);
+  font: 800 .76rem var(--t-ui); letter-spacing: .03em; box-shadow: 3px 3px 0 var(--t-navy);
+}
+html[data-variant="bold"] .chip-nav a:hover, html[data-variant="bold"] .chip-nav a[aria-current] { background: var(--t-navy); color: var(--t-white); }
+html[data-variant="bold"] .menu-legend { color: var(--t-muted); }
+html[data-variant="bold"] .menu-grid { gap: clamp(20px, 2.6vw, 32px); }
+html[data-variant="bold"] .section-desc { text-align: left; margin-top: 14px; color: var(--t-muted); }
+html[data-variant="bold"] .menu-items { margin-top: 8px; padding: 0; border-left: 0; }
+html[data-variant="bold"] .menu-item { padding: 14px 0; border-bottom: 1px solid var(--t-line); }
+html[data-variant="bold"] .menu-item:last-child { border-bottom: 0; padding-bottom: 0; }
+html[data-variant="bold"] .item-name { font: 700 1.08rem/1.3 var(--t-ui); font-stretch: 87.5%; color: var(--t-navy); letter-spacing: .005em; }
+html[data-variant="bold"] .item-price { font: 800 1rem/1.35 var(--t-ui); color: var(--t-navy); }
+html[data-variant="bold"] .item-desc,
+html[data-variant="bold"] .item-extras { color: var(--t-muted); font-size: .95rem; }
+html[data-variant="bold"] .item-extras { font-size: .9rem; }
+html[data-variant="bold"] .diet { border: 1.5px solid var(--t-navy); border-radius: 999px; padding: 0 7px; font: 800 .76rem/1.5 var(--t-ui); color: var(--t-navy); }
+
+/* ---------- About, visit, FAQ details */
+html[data-variant="bold"] .split-media { border: 2px solid var(--t-navy); box-shadow: 8px 8px 0 var(--t-orange); }
+html[data-variant="bold"] .split h2 { font-size: clamp(2rem, 3.4vw, 2.9rem); }
+html[data-variant="bold"] .band h2,
+html[data-variant="bold"] .quote-box h2 { font-size: clamp(2.1rem, 3.4vw, 2.9rem); }
+html[data-variant="bold"] .people-list .portrait { border: 2px solid var(--t-navy); }
+html[data-variant="bold"] .people-list .role,
+html[data-variant="bold"] .press-outlet,
+html[data-variant="bold"] .fact-list dt { font: 800 .76rem/1.4 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase; }
+html[data-variant="bold"] .press-list li { border-top: 2px solid var(--t-navy); }
+html[data-variant="bold"] .press h2 { font-size: clamp(2rem, 3.4vw, 2.8rem); }
+/* 10. Small headings follow the type system: Anton, sentence case (global.css uppercases these). */
+html[data-variant="bold"] .visit-info h2 { font-size: clamp(2rem, 3vw, 2.5rem); text-transform: none; }
+html[data-variant="bold"] .visit-info address { font-weight: 500; }
+html[data-variant="bold"] .hours th { font-weight: 700; }
+html[data-variant="bold"] .hours th,
+html[data-variant="bold"] .hours td { border-bottom-color: var(--t-line); }
+html[data-variant="bold"] .map { border: 2px solid var(--t-navy); }
+html[data-variant="bold"] .gallery li { border: 2px solid var(--t-navy); }
+html[data-variant="bold"] .faq-item { border-bottom-color: var(--t-line); }
+html[data-variant="bold"] .faq-group .faq-item:last-child { border-bottom: 0; }
+html[data-variant="bold"] .prose > section + section { margin-top: 2.5rem; }
+html[data-variant="bold"] .faq-item summary h3 { font: 700 1.08rem/1.35 var(--font-body); color: var(--t-navy); }
+html[data-variant="bold"] .faq-item summary::after {
+  content: '+'; width: 34px; height: 34px; display: grid; place-items: center; border: 2px solid var(--t-navy); border-radius: 50%;
+  font: 800 1.3rem/1 var(--t-ui); color: var(--t-navy);
+}
+html[data-variant="bold"] .faq-item[open] summary::after { background: var(--t-navy); color: var(--t-white); }
+html[data-variant="bold"] .story .faq-teaser { display: block; width: 100%; max-width: 760px; margin-inline: auto; border-top: 1px solid var(--t-line); }
+html[data-variant="bold"] .faq-teaser a { border-bottom: 1px solid var(--t-line); font-weight: 600; }
+html[data-variant="bold"] .faq-teaser li:last-child a { border-bottom: 0; font: 800 .85rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase; }
+html[data-variant="bold"] .ask-box { border: 2px solid var(--t-navy); box-shadow: 6px 6px 0 var(--t-navy); }
+html[data-variant="bold"] .ask-box p { font-family: var(--font-display); }
+html[data-variant="bold"] .ask-box .actions { font-family: var(--font-body); }
+html[data-variant="bold"] .package { border: 2px solid var(--t-navy); }
+html[data-variant="bold"] .package:nth-child(3n+2) { background: var(--t-blue); color: var(--t-navy); }
+html[data-variant="bold"] .package:nth-child(3n+2) h3 { color: var(--t-navy); }
+html[data-variant="bold"] .package:nth-child(3n+2) .btn { background: var(--t-white); border-color: var(--t-navy); color: var(--t-navy); }
+html[data-variant="bold"] .package .price { font: 800 1.2rem/1.2 var(--t-ui); }
+html[data-variant="bold"] .areas-table th,
+html[data-variant="bold"] .areas-table td,
+html[data-variant="bold"] .fact-list div { border-bottom-color: var(--t-line); }
+
+/* ---------- Footer: navy, white text, white pills. */
+html[data-variant="bold"] .site-footer { background: var(--t-navy); color: var(--t-white); }
+html[data-variant="bold"] .site-footer a { color: var(--t-white); }
+html[data-variant="bold"] .site-footer a:focus-visible { outline-color: var(--t-orange); }
+html[data-variant="bold"] .footer-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 4px; }
+html[data-variant="bold"] .footer-buttons a {
+  min-height: var(--tap); padding: 0 14px; border: 0; background: none; color: var(--t-white);
+  font: 800 .82rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em;
+  text-decoration: underline 2px transparent; text-underline-offset: 6px;
+}
+html[data-variant="bold"] .footer-buttons a:hover { background: none; color: var(--t-white); text-decoration-color: currentColor; }
+/* The ordering link is the only one not on this site. */
+html[data-variant="bold"] .footer-buttons a:not([href^="/"]) {
+  margin-right: 14px; padding: 0 28px; border: 2px solid var(--t-white); border-radius: 999px;
+  background: var(--t-white); color: var(--t-navy); text-decoration: none; box-shadow: 4px 4px 0 var(--t-blue);
+}
+html[data-variant="bold"] .footer-buttons a:not([href^="/"]):hover { background: var(--t-blue); border-color: var(--t-blue); color: var(--t-navy); }
+@media (max-width: 639px) {
+  html[data-variant="bold"] .footer-buttons li:has(> a:not([href^="/"])) { flex: 1 1 100%; }
+  html[data-variant="bold"] .footer-buttons a:not([href^="/"]) { margin: 0 4px 6px 0; }
+  html[data-variant="bold"] .footer-buttons a[href^="/"] { padding-inline: 10px; }
+}
+html[data-variant="bold"] .footer-cols h2 { font: 400 clamp(1.7rem, 2.2vw, 1.95rem)/1.06 var(--font-display); letter-spacing: .01em; text-transform: none; color: var(--t-white); }
+/* One rhythm in every column: stacked 48px links touch, each hours entry gets a small gap. */
+html[data-variant="bold"] .footer-cols p { margin: 0; }
+html[data-variant="bold"] .footer-cols p:not(:has(a)) { margin-bottom: 10px; }
+html[data-variant="bold"] .footer-base { border-top: 2px solid rgb(255 255 255 / .25); color: var(--t-on-navy); }
+html[data-variant="bold"] .footer-base a { color: var(--t-on-navy); padding-inline: 8px; }
+html[data-variant="bold"] .footer-base .wordmark { color: var(--t-white); }
+
+/* ---------- Phone action bar: blue tabs, navy "Order". */
+html[data-variant="bold"] .action-bar { background: var(--t-navy); gap: 2px; border-top: 2px solid var(--t-navy); }
+html[data-variant="bold"] .action-bar a { background: var(--t-blue); color: var(--t-navy); font: 800 .8rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; }
+html[data-variant="bold"] .action-bar a.primary { background: var(--t-navy); color: var(--t-white); }
+html[data-variant="bold"] .action-bar a:focus-visible { outline-color: var(--t-white); outline-offset: -5px; }
+
+/* =====================================================================================================
+   Home sections (components/sections/*): the poster language carried through the page.
+   Cream sections are split by 2px navy rules; colour fields (green, blue, orange) carry navy text only.
+   ===================================================================================================== */
+
+/* ---------- Shared: tags are zig-zag edged label stickers, section heads are centred giant Anton. */
+html[data-variant="bold"] .tag {
+  --z: 7px;
+  display: inline-flex; align-items: center; min-height: 30px; padding: 6px calc(var(--z) + 12px);
+  background: var(--t-blue); color: var(--t-navy);
+  font: 800 .8rem/1.1 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .06em; text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--z)) 25%, 100% 50%, calc(100% - var(--z)) 75%, 100% 100%, 0 100%, var(--z) 75%, 0 50%, var(--z) 25%);
+}
+html[data-variant="bold"] .section-head { align-items: center; text-align: center; gap: 14px; margin-bottom: clamp(28px, 4vw, 52px); }
+html[data-variant="bold"] .section-head h2,
+html[data-variant="bold"] .photo-cards h2 { font-size: clamp(3rem, 8.4vw, 7rem); line-height: .95; letter-spacing: .002em; }
+html[data-variant="bold"] .section-more { text-align: center; margin-top: clamp(28px, 3.4vw, 44px); }
+html[data-variant="bold"] .section-more a {
+  display: inline-flex; align-items: center; gap: .5em; min-height: var(--tap);
+  font: 800 .85rem/1.2 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; text-transform: uppercase;
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
+html[data-variant="bold"] .section-more a:hover { text-decoration-thickness: 4px; }
+
+/* Outlined white pill (dish "Order", promo and accordion buttons). */
+html[data-variant="bold"] .btn.btn-pill { background: var(--t-white); color: var(--t-navy); border-color: var(--t-navy); padding-inline: 24px; }
+html[data-variant="bold"] .btn.btn-pill:hover { background: var(--t-navy); color: var(--t-white); }
+
+/* ---------- Intro band: one big, tight, navy statement with a tilted outlined star sticker. */
+html[data-variant="bold"] .intro-band { position: relative; padding-block: clamp(56px, 8vw, 120px); border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .intro-band .wrap { position: relative; max-width: 1080px; }
+html[data-variant="bold"] .intro-band p {
+  max-width: 30ch; color: var(--t-navy);
+  font: 800 clamp(1.6rem, 4vw, 3.3rem)/1.08 var(--t-ui); font-stretch: 80%; letter-spacing: -.012em; text-wrap: balance;
+}
+html[data-variant="bold"] .intro-band p:last-child { margin-bottom: 0; }
+html[data-variant="bold"] .intro-band a { text-decoration-thickness: 3px; text-underline-offset: 6px; }
+html[data-variant="bold"] .intro-band .wrap::after {
+  content: "★ ★ ★" / ""; display: block; width: max-content; margin: clamp(22px, 2.6vw, 34px) auto 0; padding: 7px 16px 6px;
+  background: var(--t-blue); color: var(--t-navy); border: 2px solid var(--t-navy); border-radius: 10px; box-shadow: 3px 3px 0 var(--t-navy);
+  font: 400 1rem/1 var(--t-ui); letter-spacing: .2em; transform: rotate(-5deg);
+}
+
+/* ---------- Most craved (dish cards): navy-framed cards, a solid colour block holding the photo, the name on a cream strip. */
+html[data-variant="bold"] .dish-tabs { border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .tab-list { justify-content: center; gap: 10px; }
+html[data-variant="bold"] .tab-list label {
+  padding: 0 20px; border: 2px solid var(--t-navy); border-radius: 999px; background: var(--t-white);
+  font: 800 .8rem var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; text-transform: uppercase;
+}
+html[data-variant="bold"] .tab-radio:checked + label { background: var(--t-navy); color: var(--t-white); border-bottom-color: var(--t-navy); }
+html[data-variant="bold"] .tab-radio:focus-visible + label { outline: 3px solid var(--t-navy); outline-offset: 3px; }
+html[data-variant="bold"] .dish-grid { grid-template-columns: 1fr; gap: clamp(18px, 2.2vw, 30px); }
+@media (min-width: 560px) and (max-width: 719px) { html[data-variant="bold"] .dish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 720px) { html[data-variant="bold"] .dish-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+html[data-variant="bold"] .dish-card {
+  --c: var(--t-blue);
+  gap: 0; background: var(--t-cream); border: 2px solid var(--t-navy); box-shadow: 6px 6px 0 var(--t-navy);
+}
+html[data-variant="bold"] .dish-card:nth-child(3n+2) { --c: var(--t-orange); }
+html[data-variant="bold"] .dish-card:nth-child(3n) { --c: var(--t-red); }
+html[data-variant="bold"] .dish-media {
+  aspect-ratio: 5 / 4; padding: clamp(16px, 2.4vw, 30px); background: var(--c); border-bottom: 2px solid var(--t-navy);
+  color: var(--t-navy); text-decoration: none;
+}
+html[data-variant="bold"] .dish-media picture { height: 100%; }
+@media (max-width: 559px) { html[data-variant="bold"] .dish-media { aspect-ratio: 16 / 10; } }
+html[data-variant="bold"] .dish-media img { border: 2px solid var(--t-navy); border-radius: 16px; transition: transform .25s; }
+html[data-variant="bold"] .dish-card:hover .dish-media img { transform: scale(1.02) rotate(-1deg); }
+/* Photo-less card: a cream "plate" with the dish's giant Anton initial, set on the colour block. */
+html[data-variant="bold"] .dish-tile {
+  width: auto; height: 100%; aspect-ratio: 1; margin-inline: auto; border-radius: 50%;
+  background: var(--t-cream); border: 2px solid var(--t-navy); box-shadow: 6px 6px 0 var(--t-navy);
+  font: 400 clamp(5rem, 11vw, 8.6rem)/1 var(--font-display); color: var(--t-navy); text-decoration: none;
+  outline: 2px dashed rgb(27 20 100 / .45); outline-offset: -14px; transition: transform .25s;
+}
+html[data-variant="bold"] .dish-card:hover .dish-tile { transform: rotate(-6deg); }
+html[data-variant="bold"] .dish-name {
+  margin: 0; padding: 18px clamp(14px, 1.8vw, 22px) 4px; text-align: center;
+  font: 400 clamp(1.55rem, 2.2vw, 2rem)/1.04 var(--font-display); letter-spacing: .005em; text-wrap: balance;
+}
+html[data-variant="bold"] .dish-name a:hover { text-decoration-thickness: 3px; text-underline-offset: 5px; }
+html[data-variant="bold"] .dish-desc { padding: 4px clamp(14px, 1.8vw, 22px) 0; text-align: center; color: var(--t-muted); font-size: .92rem; line-height: 1.5; }
+html[data-variant="bold"] .dish-foot {
+  flex-wrap: wrap; justify-content: space-between; margin-top: auto; padding: 16px clamp(14px, 1.8vw, 22px) 18px;
+}
+html[data-variant="bold"] .dish-card .dish-desc + .dish-foot,
+html[data-variant="bold"] .dish-card .dish-name + .dish-foot { margin-top: auto; }
+html[data-variant="bold"] .dish-price { font: 800 1rem/1.2 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .02em; }
+html[data-variant="bold"] .dish-foot .btn-pill { min-width: 104px; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-variant="bold"] .dish-media img, html[data-variant="bold"] .dish-tile { transition: none; }
+}
+
+/* ---------- Promos: two columns split by a navy rule (stacked on phones, a rule between), sticker tag, poster heading, rounded photo. */
+html[data-variant="bold"] .promos { padding-block: 0; border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .promo-grid { gap: 0; margin-inline: auto; }
+html[data-variant="bold"] .promo { gap: 16px; padding: clamp(48px, 6vw, 80px) 0; }
+html[data-variant="bold"] .promo + .promo { border-top: 2px solid var(--t-navy); }
+html[data-variant="bold"] .promo h2 { max-width: 14ch; font-size: clamp(2.5rem, 4.4vw, 4.1rem); line-height: .98; }
+html[data-variant="bold"] .promo-copy { font-size: .98rem; line-height: 1.55; }
+html[data-variant="bold"] .promo-copy p { margin: 0; }
+html[data-variant="bold"] .promo .btn-pill { margin: 4px 0 14px; }
+html[data-variant="bold"] .promo-media { margin-top: auto; border: 2px solid var(--t-navy); border-radius: 22px; aspect-ratio: 4 / 3; }
+html[data-variant="bold"] .promo.no-photo { justify-content: center; }
+@media (min-width: 640px) {
+  html[data-variant="bold"] .promos.n2 .promo-grid,
+  html[data-variant="bold"] .promos.n3 .promo-grid { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); }
+  html[data-variant="bold"] .promo { padding-inline: clamp(24px, 3.4vw, 52px); }
+  html[data-variant="bold"] .promo:first-child { padding-left: 0; }
+  html[data-variant="bold"] .promo:last-child { padding-right: 0; }
+  html[data-variant="bold"] .promo + .promo { border-top: 0; border-left: 2px solid var(--t-navy); }
+}
+
+/* ---------- Feature fields. tone-a: green with a blob-cut photo and a star sticker. tone-b: blue, arched photo. tone-c: orange. */
+html[data-variant="bold"] .feature { position: relative; border-bottom: 2px solid var(--t-navy); color: var(--t-navy); padding-block: clamp(56px, 7vw, 104px); }
+html[data-variant="bold"] .feature.tone-a { background: var(--t-green); }
+html[data-variant="bold"] .feature.tone-b { background: var(--t-blue); }
+html[data-variant="bold"] .feature.tone-c { background: var(--t-orange); }
+html[data-variant="bold"] .feature h2 {
+  margin: 0 0 22px; font-size: clamp(2.7rem, 6.4vw, 6rem); line-height: .94; letter-spacing: .004em; text-transform: uppercase;
+}
+html[data-variant="bold"] .feature-copy { max-width: 56ch; font-size: 1rem; line-height: 1.6; font-weight: 500; }
+html[data-variant="bold"] .feature-copy p:last-child { margin-bottom: 0; }
+html[data-variant="bold"] .feature-actions { margin-top: 26px; gap: 14px 16px; }
+html[data-variant="bold"] .feature .tag { margin-bottom: 14px; background: var(--t-white); }
+/* On colour fields the primary pill casts a white shadow (the blue one would vanish on blue), the ghost pill turns white. */
+html[data-variant="bold"] .feature .btn.btn-primary { box-shadow: 4px 4px 0 var(--t-white); }
+html[data-variant="bold"] .feature .btn.btn-primary:hover { box-shadow: 2px 2px 0 var(--t-white); }
+html[data-variant="bold"] .feature .btn.btn-ghost { background: var(--t-white); }
+html[data-variant="bold"] .feature .btn.btn-ghost:hover { background: var(--t-cream); }
+html[data-variant="bold"] .feature-media { position: relative; overflow: visible; }
+html[data-variant="bold"] .feature-media picture { display: block; overflow: hidden; border: 2px solid var(--t-navy); }
+html[data-variant="bold"] .feature-media img { aspect-ratio: 5 / 4; }
+
+html[data-variant="bold"] .feature.shape-blob .feature-media { padding: 14px; }
+html[data-variant="bold"] .feature.shape-blob .feature-media picture {
+  border: 0; border-radius: 58% 42% 47% 53% / 46% 55% 45% 54%; box-shadow: none;
+}
+html[data-variant="bold"] .feature.shape-blob .feature-media img { aspect-ratio: 1 / .9; }
+/* The sticker: an orange starburst with a navy offset copy behind it and a navy star in the middle (decorative). */
+html[data-variant="bold"] .feature.shape-blob .feature-media::before,
+html[data-variant="bold"] .feature.shape-blob .feature-media::after {
+  content: "" / ""; position: absolute; z-index: 1; top: 0; left: 4%; width: clamp(78px, 11vw, 124px); aspect-ratio: 1;
+  clip-path: polygon(50% 0, 60% 13%, 75% 6%, 78% 22%, 94% 25%, 87% 40%, 100% 50%, 87% 60%, 94% 75%, 78% 78%, 75% 94%, 60% 87%, 50% 100%, 40% 87%, 25% 94%, 22% 78%, 6% 75%, 13% 60%, 0 50%, 13% 40%, 6% 25%, 22% 22%, 25% 6%, 40% 13%);
+  transform: rotate(-12deg);
+}
+html[data-variant="bold"] .feature.shape-blob .feature-media::before { background: var(--t-navy); translate: 5px 5px; }
+html[data-variant="bold"] .feature.shape-blob .feature-media::after {
+  content: "★" / ""; display: grid; place-items: center; background: var(--t-orange); color: var(--t-navy);
+  font: 400 clamp(1.8rem, 3vw, 2.8rem)/1 var(--t-ui);
+}
+
+html[data-variant="bold"] .feature.tone-b .feature-media picture { border-radius: 999px 999px 22px 22px; }
+html[data-variant="bold"] .feature.tone-b .feature-media img { aspect-ratio: 4 / 5; }
+html[data-variant="bold"] .feature.tone-b .feature-media { max-width: 520px; width: 100%; justify-self: center; }
+/* Stacked (below 900px): the photo stays a poster-sized accent, centred, not a full-width slab. */
+@media (max-width: 899px) {
+  html[data-variant="bold"] .feature-media { width: 100%; max-width: 560px; justify-self: center; }
+  html[data-variant="bold"] .feature.tone-b .feature-media { max-width: 460px; }
+}
+
+html[data-variant="bold"] .feature.no-photo .feature-text { max-width: 900px; }
+html[data-variant="bold"] .feature.no-photo h2 { font-size: clamp(3rem, 8vw, 7rem); }
+html[data-variant="bold"] .feature.tone-c .feature-copy { font-size: 1.08rem; }
+
+@media (min-width: 900px) {
+  html[data-variant="bold"] .feature:not(.no-photo) .feature-grid { grid-template-columns: 1.08fr .92fr; gap: clamp(40px, 5vw, 80px); }
+  html[data-variant="bold"] .feature.reverse:not(.no-photo) .feature-grid { grid-template-columns: .92fr 1.08fr; }
+}
+
+/* ---------- Menu accordion: colour-block bars framed in navy, Anton names, a count chip and a chevron in a white circle. */
+html[data-variant="bold"] .menu-acc { border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .menu-acc.no-photo .menu-acc-main { max-width: 920px; margin-inline: auto; }
+html[data-variant="bold"] .acc-list { gap: 14px; }
+html[data-variant="bold"] .acc { --c: var(--t-blue); background: var(--t-white); border: 2px solid var(--t-navy); box-shadow: 5px 5px 0 var(--t-navy); }
+html[data-variant="bold"] .acc:nth-child(3n+2) { --c: var(--t-orange); }
+html[data-variant="bold"] .acc:nth-child(3n) { --c: var(--t-green); }
+html[data-variant="bold"] .acc summary {
+  min-height: 64px; padding: 10px 12px 10px clamp(16px, 2.4vw, 26px); background: var(--c); color: var(--t-navy); gap: 10px 14px;
+}
+html[data-variant="bold"] .acc[open] summary { border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .acc-name { font: 400 clamp(1.5rem, 3vw, 2.2rem)/1.05 var(--font-display); letter-spacing: .01em; text-transform: uppercase; min-width: 0; }
+html[data-variant="bold"] .acc-count {
+  flex: none; padding: 3px 10px; border: 2px solid var(--t-navy); border-radius: 999px; background: var(--t-white); opacity: 1;
+  font: 800 .78rem/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .03em; text-transform: uppercase; color: var(--t-navy);
+}
+/* Chevron: two short gradient strokes in a white circle; flips when open. */
+html[data-variant="bold"] .acc summary::after {
+  width: 40px; height: 40px; border: 2px solid var(--t-navy); border-radius: 50%; transform: none; background-color: var(--t-white); background-repeat: no-repeat;
+  background-image:
+    linear-gradient(45deg, transparent 45%, var(--t-navy) 45% 60%, transparent 60%),
+    linear-gradient(-45deg, transparent 45%, var(--t-navy) 45% 60%, transparent 60%);
+  background-size: 10px 10px, 10px 10px; background-position: calc(50% - 4px) 54%, calc(50% + 4px) 54%;
+  transition: transform .2s;
+}
+html[data-variant="bold"] .acc[open] summary::after { transform: rotate(180deg); }
+html[data-variant="bold"] .acc summary:hover::after { background-color: var(--t-cream); }
+html[data-variant="bold"] .acc summary:focus-visible { outline-offset: -6px; }
+html[data-variant="bold"] .acc-body { padding: 8px clamp(16px, 2.4vw, 26px) 22px; }
+/* A closed row's body leaves the layout entirely (Chrome otherwise keeps a sized but unrendered box for its links). */
+html[data-variant="bold"] .acc:not([open]) > .acc-body { display: none; }
+html[data-variant="bold"] .acc-items li { align-items: baseline; padding: 11px 0; border-bottom: 1px dashed rgb(27 20 100 / .35); }
+html[data-variant="bold"] .acc-dish { font-weight: 600; }
+html[data-variant="bold"] .acc-price { flex: none; font: 800 .95rem var(--t-ui); }
+html[data-variant="bold"] .acc-body .btn-pill { margin-top: 18px; }
+html[data-variant="bold"] .menu-acc-media { border: 2px solid var(--t-navy); border-radius: 22px; box-shadow: 8px 8px 0 var(--t-orange); }
+@media (prefers-reduced-motion: reduce) { html[data-variant="bold"] .acc summary::after { transition: none; } }
+
+/* ---------- Photo cards: tall navy-framed cards with tilted colour-block sticker labels. */
+html[data-variant="bold"] .photo-cards { border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .photo-cards h2 { text-align: center; margin: 0 auto clamp(28px, 4vw, 52px); max-width: 16ch; }
+html[data-variant="bold"] .photo-card-grid { gap: clamp(18px, 2.2vw, 30px); }
+@media (min-width: 720px) { html[data-variant="bold"] .photo-card-grid { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); } }
+@media (max-width: 559px) { html[data-variant="bold"] .photo-card a { aspect-ratio: 1 / 1; } }
+html[data-variant="bold"] .photo-card { --c: var(--t-blue); }
+html[data-variant="bold"] .photo-card.pc2 { --c: var(--t-orange); }
+html[data-variant="bold"] .photo-card.pc3 { --c: var(--t-green); }
+html[data-variant="bold"] .photo-card a { border: 2px solid var(--t-navy); border-radius: 22px; background: var(--c); box-shadow: 6px 6px 0 var(--t-navy); transition: transform .2s, box-shadow .2s; }
+html[data-variant="bold"] .photo-card a:hover { transform: translate(2px, 2px); box-shadow: 4px 4px 0 var(--t-navy); color: var(--t-navy); }
+html[data-variant="bold"] .photo-card a:focus-visible { outline-offset: 4px; }
+html[data-variant="bold"] .photo-card img { transition: transform .35s; }
+html[data-variant="bold"] .photo-card a:hover img { transform: scale(1.04); }
+html[data-variant="bold"] .photo-card-tile {
+  background:
+    radial-gradient(circle at 50% 50%, rgb(27 20 100 / .3) 0 2.5px, transparent 3px) 0 0 / 20px 20px,
+    var(--c);
+}
+html[data-variant="bold"] .photo-card-tag {
+  left: 16px; bottom: 18px; padding: 10px 16px 9px; background: var(--c); color: var(--t-navy);
+  border: 2px solid var(--t-navy); border-radius: 10px; box-shadow: 3px 3px 0 var(--t-navy); transform: rotate(-4deg);
+  font: 400 clamp(1.5rem, 2.4vw, 2rem)/1 var(--font-display); letter-spacing: .02em; text-transform: uppercase;
+}
+html[data-variant="bold"] .photo-card.no-photo .photo-card-tag { background: var(--t-white); }
+html[data-variant="bold"] .photo-card-line { margin-top: 14px; font: 700 .95rem/1.4 var(--t-ui); }
+@media (prefers-reduced-motion: reduce) {
+  html[data-variant="bold"] .photo-card a, html[data-variant="bold"] .photo-card img { transition: none; }
+}
+
+/* ---------- Text cards: colour-block poster cards. */
+html[data-variant="bold"] .text-cards { border-bottom: 2px solid var(--t-navy); }
+html[data-variant="bold"] .text-card-grid { gap: clamp(20px, 2.4vw, 32px); }
+html[data-variant="bold"] .text-card {
+  --c: var(--t-blue); padding: clamp(26px, 3vw, 42px) clamp(20px, 2.6vw, 36px); background: var(--c); color: var(--t-navy);
+  border: 2px solid var(--t-navy); box-shadow: 6px 6px 0 var(--t-navy);
+}
+html[data-variant="bold"] .text-card:nth-child(3n+2) { --c: var(--t-orange); }
+html[data-variant="bold"] .text-card:nth-child(3n) { --c: var(--t-green); }
+html[data-variant="bold"] .text-cards.n1 .text-card { max-width: 900px; margin-inline: auto; }
+html[data-variant="bold"] .text-card h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); line-height: .98; text-transform: uppercase; margin-bottom: 16px; }
+html[data-variant="bold"] .text-card p { font-weight: 500; }
+html[data-variant="bold"] .text-card p:last-child { margin-bottom: 0; }
+
+/* ---------- Page links: a centred row of wide-caps links with 48px tap rows. */
+html[data-variant="bold"] .page-links { padding-block: clamp(32px, 4vw, 52px); }
+html[data-variant="bold"] .page-links p { margin: 0; font: 800 .82rem/1.3 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: .04em; text-transform: uppercase; color: var(--t-navy); }
+@media (max-width: 899px) { html[data-variant="bold"] .page-links p { font-stretch: 100%; text-wrap: balance; } }
+html[data-variant="bold"] .page-links a {
+  display: inline-block; padding: 15px 8px; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
+html[data-variant="bold"] .page-links a:hover { text-decoration-thickness: 4px; }
+/* The reviews band follows the page links directly: no extra cream gap. */
+html[data-variant="bold"] .page-links + .quotes { margin-top: 0; }
+
+/* ---------- Social band (if rendered): white circles on cream. */
+html[data-variant="bold"] .social-band h2 { font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 20px; }
+html[data-variant="bold"] .social-links a { background: var(--t-white); border: 2px solid var(--t-navy); box-shadow: 3px 3px 0 var(--t-navy); color: var(--t-navy); }
+html[data-variant="bold"] .social-links a:hover { background: var(--t-blue); }
+
+/* ---------- Footer: the restaurant name as a giant wide wordmark across the bottom (decorative, aria-hidden). */
+html[data-variant="bold"] .site-footer { overflow: hidden; overflow: clip; }
+html[data-variant="bold"] .footer-mark {
+  display: block; margin: clamp(28px, 3.4vw, 48px) 0 -.06em; padding: 0 clamp(10px, 1.6vw, 24px);
+  color: var(--t-blue); text-align: center; text-transform: uppercase; text-wrap: balance; overflow-wrap: anywhere;
+  font: 900 clamp(2.2rem, 8.6vw, 3.6rem)/.86 var(--t-ui); font-stretch: var(--t-wide); letter-spacing: -.025em;
+  user-select: none;
+}
+@media (min-width: 768px) { html[data-variant="bold"] .footer-mark { font-size: min(6.8vw, 10rem); } }

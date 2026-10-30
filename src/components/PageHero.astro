@@ -1,0 +1,22 @@
+---
+import Img from './Img.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { Photo } from '../lib/photos';
+import type { Crumb } from '../lib/schema';
+
+// Inner-page hero from the design: a full-bleed photo, darkened, with the crumbs, an eyebrow, the page's one H1 and its lede.
+// No photo → a solid green band with the same text, never an empty frame.
+interface Props { h1: string; eyebrow?: string; lede?: string; photo?: Photo; crumbs?: Crumb[] }
+const { h1, eyebrow, lede, photo, crumbs = [] } = Astro.props;
+const long = h1.length > 34;
+---
+<section class:list={['page-hero', { 'no-photo': !photo }]}>
+  {photo && <Img photo={photo} priority sizes="100vw" widths={[640, 800, 960, 1280, 1920]} class="cover" />}
+  <div class="page-hero-inner">
+    <Breadcrumbs crumbs={crumbs} />
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1 class:list={{ long }}>{h1}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</section>

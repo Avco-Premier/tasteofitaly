@@ -1,0 +1,18 @@
+---
+import type { Crumb } from '../lib/schema';
+
+// Visible trail matching the BreadcrumbList schema (Google expects the markup to mirror the page).
+// It sits on the page hero, above the H1.
+interface Props { crumbs: Crumb[] }
+const { crumbs } = Astro.props;
+const trail = [{ name: 'Home', path: '/' }, ...crumbs];
+---
+{crumbs.length > 0 && (
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      {trail.map((c, i) => (
+        <li>{i < trail.length - 1 ? <a href={c.path}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>
+      ))}
+    </ol>
+  </nav>
+)}

@@ -1,0 +1,15 @@
+---
+import { biz, hoursByDay } from '../lib/site';
+---
+<table class="hours">
+  <caption class="sr-only">Opening hours</caption>
+  <tbody>
+    {hoursByDay().map((r) => (
+      <tr class={r.closed ? 'closed' : undefined}>
+        <th scope="row">{r.day}</th>
+        <td>{r.text}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+{biz.hoursNote && <p class="note">{biz.hoursNote}</p>}

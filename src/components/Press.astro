@@ -1,0 +1,26 @@
+---
+import { biz } from '../lib/site';
+
+const press = biz.press as { outlet: string; title: string; url: string; date: string; quote?: string }[];
+const awards = biz.awards as { name: string; issuer: string; year: string }[];
+---
+{(press.length > 0 || awards.length > 0) && (
+  <section class="press" aria-labelledby="press-h">
+    <h2 id="press-h">In the news</h2>
+    <ul class="press-list">
+      {press.map((p) => (
+        <li>
+          <p class="press-outlet">{p.outlet}{p.date && ` · ${p.date.slice(0, 4)}`}</p>
+          <h3><a href={p.url} rel="noopener">{p.title}</a></h3>
+          {p.quote && <blockquote><p>“{p.quote}”</p></blockquote>}
+        </li>
+      ))}
+      {awards.map((a) => (
+        <li>
+          <p class="press-outlet">{a.issuer}{a.year && ` · ${a.year}`}</p>
+          <h3>{a.name}</h3>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

@@ -1,0 +1,26 @@
+---
+import Img from '../Img.astro';
+import type { Photo } from '../../lib/photos';
+import { accent, type Block } from '../../lib/blocks';
+
+// Side-by-side promo panels: a small tag, a big heading, the copy block, a pill button, and a photo under it.
+// Each panel is one home copy block (lib/blocks.ts), so the words are the page's own; data-copy marks them for the gate.
+export type Promo = { block: Block; tag: string; cta: string; href: string; photo?: Photo };
+interface Props { items: Promo[] }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class:list={['promos', `n${items.length}`]}>
+    <ul class="wrap promo-grid plain">
+      {items.map((p) => (
+        <li class:list={['promo', { 'no-photo': !p.photo }]} id={p.block.id}>
+          <span class="tag">{p.tag}</span>
+          <h2 set:html={accent(p.block.heading)} />
+          <div class="promo-copy" data-copy set:html={p.block.html} />
+          <a class="btn btn-pill" href={p.href} rel={p.href.startsWith('http') ? 'noopener' : undefined}>{p.cta}</a>
+          {p.photo && <div class="promo-media"><Img photo={p.photo} sizes="(min-width: 900px) 45vw, 100vw" widths={[480, 800, 1200]} /></div>}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

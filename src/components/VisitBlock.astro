@@ -1,0 +1,60 @@
+---
+import Img from './Img.astro';
+import Hours from './Hours.astro';
+import { biz, addressLine, telHref, directionsUrl } from '../lib/site';
+import type { Photo } from '../lib/photos';
+
+// Design: "Location" and "Hours" stacked on the left, a map (or a photo) filling the right column.
+// The live map costs ~400 KB of Google JS, so only /visit/ embeds it; other pages link to it.
+interface Props { showMap?: boolean; photo?: Photo; level?: 'h2' | 'h3' }
+const { showMap = false, photo, level = 'h2' } = Astro.props;
+const H = level;
+const a = biz.address;
+// Name + address, never "place_id:…": the keyless query embed doesn't resolve place IDs and pins whatever
+// the text fuzzy-matches (Mozzarella's Pizza in NY showed a university in Rhode Island).
+const q = `${biz.name}, ${addressLine()}`;
+// Prefer the iframe src from the GBP's Share → "Embed a map" (documented, keyless); fall back to a query embed.
+const mapSrc = (biz.google as any).embedUrl || `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed`;
+const partners = (biz.delivery.partners as { name: string; url: string }[]).filter((p) => p.name && p.url);
+const reserve = (biz as any).reservations?.url as string | undefined;
+---
+<section class="visit-grid" aria-label="Location and hours">
+  <div class="visit-info">
+    <div>
+      <H>Location</H>
+      <address>
+        <a href={biz.google.mapsUrl} rel="noopener">{a.street}<br />{a.locality}, {a.region} {a.postalCode}</a><br />
+        <a href={telHref()}>{biz.phoneDisplay}</a>
+      </address>
+    </div>
+    <div>
+      <H>Hours</H>
+      <Hours />
+    </div>
+    <p class="actions">
+      <a class="btn btn-primary" href={directionsUrl()} rel="noopener">Get directions</a>
+      {reserve && <a class="btn btn-ghost" href={reserve} rel="noopener">Reserve a table</a>}
+      <a class="btn btn-ghost" href={telHref()}>Call {biz.phoneDisplay}</a>
+      {!showMap && <a class="btn btn-ghost" href="/visit/">{(biz as any).visit?.parking ? <>Map, parking &amp; hours</> : <>Map &amp; hours</>}</a>}
+    </p>
+    {partners.length > 0 && (
+      <p class="note">
+        Delivery through {partners.map((p, i) => <>{i > 0 && (i === partners.length - 1 ? ' and ' : ', ')}<a href={p.url} rel="noopener">{p.name}</a></>)}.
+      </p>
+    )}
+  </div>
+  {showMap ? (
+    // A real embed (local audits and guests expect a map on the location page), lazy so it never costs LCP.
+    <iframe
+      class="map"
+      title={`Map showing ${biz.name} at ${addressLine()}`}
+      src={mapSrc}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      width="600"
+      height="520"
+    ></iframe>
+  ) : photo ? (
+    <div class="split-media"><Img photo={photo} sizes="(min-width: 960px) 50vw, 100vw" widths={[480, 800, 1200]} /></div>
+  ) : null}
+</section>

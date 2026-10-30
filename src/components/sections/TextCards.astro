@@ -1,0 +1,19 @@
+---
+import { accent, type Block } from '../../lib/blocks';
+
+// Home copy blocks that don't get a panel of their own, as a row of text cards (one column on phones).
+interface Props { blocks: Block[]; label?: string }
+const { blocks, label } = Astro.props;
+---
+{blocks.length > 0 && (
+  <section class:list={['text-cards', `n${Math.min(blocks.length, 3)}`]} aria-label={label}>
+    <div class="wrap text-card-grid">
+      {blocks.map((b) => (
+        <article class="text-card" id={b.id} aria-labelledby={`${b.id}-h`}>
+          <h2 id={`${b.id}-h`} set:html={accent(b.heading)} />
+          <div data-copy set:html={b.html} />
+        </article>
+      ))}
+    </div>
+  </section>
+)}

@@ -1,0 +1,17 @@
+---
+import { biz, telHref } from '../../lib/site';
+
+// The closing call to action: "Hungry? Order online." with the order button and the address, on the theme's accent
+// colour. Calls instead when there's no online ordering.
+const order = biz.ordering.url;
+const a = biz.address;
+---
+<section class="cta-band" aria-labelledby="cta-h">
+  <div class="wrap cta-grid">
+    <h2 id="cta-h">Hungry? <span class="hl">{order ? 'Order online.' : `Call ${biz.phoneDisplay}.`}</span></h2>
+    <div class="cta-side">
+      {order ? <a class="btn btn-primary" href={order} rel="noopener">Order now</a> : <a class="btn btn-primary" href={telHref()}>Call now</a>}
+      <p class="cta-where">{a.street} · {a.locality}, {a.region}</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,166 @@
+{
+  "site": {
+    "url": "TODO: https://www.client-domain.com",
+    "language": "en-US",
+    "marketTier": "TODO: dense-metro | large-city | mid-city | suburb-small",
+    "locale": "en_US",
+    "themeColor": "#7a1f1f",
+    "launched": false,
+    "vercelProjectDomain": "",
+    "aiTraining": true,
+    "nav": [
+      "menu",
+      "catering",
+      "about",
+      "visit",
+      "faq"
+    ],
+    "menuUpdated": "TODO: YYYY-MM-DD",
+    "analytics": {
+      "ga4Id": ""
+    },
+    "searchConsoleVerification": "",
+    "redirects": [],
+    "privacyUpdated": "",
+    "menuNotice": ""
+  },
+  "business": {
+    "name": "TODO: Exact name as on the Google Business Profile",
+    "alternateNames": [],
+    "description": "TODO: One factual sentence: what it is, where, since when.",
+    "category": "TODO: Primary category in words, e.g. Italian deli",
+    "gbpCategories": [
+      "TODO: GBP primary category"
+    ],
+    "cuisines": [
+      "TODO: e.g. Italian"
+    ],
+    "meals": [
+      "TODO: breakfast | brunch | lunch | dinner | late-night"
+    ],
+    "services": {
+      "dineIn": true,
+      "takeout": true,
+      "delivery": false,
+      "catering": false,
+      "reservations": false,
+      "privateEvents": false
+    },
+    "priceRange": "$$",
+    "foundingYear": null,
+    "founders": [
+      {
+        "name": "TODO: owner name",
+        "role": "Owner",
+        "bio": ""
+      }
+    ],
+    "phone": "TODO: +1-555-555-5555",
+    "phoneDisplay": "TODO: (555) 555-5555",
+    "additionalPhones": [],
+    "email": "",
+    "address": {
+      "street": "TODO",
+      "locality": "TODO",
+      "region": "TODO",
+      "postalCode": "TODO",
+      "country": "US",
+      "neighborhood": ""
+    },
+    "geo": {
+      "lat": null,
+      "lng": null
+    },
+    "hours": [
+      {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "TODO: 07:00",
+        "closes": "TODO: 17:00"
+      }
+    ],
+    "hoursNote": "",
+    "specialClosures": [],
+    "servicePeriods": [],
+    "serviceArea": [],
+    "delivery": {
+      "radiusMiles": null,
+      "fee": "",
+      "minimum": "",
+      "partners": []
+    },
+    "ordering": {
+      "url": "",
+      "label": "Order online",
+      "provider": ""
+    },
+    "reservations": {
+      "url": ""
+    },
+    "apps": {
+      "iosAppId": "",
+      "iosUrl": "",
+      "androidUrl": ""
+    },
+    "google": {
+      "placeId": "TODO",
+      "mapsUrl": "TODO: https://maps.google.com/?cid=...",
+      "reviewUrl": "TODO: https://search.google.com/local/writereview?placeid=...",
+      "embedUrl": "",
+      "rating": null,
+      "reviewCount": null,
+      "ratingCheckedOn": ""
+    },
+    "social": {
+      "instagram": "",
+      "facebook": "",
+      "tiktok": "",
+      "yelp": "",
+      "tripadvisor": "",
+      "x": ""
+    },
+    "press": [],
+    "awards": [],
+    "reviews": [],
+    "featuredItems": [],
+    "catering": {
+      "menuFile": "catering",
+      "leadTime": "",
+      "minimum": "",
+      "serviceArea": [],
+      "deliveryNote": "",
+      "contact": "",
+      "days": "",
+      "ordering": "",
+      "payment": "",
+      "cancellation": "",
+      "events": "",
+      "headcountGuide": "",
+      "dietary": ""
+    },
+    "faq": [],
+    "video": null,
+    "logo": "logo.svg",
+    "healthInspectionUrl": "",
+    "foundingDate": "",
+    "visit": {
+      "landmarks": "",
+      "parking": "",
+      "transit": "",
+      "accessibility": "",
+      "arrival": "",
+      "pickup": ""
+    },
+    "amenities": {},
+    "paymentMethods": [],
+    "dietaryNote": ""
+  },
+  "seo": {
+    "dishTerms": []
+  }
+}

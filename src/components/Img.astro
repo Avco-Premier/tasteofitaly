@@ -1,0 +1,35 @@
+---
+import { Picture } from 'astro:assets';
+import type { Photo } from '../lib/photos';
+
+// The only way pages render photos: AVIF/WebP sources, explicit width/height
+// (no layout shift), lazy by default. Pass `priority` for the one LCP image per page.
+interface Props {
+  photo: Photo;
+  sizes?: string;
+  widths?: number[];
+  priority?: boolean;
+  class?: string;
+  /** true when the dish name sits right beside the image: alt="" so screen readers don't hear it twice */
+  decorative?: boolean;
+  /** later hero slides: in the viewport (so lazy loading fetches them at once) but not seen for seconds; low priority keeps them off the LCP image's bandwidth */
+  deferred?: boolean;
+}
+const { photo, sizes = '(min-width: 960px) 50vw, 100vw', widths = [480, 800, 1200, 1600], priority = false, class: cls, decorative = false, deferred = false } = Astro.props;
+const usable = widths.filter((w) => w <= photo.src.width);
+// The <img src> fallback (old browsers only) is capped at 1200px instead of the original upload.
+const fallbackWidth = Math.min(photo.src.width, 1200);
+---
+<Picture
+  src={photo.src}
+  alt={decorative ? '' : photo.alt}
+  formats={['avif', 'webp']}
+  widths={usable.length ? usable : [photo.src.width]}
+  sizes={sizes}
+  width={fallbackWidth}
+  height={Math.round((photo.src.height / photo.src.width) * fallbackWidth)}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding="async"
+  fetchpriority={priority ? 'high' : deferred ? 'low' : 'auto'}
+  class={cls}
+/>

@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { biz, site, telHref } from '../lib/site';
+
+// Plain-language notice generated from site.json. It describes only what this template
+// actually does (GA4 when configured, the Google Maps embed, external ordering links).
+// If the client collects more (forms, newsletters, loyalty), extend it or link their policy.
+const ga = Boolean(site.analytics.ga4Id);
+// A fixed date (site.privacyUpdated), not the build date, so the notice doesn't 'change' on every deploy.
+const updated = (site as any).privacyUpdated
+  ? new Date((site as any).privacyUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+  : '';
+// Long names overflow the title (raw '&amp;' counts 5); use the short name from alternateNames then.
+const shortName = ((biz as any).alternateNames ?? []).find((n: string) => n && n.length < biz.name.length);
+const rawLen = (s: string) => s.replace(/&/g, '&amp;').length;
+const title = [`Privacy Notice | ${biz.name}`, ...(shortName ? [`Privacy Notice | ${shortName}, ${(biz as any).address?.locality ?? ''}`, `Privacy Notice | ${shortName}`] : [])]
+  .find((t) => rawLen(t) >= 30 && rawLen(t) <= 56) ?? `Privacy Notice | ${biz.name}`;
+---
+<Base kind="page" title={title} description={`How the ${biz.name} website handles visitor data: analytics, maps, ordering links and how to contact us with questions.`} crumbs={[{ name: 'Privacy', path: '/privacy/' }]}>
+  <PageHero h1="Privacy notice" lede={updated ? `Last updated ${updated}.` : undefined} crumbs={[{ name: 'Privacy', path: '/privacy/' }]} />
+  <section class="section"><div class="narrow card prose">
+    <p>This notice explains what information the {biz.name} website collects when you visit it. The site has no accounts or sign-up forms, and we don't sell personal information.</p>
+    <h2>Analytics</h2>
+    {ga
+      ? <p>We use Google Analytics 4 to count visits and see which pages are useful. It sets cookies and records information such as pages viewed, approximate location (city level), device type and how you arrived. Google processes this data under its own privacy policy. You can opt out with Google's browser add-on or by blocking cookies in your browser.</p>
+      : <p>This website doesn't use analytics or advertising cookies.</p>}
+    <h2>Maps and embedded content</h2>
+    <p>Our visit page embeds a Google Map so you can find us. When the map loads, Google may set cookies and receive your IP address, as it does on its own site.</p>
+    <h2>Hosting</h2>
+    <p>The site is hosted by Vercel, which keeps standard server logs (IP address, browser type and the pages requested) to keep the site secure and running.</p>
+    <h2>Links to other websites</h2>
+    <p>Links to {[biz.ordering.url && 'online ordering', biz.delivery.partners.length && 'delivery apps', biz.reservations.url && 'reservations', 'reviews', 'social media'].filter(Boolean).join(', ')} take you to other companies' websites. Their privacy policies apply to anything you share there.</p>
+    <h2>Contact</h2>
+    <p>Questions about this notice? Call us at <a href={telHref()}>{biz.phoneDisplay}</a>{biz.email && <> or email <a href={`mailto:${biz.email}`}>{biz.email}</a></>}. You can also see our <a href="/visit/">address and hours</a>.</p>
+  </div></section>
+</Base>

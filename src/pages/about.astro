@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import PageHero from '../components/PageHero.astro';
+import Press from '../components/Press.astro';
+import { frontmatter as fm, Content } from '../copy/about.md';
+import { biz } from '../lib/site';
+import { pageHero, photosFor, photos, portraitFor } from '../lib/photos';
+
+// v4 about: hero, the story beside a photo, a green timeline (only with 2+ dated facts), the people.
+const hero = pageHero('about');
+const side = photosFor('about-gallery').find((p) => p !== hero) ?? photos.find((p) => p !== hero && ['interior', 'exterior', 'team'].includes(p.subject));
+const gallery = photosFor('about-gallery').filter((p) => p !== hero && p !== side);
+const founders = biz.founders.filter((f) => f.name && !f.name.startsWith('TODO'));
+const short = (((biz as any).alternateNames ?? []) as string[]).find((n) => n && n.length < biz.name.length) ?? biz.name;
+// Timeline from dated facts only: client milestones, the opening year, awards and press.
+const timeline = [
+  ...(((biz as any).milestones ?? []) as { year: string | number; text: string }[]),
+  ...(biz.foundingYear && !((biz as any).milestones ?? []).some((m: any) => String(m.year) === String(biz.foundingYear))
+    ? [{ year: biz.foundingYear, text: `${short} opens in ${biz.address.locality}.` }] : []),
+  ...(biz.awards as { name: string; issuer: string; year: string }[]).filter((a) => a.year).map((a) => ({ year: a.year, text: `${a.name}, ${a.issuer}.` })),
+  ...(biz.press as { outlet: string; date: string }[]).filter((p) => p.date).map((p) => ({ year: p.date.slice(0, 4), text: `Featured in ${p.outlet}.` })),
+].sort((a, b) => Number(a.year) - Number(b.year));
+---
+<Base kind="about" title={fm.title} description={fm.description} crumbs={[{ name: 'About', path: '/about/' }]} image={hero?.src}>
+  <PageHero h1={fm.h1} lede={fm.lede} eyebrow={biz.foundingYear ? `Since ${biz.foundingYear}` : undefined} photo={hero} crumbs={[{ name: 'About', path: '/about/' }]} />
+  <section class="section">
+    <div class:list={['wrap', side ? 'split' : 'narrow']}>
+      {side && <div class="split-media"><Img photo={side} sizes="(min-width: 960px) 50vw, 100vw" widths={[480, 800, 1200]} /></div>}
+      <div class="prose">
+        <h2>{biz.foundingYear || founders.length ? 'Our story' : `About ${short}`}</h2>
+        <Content />
+        <p class="actions"><a class="btn btn-primary" href="/menu/">See the menu</a></p>
+      </div>
+    </div>
+  </section>
+  {timeline.length >= 2 && (
+    <section class="section green" aria-labelledby="history-h">
+      <h2 id="history-h" class="sr-only">Our history</h2>
+      <ol class="wrap timeline">
+        {timeline.map((t) => <li><span class="year">{t.year}</span><p>{t.text}</p></li>)}
+      </ol>
+    </section>
+  )}
+  {founders.length > 0 && (
+    <section class="section" aria-labelledby="people-h">
+      <div class="wrap">
+        <h2 id="people-h" class="centered-h">The people behind {short}</h2>
+        <ul class:list={['people-list', { single: founders.length === 1 }]}>
+          {founders.map((f) => {
+            const portrait = portraitFor(f.name);
+            return (
+              <li id={f.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+                {portrait && <Img photo={portrait} sizes="(min-width: 960px) 30vw, 100vw" widths={[400, 800]} class="portrait" />}
+                <h3>{f.name}</h3>
+                <p class="role">{f.role}</p>
+                {f.bio && <p>{f.bio}</p>}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
+  {gallery.length > 1 && (
+    <ul class="gallery" aria-label="Photos">
+      {gallery.slice(0, 4).map((p) => <li><Img photo={p} sizes="(min-width: 960px) 25vw, 100vw" widths={[400, 800]} /></li>)}
+    </ul>
+  )}
+  <div class="wrap section"><Press /></div>
+</Base>

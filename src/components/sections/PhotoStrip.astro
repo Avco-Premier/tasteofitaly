@@ -1,0 +1,15 @@
+---
+import Img from '../Img.astro';
+import type { Photo } from '../../lib/photos';
+
+// A sideways-scrolling row of photos (scroll-snap). Classic shows small squares; a theme can make it a two-up carousel.
+interface Props { photos: Photo[]; min?: number }
+const { photos, min = 4 } = Astro.props;
+---
+{photos.length >= min && (
+  <section class="strip" aria-label="Photos">
+    <ul tabindex="0" aria-label="Photos of our food and restaurant (scrolls sideways)">
+      {photos.map((p) => <li><Img photo={p} sizes="(min-width: 1200px) 20vw, 240px" widths={[400, 720]} /></li>)}
+    </ul>
+  </section>
+)}

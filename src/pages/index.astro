@@ -1,0 +1,231 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import FeaturedItems from '../components/FeaturedItems.astro';
+import Reviews from '../components/Reviews.astro';
+import Press from '../components/Press.astro';
+import FaqList from '../components/FaqList.astro';
+import ProofLine from '../components/ProofLine.astro';
+import AppBadges from '../components/AppBadges.astro';
+import PhotoStrip from '../components/sections/PhotoStrip.astro';
+import Marquee from '../components/sections/Marquee.astro';
+import DishTabs from '../components/sections/DishTabs.astro';
+import MenuAccordion from '../components/sections/MenuAccordion.astro';
+import PhotoCards from '../components/sections/PhotoCards.astro';
+import Feature from '../components/sections/Feature.astro';
+import Promos from '../components/sections/Promos.astro';
+import TextCards from '../components/sections/TextCards.astro';
+import SocialBand from '../components/sections/SocialBand.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { homeBlocks, type Block } from '../lib/blocks';
+import { photoPool, signatureDishes } from '../lib/picks';
+import { frontmatter as fm, Content } from '../copy/home.md';
+import { biz, telHref, hoursSummary, hoursByDay, addressLine, directionsUrl, variant, serviceBits } from '../lib/site';
+import { heroSlides, stripPhotos } from '../lib/photos';
+import { getMenu, slug } from '../lib/menu';
+
+// v4 home: full-bleed photo hero (crossfade when there are several, with the page's H1 on it),
+// the centered story, a photo strip, three green highlights, dish panels, guest quotes.
+const slides = heroSlides();
+const strip = stripPhotos();
+const n = Math.min(slides.length, 3);
+const each = 6; // seconds per slide
+const lead = n === 2 ? 0.08 : 0.06; // fade-in share of the cycle (matches the keyframes)
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const join = (xs: string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs[0] ?? '');
+const sections = getMenu('main')?.subcategories.map((s) => s.name.toLowerCase()) ?? [];
+// Bold: a scrolling strip of plain facts under the hero (shown twice for a seamless loop; the copy is aria-hidden).
+const facts = [...(biz.cuisines as string[]).slice(0, 1), ...serviceBits().filter((b) => !/fee|minimum/.test(b)),
+  hoursByDay().every((d) => !d.closed) ? 'Open 7 days' : '', biz.address.locality].filter(Boolean);
+const c = biz.catering as Record<string, any>;
+const events = (Array.isArray(c.events) ? c.events.join(', ') : c.events || '') as string;
+// The whole week, not the first row: a static page can't know today, and "Mon 10 AM – 9 PM" read as every day's hours.
+const week = hoursSummary();
+const openRows = week.filter((h) => !/closed/i.test(h.text));
+const openDays = hoursByDay().filter((d) => !d.closed).length;
+// The name is the big line; the target query ("Pizza in East Northport") stays in the same H1 as the line under it.
+// Long legal names ("Via Roma Italian Restaurant & Sports Bar") use their short form so the hero doesn't wrap four times.
+const heroName = biz.name.length > 26 ? ((((biz as any).alternateNames ?? []) as string[]).find((n) => n && n.length <= 26) ?? biz.name) : biz.name;
+// Highlights say only what site.json holds: meals and menu sections, catering events, address and hours.
+const highlights = [
+  { title: 'Our menu', sub: (biz.meals as string[]).map(cap).join(' · '),
+    text: sections.length ? `${cap(join(sections.slice(0, 4)))}${sections.length > 4 ? ', and more' : ''}, with prices.` : '',
+    cta: 'See the menu', href: '/menu/' },
+  biz.services.catering
+    ? { title: 'Catering', sub: 'Group orders', text: events ? `We cater ${events}.` : `Call ${biz.phoneDisplay} to plan a group order.`, cta: 'Plan an order', href: '/catering/' }
+    : biz.ordering.url
+      ? { title: 'Order online', sub: biz.services.delivery ? 'Pickup or delivery' : 'For pickup', text: `Order ahead from the full menu.`, cta: 'Order now', href: biz.ordering.url }
+      : null,
+  { title: 'Visit us', sub: openRows.length ? (openDays === 7 ? 'Open 7 days' : `Open ${openDays} days a week`) : '',
+    text: `${addressLine()}. ${week.map((h) => `${h.label} ${h.text}`).join(' · ')}`, parts: [`${addressLine()}.`, ...week.map((h) => `${h.label} ${h.text}`)],
+    cta: 'Get directions', href: directionsUrl() },
+].filter(Boolean) as { title: string; sub: string; text: string; parts?: string[]; cta: string; href: string }[];
+// The themed looks (market, bold, slice) spread the same home copy over separate sections: each "## " block of
+// home.md becomes its own panel (lib/blocks.ts). Every block renders exactly once; the opening paragraph stays the
+// first copy on the page (the SEO gate reads it for the target query). Classic keeps the single story column.
+const themed = variant !== 'classic';
+const { intro, blocks: B, rest, links } = homeBlocks();
+const used = new Set<string>();
+const take = (k: string): Block | undefined => { const b = B[k]; if (b) used.add(k); return b; };
+const leftovers = () => [...Object.keys(B).filter((k) => !used.has(k)).map((k) => B[k]), ...rest];
+const pool = photoPool();
+const order = biz.ordering.url;
+const ext = (h: string) => (h.startsWith('http') ? 'noopener' : undefined);
+const sig = signatureDishes();
+const dishTicks = [...sig.slice(0, 4).map((d) => ({ text: `Try the ${d.name}`, href: `/menu/#${slug(d.name)}` })),
+  ...(order ? [{ text: biz.services.delivery ? 'Order pickup or delivery' : 'Order ahead for pickup', href: order }] : [])];
+const known = take('known'), delivery = take('delivery'), how = take('how'), pickup = take('pickup'), find = take('find');
+// photos in order of importance, each used once (a site with 4 photos fills the first panels, the rest go text-only)
+// Corner's red visit panel when the copy has no "find us" block: the address and the week's hours, from site.json.
+const escHtml = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const visitHtml = `<p>${escHtml(biz.address.street)}<br />${escHtml(`${biz.address.locality}, ${biz.address.region} ${biz.address.postalCode}`)}</p>`
+  + `<p>${week.map((h) => escHtml(`${h.label} · ${h.text}`)).join('<br />')}</p>`;
+const ph = {
+  known: pool.take(['dish']), menu: pool.take(['dish'], { any: false }), delivery: pool.take(['dish', 'exterior']),
+  how: pool.take(['interior', 'exterior', 'dish']), find: pool.take(['exterior', 'interior'], { any: false }),
+};
+---
+<Base kind="home" title={fm.title} description={fm.description} image={slides[0]?.src}>
+  {variant === 'bold' && <p class="wordmark-band" aria-hidden="true">{biz.name}</p>}
+  <section class:list={['hero', { 'no-photo': !slides.length }]}>
+    {n > 1 && <>
+      <input type="checkbox" id="hero-pause" class="sr-only" aria-label="Pause the photo slideshow" />
+      <label for="hero-pause" class="pause-toggle" aria-hidden="true"><span></span><span></span></label>
+    </>}
+    {n > 0 && (
+      <div class:list={['slides', `n${n}`]} style={`--slide-total:${n * each}s`}>
+        {slides.slice(0, n).map((p, i) => (
+          <div class:list={['slide', { first: i === 0 }]} style={n > 1 ? `animation-delay:${(i * each - lead * n * each).toFixed(2)}s` : undefined}>
+            <Img photo={p} priority={i === 0} deferred={i > 0} sizes="100vw" widths={[640, 800, 960, 1280, 1920]} />
+          </div>
+        ))}
+      </div>
+    )}
+    <div class="hero-inner">
+      {fm.eyebrow && <p class="eyebrow">{fm.eyebrow}</p>}
+      <h1 class="hero-title">
+        <span class:list={['hero-name', { long: heroName.length > 18 }]}>{heroName}</span><span class="sr-only">: </span>
+        <span class="hero-what">{fm.h1}</span>
+      </h1>
+      {fm.lede && <p class="lede">{fm.lede}</p>}
+      <ProofLine />
+      <p class="actions center">
+        {biz.ordering.url && <a class="btn btn-cream" href={biz.ordering.url} rel="noopener">{biz.ordering.label || 'Order online'}</a>}
+        <a class="btn btn-ghost-light" href="/menu/">See the menu</a>
+        <a class="btn btn-ghost-light btn-call" href={telHref()}>Call {biz.phoneDisplay}</a>
+      </p>
+      <AppBadges class="hero-apps" />
+    </div>
+  </section>
+
+  {!themed && <>
+    <section class="section">
+      <div class="wrap prose story">
+        <Content />
+        <p class="actions center"><a class="btn btn-primary" href="/about/">Learn more about us</a></p>
+      </div>
+    </section>
+    <PhotoStrip photos={strip} />
+    <section class="highlights green" aria-label={biz.services.catering ? 'Menu, catering and visiting' : 'Menu, ordering and visiting'}>
+      <ul class="wrap highlight-grid">
+        {highlights.map((h) => (
+          <li>
+            <h2>{h.title}</h2>
+            {h.sub && <span class="kicker">{h.sub}</span>}
+            {h.parts ? <p>{h.parts.map((t, i) => <>{i > 1 ? ' · ' : i === 1 ? ' ' : ''}<span class="nb">{t}</span></>)}</p> : h.text && <p>{h.text}</p>}
+            <a class="btn btn-cream" href={h.href} rel={ext(h.href)}>{h.cta}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <FeaturedItems />
+  </>}
+
+  {variant === 'market' && <>
+    <Marquee class="marquee-dishes" label="Dishes to try" items={dishTicks} />
+    <section class="intro-band"><div class="narrow" data-copy set:html={intro} /></section>
+    <DishTabs heading="Menu favorites" tabs={3} />
+    {known && <Feature id={known.id} heading={known.heading} html={known.html} photo={ph.known} tone="a">
+      <a class="btn btn-primary" href="/menu/">See the menu</a>
+      {order && <a class="btn btn-ghost" href={order} rel="noopener">Order online</a>}
+    </Feature>}
+    <MenuAccordion heading="Explore the menu" photo={ph.menu} />
+    <PhotoCards pool={photoPool()} />
+    {delivery && <Feature id={delivery.id} heading={delivery.heading} html={delivery.html} photo={ph.delivery} tone="b" reverse>
+      {order && <a class="btn btn-primary" href={order} rel="noopener">Order delivery</a>}
+      <a class="btn btn-ghost" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </Feature>}
+    <TextCards blocks={[how, pickup].filter(Boolean) as Block[]} />
+  </>}
+
+  {variant === 'bold' && <>
+    {facts.length > 2 && <Marquee label="At a glance" items={facts.map((f) => ({ text: f }))} />}
+    <section class="intro-band"><div class="wrap" data-copy set:html={intro} /></section>
+    <DishTabs heading="Most craved" tag="Favorites" tabs={1} />
+    <Promos items={[
+      how && { block: how, tag: 'Dine in', cta: 'Plan your visit', href: '/visit/', photo: ph.how },
+      pickup && { block: pickup, tag: 'Pickup', cta: order ? 'Order ahead' : `Call ${biz.phoneDisplay}`, href: order || telHref(), photo: ph.menu },
+    ].filter(Boolean) as any} />
+    {known && <Feature id={known.id} heading={known.heading} html={known.html} photo={ph.known} tone="a" shape="blob">
+      <a class="btn btn-primary" href="/menu/">See the menu</a>
+    </Feature>}
+    <MenuAccordion heading="Build your order" tag="Menu" />
+    {delivery && <Feature id={delivery.id} heading={delivery.heading} html={delivery.html} photo={ph.delivery} tone="b" reverse>
+      {order && <a class="btn btn-primary" href={order} rel="noopener">Order delivery</a>}
+      <a class="btn btn-ghost" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </Feature>}
+    <PhotoCards pool={photoPool()} />
+  </>}
+
+  {variant === 'slice' && <>
+    <Feature id={known?.id ?? 'about'} heading={known?.heading} html={intro + (known?.html ?? '')} tone="a" center class="about-band">
+      {order && <a class="btn btn-primary" href={order} rel="noopener">{biz.services.delivery ? 'Pickup' : 'Order pickup'}</a>}
+      {order && biz.services.delivery && <a class="btn btn-primary" href={order} rel="noopener">Delivery</a>}
+      {!order && <a class="btn btn-primary" href="/menu/">See the menu</a>}
+    </Feature>
+    {delivery && <Feature id={delivery.id} heading={delivery.heading} html={delivery.html} photo={ph.known} tone="b">
+      {order && <a class="btn btn-primary" href={order} rel="noopener">Order delivery</a>}
+    </Feature>}
+    <PhotoStrip photos={strip} min={2} />
+    {how && <Feature id={how.id} heading={how.heading} html={how.html} photo={ph.how} tone="b" reverse>
+      <a class="btn btn-primary" href="/visit/">Plan your visit</a>
+    </Feature>}
+    <DishTabs heading="House favorites" tabs={2} />
+    <MenuAccordion heading="On the menu" photo={ph.menu} />
+    <SocialBand heading="Let's get social" />
+    <TextCards blocks={[pickup].filter(Boolean) as Block[]} />
+  </>}
+
+  {variant === 'corner' && <>
+    <DishTabs heading="Start with your favorite." tag="From our menu" tabs={1} />
+    <Feature id={known?.id ?? 'about'} tag={`Meet ${biz.name}`} heading={known?.heading} html={intro + (known?.html ?? '')} photo={ph.how ?? ph.find} tone="a" reverse>
+      <a class="btn btn-dark" href="/about/">Our story</a>
+    </Feature>
+    {delivery && <Feature id={delivery.id} tag={biz.services.catering ? 'Delivery & catering' : 'Delivery'} heading={delivery.heading} html={delivery.html} photo={ph.known} tone="b" shape="cover">
+      {order && <a class="btn btn-light" href={order} rel="noopener">Order delivery</a>}
+      {biz.services.catering && <a class="btn btn-link" href="/catering/">Catering trays & prices</a>}
+    </Feature>}
+    <TextCards blocks={[how, pickup].filter(Boolean) as Block[]} />
+  </>}
+
+  {themed && <>
+    <TextCards blocks={leftovers()} />
+    {find && <Feature id={find.id} tag={variant === 'corner' ? 'Come say hello' : undefined} heading={find.heading} html={find.html}
+      photo={ph.find ?? (variant === 'corner' ? ph.delivery : undefined)} tone="c">
+      <a class="btn btn-primary" href={directionsUrl()} rel="noopener">Get directions</a>
+      <a class="btn btn-ghost" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </Feature>}
+    {variant === 'corner' && !find && (
+      <Feature id="visit-us" tag="Come say hello" heading={`Visit us in ${biz.address.locality}`} html={visitHtml} photo={ph.find ?? ph.delivery} tone="c">
+        <a class="btn btn-primary" href={directionsUrl()} rel="noopener">Get directions</a>
+        <a class="btn btn-ghost" href="/visit/">Plan your visit</a>
+      </Feature>
+    )}
+    {links && <nav class="page-links wrap" aria-label="More about us" set:html={links} />}
+  </>}
+
+  <Reviews exclude="catering" limit={3} />
+  <div class="wrap"><Press /></div>
+  <section class="section"><div class="narrow story"><FaqList limit={5} heading="Good to know" teaser /></div></section>
+  {variant === 'corner' && <CtaBand />}
+</Base>

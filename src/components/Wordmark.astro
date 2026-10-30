@@ -1,0 +1,15 @@
+---
+import { biz } from '../lib/site';
+
+// The text logo from the design: a small first word over a large script name ("Casa" / "Verdello").
+// Long legal names use their short form ("Via Roma Italian Restaurant & Sports Bar" → "Via Roma").
+const short = (((biz as any).alternateNames ?? []) as string[]).find((n) => n && n.length < biz.name.length) ?? biz.name;
+const words = short.split(/\s+/);
+const [w1, w2] = words.length > 1 ? [words[0], words.slice(1).join(' ')] : ['', words[0]];
+interface Props { inline?: boolean }
+const { inline = false } = Astro.props;
+// Not aria-hidden: it is read aloud as the home link's name ("Via Roma"); hidden, the link would be nameless (Lighthouse link-name).
+---
+<span class="wordmark">
+  {inline ? <span>{short}</span> : <>{w1 && <span class="w1">{w1}</span>}{w1 && ' '}<span class="w2">{w2}</span></>}
+</span>

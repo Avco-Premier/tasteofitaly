@@ -1,0 +1,26 @@
+---
+import { biz, telHref, directionsUrl } from '../lib/site';
+const onCatering = Astro.url.pathname.startsWith('/catering');
+const cateringLine = (biz.additionalPhones as { label: string; phone: string }[]).find((p) => /catering/i.test(p.label));
+const cateringEmail = [biz.catering.contact, biz.email].find((e) => e && /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(e.trim()));
+const cateringMenuHref = biz.catering.menuFile !== 'main' ? '#catering-menu-h' : '/menu/';
+
+// Fixed bottom bar on phones only. Most mobile restaurant visits are "call, go, or order";
+// it's 56px tall, so it never acts as an interstitial.
+---
+{onCatering ? (
+  <nav class="action-bar" aria-label="Catering quick actions">
+    <a href={telHref(cateringLine?.phone ?? biz.phone)} aria-label={`Call catering at ${biz.name}`}>Call catering</a>
+    {cateringLine && /text/i.test(cateringLine.label) && <a href={`sms:${cateringLine.phone.replace(/[^+\d]/g, '')}`} aria-label={`Text catering at ${biz.name}`}>Text</a>}
+    {cateringEmail && <a class="primary" href={`mailto:${cateringEmail}?subject=Catering%20request&body=Date%3A%0AHeadcount%3A%0ADelivery%20or%20pickup%3A%0AAddress%3A%0AItems%3A`}>Email request</a>}
+    <a href={cateringMenuHref}>{biz.catering.menuFile !== 'main' ? 'Catering menu' : 'Menu'}</a>
+  </nav>
+) : (
+  <nav class="action-bar" aria-label="Quick actions">
+    <a href={telHref()} aria-label={`Call ${biz.name} at ${biz.phoneDisplay}`}>Call</a>
+    <a href={directionsUrl()} rel="noopener" aria-label={`Directions to ${biz.name}`}>Directions</a>
+    {biz.ordering.url
+      ? <a class="primary" href={biz.ordering.url} rel="noopener" aria-label={`Order from ${biz.name} online`}>Order</a>
+      : <a class="primary" href="/menu/" aria-label={`Menu of ${biz.name}`}>Menu</a>}
+  </nav>
+)}

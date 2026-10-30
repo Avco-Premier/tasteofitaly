@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import MenuSections from '../components/MenuSections.astro';
+import { frontmatter as fm, Content } from '../copy/menu.md';
+import { biz, site, telHref } from '../lib/site';
+import { getMenu } from '../lib/menu';
+import { pageHero } from '../lib/photos';
+
+const menu = getMenu('main');
+if (!menu) throw new Error('src/data/menus/main.json is missing — run menu-to-json on the client menu first.');
+const updated = site.menuUpdated && !site.menuUpdated.startsWith('TODO')
+  ? new Date(site.menuUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+  : '';
+const legend = [(biz as any).dietaryNote, (site as any).menuNotice].filter(Boolean) as string[];
+---
+<Base kind="menu" title={fm.title} description={fm.description} crumbs={[{ name: 'Menu', path: '/menu/' }]}>
+  <PageHero h1={fm.h1} lede={fm.lede} photo={pageHero('menu')} crumbs={[{ name: 'Menu', path: '/menu/' }]}>
+    <p class="actions center">
+      {biz.ordering.url && <a class="btn btn-cream" href={biz.ordering.url} rel="noopener">{biz.ordering.label || 'Order online'}</a>}
+      <a class="btn btn-ghost-light" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </p>
+  </PageHero>
+  <section class="section menu-page">
+    <div class="wrap">
+      <MenuSections menu={menu}>
+        {legend.length > 0 && <p class="menu-legend">{legend.map((l, i) => <>{i > 0 && <br />}{l}</>)}</p>}
+      </MenuSections>
+      {biz.ordering.url && (
+        <p class="order-cta"><a class="btn btn-primary" href={biz.ordering.url} rel="noopener">{biz.services.delivery ? 'Order for pickup or delivery' : 'Order for pickup'}</a></p>
+      )}
+      {updated && <p class="note menu-legend">Official menu from {biz.name}. Prices last updated {updated} and may change; online ordering shows current prices.</p>}
+    </div>
+  </section>
+  <section class="section"><div class="wrap prose story"><Content /></div></section>
+</Base>

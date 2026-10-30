@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import VisitBlock from '../../components/VisitBlock.astro';
+import { biz, telHref } from '../../lib/site';
+import { getMenu, findItem, money, priceOptions, addOns, slug } from '../../lib/menu';
+import { dishPhoto } from '../../lib/photos';
+
+// One page per signature dish that passed the page gate (references/local-seo.md §3).
+// Copy lives in src/copy/dishes/<slug>.md with frontmatter: title, description, h1, lede, item (exact menu name), query.
+export function getStaticPaths() {
+  const files = import.meta.glob<any>('../../copy/dishes/*.md', { eager: true });
+  return Object.entries(files).map(([path, mod]) => ({
+    params: { slug: (path.split('/').pop() as string).replace(/\.md$/, '') },
+    props: { mod },
+  }));
+}
+
+const { mod } = Astro.props;
+const fm = mod.frontmatter;
+const Content = mod.Content;
+const item = findItem(fm.item, [getMenu('main'), getMenu(biz.catering.menuFile)]);
+if (!item) throw new Error(`src/copy/dishes: "${fm.item}" is not an item on any menu — dish pages must be real menu items.`);
+const photo = dishPhoto(item.name);
+const options = priceOptions(item);
+const extras = addOns(item);
+const target = item.name.toLowerCase();
+const mentions = (biz.reviews as any[]).filter((r) => r.text.toLowerCase().includes(target.split(' ').slice(-1)[0]));
+---
+<Base kind="dish" title={fm.title} description={fm.description} image={photo?.src}
+  crumbs={[{ name: 'Menu', path: '/menu/' }, { name: item.name, path: Astro.url.pathname }]} dish={item.name}>
+  <PageHero h1={fm.h1} lede={fm.lede} photo={photo} crumbs={[{ name: 'Menu', path: '/menu/' }, { name: item.name, path: Astro.url.pathname }]}>
+    <p class="proof">{options.length ? options.map((o) => `${o.label} ${o.price}`).join(' · ') : money(item.price)}{extras && ` · Add-ons: ${extras}`}</p>
+    <p class="actions center">
+      {biz.ordering.url && <a class="btn btn-cream" href={biz.ordering.url} rel="noopener">Order {item.name}</a>}
+      <a class="btn btn-ghost-light" href={`/menu/#${slug(item.name)}`}>See it on the menu</a>
+      <a class="btn btn-ghost-light" href={telHref()}>Call {biz.phoneDisplay}</a>
+    </p>
+  </PageHero>
+  <section class="section"><div class="wrap prose"><Content /></div></section>
+  {mentions.length > 0 && (
+    <section class="quotes section" aria-labelledby="dish-reviews-h">
+      <div class="wrap">
+        <h2 id="dish-reviews-h" class="caps-h">What guests say about the {item.name}</h2>
+        <ul class="quote-grid">
+          {mentions.slice(0, 3).map((r) => (
+            <li><figure><span class="mark" aria-hidden="true">“</span><blockquote><p>{r.text}</p></blockquote><figcaption>{r.author} · {r.source}</figcaption></figure></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+  <section class="section"><div class="wrap"><VisitBlock /></div></section>
+</Base>
