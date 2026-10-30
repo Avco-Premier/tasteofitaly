@@ -1,10 +1,10 @@
-# quickbuild report — Taste of Italy Restaurant & Pizzeria NYC
+# quickbuild report — Taste of Italy
 
-Built 2026-10-30 · 5 gate round(s) · **1 FAIL · 21 WARN**
+Built 2026-10-30 · 1 gate round(s) · **1 FAIL · 17 WARN**
 
 ## Must fix before launch
 
-- On-Page · Title length 30–60 (/): 71 chars: Italian restaurant in Corona | Taste of Italy Restaurant & Pizzeria NYC
+- On-Page · Meta description 120–160 (/visit/): 119 chars
 
 ## Warnings
 
@@ -13,7 +13,6 @@ Built 2026-10-30 · 5 gate round(s) · **1 FAIL · 21 WARN**
 - Images · Image weight (/about/): 615.DSHDsCaF_2lHIVr.jpg is 244 KB
 - Content · Claims to verify (/about/): 1 sentence(s) make popularity/process claims not found in intake.md — confirm or cut: 95), lunch specials every day ($15
 - Content · No repeated facts (/about/): Stated 4+ times: '$11.95' ×4 — say each fact once, where it's most useful
-- On-Page · Title safe for raw-HTML counters (/faq/): 62 chars with '&amp;' (some auditors count the entity); prefer 'and' or ≤ 56 chars
 - Images · Image weight (/faq/): 615.DSHDsCaF_2lHIVr.jpg is 244 KB
 - Content · Claims to verify (/faq/): 1 sentence(s) make popularity/process claims not found in intake.md — confirm or cut: The menu has 14 sections: Menu Family Special Combo, Drinks, Gourmet Italian Pizza, Chef Salads, Buffalo Chick
 - Content · No repeated facts (/faq/): Stated 4+ times: '$12.95' ×9, '$14.95' ×7, '$9.95' ×8, '$18.95' ×5, '$10.95' ×7 — say each fact once, where it's most useful
@@ -25,10 +24,7 @@ Built 2026-10-30 · 5 gate round(s) · **1 FAIL · 21 WARN**
 - Technical · No inline scripts (CSP) (/menu/): Inline <script> found; move it to a file so CSP can stay script-src 'self'
 - Content · Lists joined once (/menu/): Double 'and' in a list: “…, and smoky ham — bold and satisfying.”
 - Content · Claims to verify (/menu/): 1 sentence(s) make popularity/process claims not found in intake.md — confirm or cut: It has 14 sections: menu family special combo, drinks, gourmet italian pizza, chef salads, buffalo chicken win
-- On-Page · Title safe for raw-HTML counters (/privacy/): 61 chars with '&amp;' (some auditors count the entity); prefer 'and' or ≤ 56 chars
-- On-Page · Title safe for raw-HTML counters (/visit/): 63 chars with '&amp;' (some auditors count the entity); prefer 'and' or ≤ 56 chars
-- Images · Image weight (/visit/): 610.DSF9mXqN_2eYBd9.jpg is 229 KB
-- Content · Word count ≥ 500 (/visit/): 473 words in <main>
+- Content · Word count ≥ 500 (/visit/): 464 words in <main>
 
 ## Generic text in use (replace with the owner's words when you have them)
 
@@ -37,7 +33,7 @@ Built 2026-10-30 · 5 gate round(s) · **1 FAIL · 21 WARN**
 
 ## Answers that would make the site stronger
 
-- **/visit/** is 27 words short: answer visit.neighborhood_text, visit.landmarks, visit.parking, visit.transit in full
+- **/visit/** is 36 words short: answer visit.neighborhood_text, visit.landmarks, visit.parking, visit.transit in full
 - `business.founding_year` — Year it opened (blank if unknown)
 - `business.founding_date` — Exact opening date YYYY-MM-DD or YYYY-MM (blank if unknown)
 - `business.description` — One factual sentence: what it is, where, since when
